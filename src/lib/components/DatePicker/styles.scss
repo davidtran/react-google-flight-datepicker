@@ -20,16 +20,14 @@
   font-size: 16px;
   position: relative;
   align-items: center;
-  
+
   .divider-wrapper {
     height: 100%;
     display: flex;
     align-items: center;
-
-    .divider {
-      border-left: 1px solid #dadce0;
-      height: 34px;
-    }
+    width: 1px;
+    background-color: #dadce0;
+    padding: 10px 0;
   }
 
   .date {
@@ -167,7 +165,7 @@
             box-sizing: border-box;
           }
         }
-        
+
         .days {
           display: flex;
           justify-content: flex-start;
@@ -191,7 +189,7 @@
                 color: #000;
               }
             }
-            
+
             .text-day {
               position: relative;
               z-index: 3;
@@ -280,7 +278,7 @@
     height: 40px;
     border: none;
     border-radius: 0;
-  
+
     .date {
       height: 40px;
       border: 1px solid #dadce0;
@@ -297,7 +295,7 @@
         margin: -1px -2px;
       }
     }
-  
+
     .icon-calendar {
       position: absolute;
       left: -35px;
@@ -331,11 +329,11 @@
         .date {
           margin-left: 15px;
         }
-  
+
         .icon-calendar {
           display: none;
         }
-  
+
         .back-button {
           display: block;
           svg {
@@ -343,7 +341,7 @@
             height: 15px;
           }
         }
-  
+
         .reset-button {
           display: none;
         }
@@ -389,6 +387,10 @@
 
             .weekdays {
               display: none;
+              &.first {
+                display: flex;
+                order: -1;
+              }
             }
 
             .days {
@@ -408,7 +410,7 @@
       .dialog-footer {
         box-shadow: 0 0 4px rgba(0,0,0,.12), 0 4px 4px rgba(0,0,0,.24);
       }
-      
+
     }
   }
 }

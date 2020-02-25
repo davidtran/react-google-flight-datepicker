@@ -18,14 +18,6 @@ const DatePicker = ({
   const containerRef = useRef(null)
   const dialogRef = useRef(null)
 
-  useEffect(() => {
-    if (dialogRef.current) {
-      setTimeout(() => {
-        dialogRef.current.scrollIntoView({ behavior: 'smooth' })
-      }, 300)
-    }
-  }, [isOpen])
-
   function handleDocumentClick(e) {
     if (containerRef.current && containerRef.current.contains(e.target) === false) {
       setIsOpen(false)
@@ -34,7 +26,6 @@ const DatePicker = ({
 
   useEffect(() => {
     document.addEventListener('click', handleDocumentClick)
-
     return () => document.removeEventListener('click', handleDocumentClick)
   }, [])
 
@@ -77,7 +68,6 @@ const DatePicker = ({
         </div>
       </div>
       <div className="divider-wrapper">
-        <div className="divider" />
       </div>
       <div
         className="date end-date"
@@ -137,18 +127,9 @@ const DatePicker = ({
         </div>
         <div className="dialog-content">
           <div className="calendar">
-            <div className="weekdays-mobile">
-              <div className="weekday">M</div>
-              <div className="weekday">T</div>
-              <div className="weekday">W</div>
-              <div className="weekday">T</div>
-              <div className="weekday">F</div>
-              <div className="weekday">S</div>
-              <div className="weekday">S</div>
-            </div>
             <div className="month">
               <div className="header-month">February</div>
-              <div className="weekdays">
+              <div className="weekdays first">
                 <div className="weekday">M</div>
                 <div className="weekday">T</div>
                 <div className="weekday">W</div>
@@ -177,7 +158,7 @@ const DatePicker = ({
               </div>
             </div>
             <div className="month">
-              <div className="header-month">April</div>
+              <div className="header-month">March</div>
               <div className="weekdays">
                 <div className="weekday">M</div>
                 <div className="weekday">T</div>
@@ -188,22 +169,7 @@ const DatePicker = ({
                 <div className="weekday">S</div>
               </div>
               <div className="days">
-                {generateDay(4)}
-              </div>
-            </div>
-            <div className="month">
-              <div className="header-month">May</div>
-              <div className="weekdays">
-                <div className="weekday">M</div>
-                <div className="weekday">T</div>
-                <div className="weekday">W</div>
-                <div className="weekday">T</div>
-                <div className="weekday">F</div>
-                <div className="weekday">S</div>
-                <div className="weekday">S</div>
-              </div>
-              <div className="days">
-                {generateDay(5)}
+                {generateDay(3)}
               </div>
             </div>
           </div>
