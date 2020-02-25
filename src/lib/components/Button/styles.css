@@ -1,3 +1,7 @@
+body {
+  box-sizing: border-box;
+}
+
 .button {
   position: relative;
   background-color: #4CAF50;

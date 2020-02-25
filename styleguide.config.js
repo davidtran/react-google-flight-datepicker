@@ -8,10 +8,10 @@ module.exports = {
   moduleAliases: {
     [pkg.name]: path.resolve(__dirname, 'src/lib'),
   },
-  ribbon: {
-    url: 'https://github.com/KaiHotz/react-rollup-boilerplate',
-    text: 'Fork me on GitHub',
-  },
+  // ribbon: {
+  //   url: 'https://github.com/KaiHotz/react-rollup-boilerplate',
+  //   text: 'Fork me on GitHub',
+  // },
   showSidebar: true,
   usageMode: 'expand',
   skipComponentsWithoutExample: true,
