@@ -15,14 +15,29 @@ module.exports = {
   showSidebar: true,
   usageMode: 'expand',
   skipComponentsWithoutExample: true,
+  template: {
+    head: {
+      links: [
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css?family=Roboto'
+        }
+      ]
+    }
+  },
   theme: {
     color: {
       link: '#065fd4',
       linkHover: '#00adef',
     },
-    font: ['Helvetica', 'sans-serif'],
+    font: ['Roboto', 'Helvetica', 'sans-serif'],
   },
   styles: {
+    StyleGuide: {
+      '@global body': {
+        fontFamily: 'Roboto'
+      }
+    },
     Ribbon: {
       root: {
         backgroundImage: 'url("https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png")',

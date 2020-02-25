@@ -22,12 +22,11 @@
   align-items: center;
 
   .divider-wrapper {
-    height: 100%;
     display: flex;
     align-items: center;
     width: 1px;
     background-color: #dadce0;
-    padding: 10px 0;
+    padding: 16px 0;
   }
 
   .date {
@@ -64,6 +63,7 @@
 
     .selected-date {
       flex-grow: 1;
+      font-size: 16px;
     }
 
     .button-group {
@@ -80,7 +80,7 @@
 
 @keyframes main {
   0% {
-    transform: scale(0);
+    transform: scale(0.5);
   }
   100% {
     transform: scale(1);

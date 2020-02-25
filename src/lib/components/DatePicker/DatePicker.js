@@ -109,7 +109,6 @@ const DatePicker = ({
               </div>
             </div>
             <div className="divider-wrapper">
-              <div className="divider" />
             </div>
             <div className="date end-date" role="button" tabIndex="0">
               <div className="selected-date">Mon, 24 Feb</div>
