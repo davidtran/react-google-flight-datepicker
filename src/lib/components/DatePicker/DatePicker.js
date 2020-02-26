@@ -78,8 +78,7 @@ const DatePicker = ({
           </button>
         </div>
       </div>
-      {/* <div className={`dialog-date-picker ${isOpen ? 'open' : hideAnimation ? 'hide' : ''}`} ref={dialogRef}> */}
-      <div className="dialog-date-picker open" ref={dialogRef}>
+      <div className={`dialog-date-picker ${isOpen ? 'open' : hideAnimation ? 'hide' : ''}`} ref={dialogRef}>
         <div className="dialog-header">
           <button type="button" className="btn-outline back-button" onClick={toggleDialog}>
             <img src={BackIcon} alt="back-icon" className="back-icon" />
@@ -121,8 +120,8 @@ const DatePicker = ({
           <div className="calendar-wrapper">
             <div className="calendar-content">
               <div className="calendar">
-                <div className="calendar-header">February</div>
-                <div className="weekdays">
+                <div className="calendar-header first">February</div>
+                <div className="weekdays first">
                   <div className="weekday">M</div>
                   <div className="weekday">T</div>
                   <div className="weekday">W</div>
@@ -130,6 +129,52 @@ const DatePicker = ({
                   <div className="weekday">F</div>
                   <div className="weekday">S</div>
                   <div className="weekday">S</div>
+                </div>
+                <div className="week">
+                  <div className="day">
+                    <div className="text-day">1</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">2</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">3</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">4</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">5</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">6</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">7</div>
+                  </div>
+                </div>
+                <div className="week">
+                  <div className="day">
+                    <div className="text-day">8</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">9</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">10</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">11</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">12</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">13</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">14</div>
+                  </div>
                 </div>
                 <div className="week">
                   <div className="day">
@@ -217,6 +262,52 @@ const DatePicker = ({
                     <div className="text-day">8</div>
                   </div>
                   <div className="day selected">
+                    <div className="text-day">9</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">10</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">11</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">12</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">13</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">14</div>
+                  </div>
+                </div>
+                <div className="week">
+                  <div className="day">
+                    <div className="text-day">1</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">2</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">3</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">4</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">5</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">6</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">7</div>
+                  </div>
+                </div>
+                <div className="week">
+                  <div className="day">
+                    <div className="text-day">8</div>
+                  </div>
+                  <div className="day">
                     <div className="text-day">9</div>
                   </div>
                   <div className="day">
