@@ -6,7 +6,7 @@ import './styles.scss'
 import CalendarIcon from '../../assets/svg/calendar.svg'
 import PrevIcon from '../../assets/svg/prev.svg'
 import NextIcon from '../../assets/svg/next.svg'
-import BackIcon from '../../assets/svg/back.svg'
+import BackIcon from '../../assets/svg/back.png'
 
 const DatePicker = ({
   onClick,
@@ -15,6 +15,7 @@ const DatePicker = ({
   text,
 }) => {
   const [isOpen, setIsOpen] = useState(false)
+  const [hideAnimation, setHideAnimation] = useState(false)
   const containerRef = useRef(null)
   const dialogRef = useRef(null)
 
@@ -26,29 +27,21 @@ const DatePicker = ({
 
   useEffect(() => {
     document.addEventListener('click', handleDocumentClick)
+
     return () => document.removeEventListener('click', handleDocumentClick)
   }, [])
 
   function toggleDialog() {
-    setIsOpen(!isOpen)
-  }
-
-  function daysInMonth(month, year) {
-    return new Date(year, month, 0).getDate()
-  }
-
-  function generateDay(month) {
-    const numberDay = daysInMonth(month, 2020)
-
-    return [...Array(numberDay)].map((val, idx) => (
-      <div className="day" key={idx}>
-        <div className="text-day">{idx + 1}</div>
-      </div>
-    ))
+    const nextIsOpen = !isOpen
+    setIsOpen(nextIsOpen)
+    if (nextIsOpen === true && !hideAnimation) {
+      setHideAnimation(true)
+    }
   }
 
   return (
     <div className="date-picker" ref={containerRef}>
+      <CalendarIcon className="icon-calendar mobile" viewBox="0 0 24 24" />
       <div
         className="date"
         role="button"
@@ -56,19 +49,18 @@ const DatePicker = ({
         onClick={toggleDialog}
         onKeyDown={toggleDialog}
       >
-        <CalendarIcon className="icon-calendar" viewBox="0 0 37 37" />
+        <CalendarIcon className="icon-calendar" viewBox="0 0 24 24" />
         <div className="selected-date">Fri, 21 Feb</div>
-        <div className="button-group">
-          <button type="button" className="btn-outline">
-            <PrevIcon viewBox="0 0 492 492" className="arrow" />
+        <div className="change-date-group">
+          <button type="button" className="btn-outline change-date-button">
+            <PrevIcon viewBox="0 0 24 24" className="icon-arrow" />
           </button>
-          <button type="button" className="btn-outline">
-            <NextIcon viewBox="0 0 492 492" className="arrow" />
+          <button type="button" className="btn-outline change-date-button">
+            <NextIcon viewBox="0 0 24 24" className="icon-arrow" />
           </button>
         </div>
       </div>
-      <div className="divider-wrapper">
-      </div>
+      <div className="divider" />
       <div
         className="date end-date"
         role="button"
@@ -77,47 +69,48 @@ const DatePicker = ({
         onKeyDown={toggleDialog}
       >
         <div className="selected-date">Mon, 24 Feb</div>
-        <div className="button-group">
-          <button type="button" className="btn-outline">
-            <PrevIcon viewBox="0 0 492 492" className="arrow" />
+        <div className="change-date-group">
+          <button type="button" className="btn-outline change-date-button">
+            <PrevIcon viewBox="0 0 24 24" className="icon-arrow" />
           </button>
-          <button type="button" className="btn-outline">
-            <NextIcon viewBox="0 0 492 492" className="arrow" />
+          <button type="button" className="btn-outline change-date-button">
+            <NextIcon viewBox="0 0 24 24" className="icon-arrow" />
           </button>
         </div>
       </div>
-      <div className={`dialog-date-picker ${isOpen && 'open'}`} ref={dialogRef}>
+      {/* <div className={`dialog-date-picker ${isOpen ? 'open' : hideAnimation ? 'hide' : ''}`} ref={dialogRef}> */}
+      <div className="dialog-date-picker open" ref={dialogRef}>
         <div className="dialog-header">
-          <button type="button" className="back-button" onClick={toggleDialog}>
-            <BackIcon viewBox="0 0 492 492" />
+          <button type="button" className="btn-outline back-button" onClick={toggleDialog}>
+            <img src={BackIcon} alt="back-icon" className="back-icon" />
           </button>
           <div className="date-picker">
+            <CalendarIcon className="icon-calendar-mobile" viewBox="0 0 24 24" />
             <div
-              className="date"
+              className="date is-focus"
               role="button"
               tabIndex="-1"
             >
-              <CalendarIcon className="icon-calendar" viewBox="0 0 37 37" />
+              <CalendarIcon className="icon-calendar" viewBox="0 0 24 24" />
               <div className="selected-date">Fri, 21 Feb</div>
-              <div className="button-group">
-                <button type="button" className="btn-outline">
-                  <PrevIcon viewBox="0 0 492 492" className="arrow" />
+              <div className="change-date-group">
+                <button type="button" className="btn-outline change-date-button">
+                  <PrevIcon viewBox="0 0 24 24" className="icon-arrow" />
                 </button>
-                <button type="button" className="btn-outline">
-                  <NextIcon viewBox="0 0 492 492" className="arrow" />
+                <button type="button" className="btn-outline change-date-button">
+                  <NextIcon viewBox="0 0 24 24" className="icon-arrow" />
                 </button>
               </div>
             </div>
-            <div className="divider-wrapper">
-            </div>
+            <div className="divider" />
             <div className="date end-date" role="button" tabIndex="0">
               <div className="selected-date">Mon, 24 Feb</div>
-              <div className="button-group">
-                <button type="button" className="btn-outline">
-                  <PrevIcon viewBox="0 0 492 492" className="arrow" />
+              <div className="change-date-group">
+                <button type="button" className="btn-outline change-date-button">
+                  <PrevIcon viewBox="0 0 24 24" className="icon-arrow" />
                 </button>
-                <button type="button" className="btn-outline">
-                  <NextIcon viewBox="0 0 492 492" className="arrow" />
+                <button type="button" className="btn-outline change-date-button">
+                  <NextIcon viewBox="0 0 24 24" className="icon-arrow" />
                 </button>
               </div>
             </div>
@@ -125,59 +118,132 @@ const DatePicker = ({
           <button type="button" className="btn-outline reset-button">Reset</button>
         </div>
         <div className="dialog-content">
-          <div className="calendar">
-            <div className="month">
-              <div className="header-month">February</div>
-              <div className="weekdays first">
-                <div className="weekday">M</div>
-                <div className="weekday">T</div>
-                <div className="weekday">W</div>
-                <div className="weekday">T</div>
-                <div className="weekday">F</div>
-                <div className="weekday">S</div>
-                <div className="weekday">S</div>
+          <div className="calendar-wrapper">
+            <div className="calendar-content">
+              <div className="calendar">
+                <div className="calendar-header">February</div>
+                <div className="weekdays">
+                  <div className="weekday">M</div>
+                  <div className="weekday">T</div>
+                  <div className="weekday">W</div>
+                  <div className="weekday">T</div>
+                  <div className="weekday">F</div>
+                  <div className="weekday">S</div>
+                  <div className="weekday">S</div>
+                </div>
+                <div className="week">
+                  <div className="day">
+                    <div className="text-day">1</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">2</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">3</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">4</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">5</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">6</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">7</div>
+                  </div>
+                </div>
+                <div className="week">
+                  <div className="day">
+                    <div className="text-day">8</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">9</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">10</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">11</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">12</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">13</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">14</div>
+                  </div>
+                </div>
               </div>
-              <div className="days">
-                {generateDay(2)}
-              </div>
-            </div>
-            <div className="month">
-              <div className="header-month">March</div>
-              <div className="weekdays">
-                <div className="weekday">M</div>
-                <div className="weekday">T</div>
-                <div className="weekday">W</div>
-                <div className="weekday">T</div>
-                <div className="weekday">F</div>
-                <div className="weekday">S</div>
-                <div className="weekday">S</div>
-              </div>
-              <div className="days">
-                {generateDay(3)}
-              </div>
-            </div>
-            <div className="month">
-              <div className="header-month">March</div>
-              <div className="weekdays">
-                <div className="weekday">M</div>
-                <div className="weekday">T</div>
-                <div className="weekday">W</div>
-                <div className="weekday">T</div>
-                <div className="weekday">F</div>
-                <div className="weekday">S</div>
-                <div className="weekday">S</div>
-              </div>
-              <div className="days">
-                {generateDay(3)}
+              <div className="calendar">
+                <div className="calendar-header">February</div>
+                <div className="weekdays">
+                  <div className="weekday">M</div>
+                  <div className="weekday">T</div>
+                  <div className="weekday">W</div>
+                  <div className="weekday">T</div>
+                  <div className="weekday">F</div>
+                  <div className="weekday">S</div>
+                  <div className="weekday">S</div>
+                </div>
+                <div className="week">
+                  <div className="day">
+                    <div className="text-day">1</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">2</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">3</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">4</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">5</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">6</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">7</div>
+                  </div>
+                </div>
+                <div className="week">
+                  <div className="day">
+                    <div className="text-day">8</div>
+                  </div>
+                  <div className="day selected">
+                    <div className="text-day">9</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">10</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">11</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">12</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">13</div>
+                  </div>
+                  <div className="day">
+                    <div className="text-day">14</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div className="change-month-group">
-            <div className="change-month-button">
-              <PrevIcon viewBox="0 0 492 492" />
+          <div className="calendar-flippers">
+            <div className="flipper-button">
+              <PrevIcon viewBox="0 0 24 24" />
             </div>
-            <div className="change-month-button">
-              <NextIcon viewBox="0 0 492 492" />
+            <div className="flipper-button">
+              <NextIcon viewBox="0 0 24 24" />
             </div>
           </div>
         </div>
