@@ -3,14 +3,14 @@ import PropTypes from 'prop-types'
 import DateInput from './DateInput'
 import CalendarIcon from '../../assets/svg/calendar.svg'
 
-const DateInputGroup = ({ toggleDialog, isDialog }) => (
+const DateInputGroup = ({ toggleDialog, showCalendarIcon }) => (
   <div className="date-picker-input">
-    {!isDialog
+    {showCalendarIcon
     && <CalendarIcon className="icon-calendar mobile" viewBox="0 0 24 24" />}
     <DateInput
       toggleDialog={toggleDialog}
       tabIndex="-1"
-      hasIcon
+      showIcon
     />
     <div className="divider" />
     <DateInput
@@ -23,12 +23,12 @@ const DateInputGroup = ({ toggleDialog, isDialog }) => (
 
 DateInputGroup.propTypes = {
   toggleDialog: PropTypes.func,
-  isDialog: PropTypes.bool,
+  showCalendarIcon: PropTypes.bool,
 }
 
 DateInputGroup.defaultProps = {
   toggleDialog: () => {},
-  isDialog: false,
+  showCalendarIcon: true,
 }
 
 export default DateInputGroup

@@ -7,7 +7,7 @@ import NextIcon from '../../assets/svg/next.svg'
 const DateInput = ({
   className,
   toggleDialog,
-  hasIcon,
+  showIcon,
   tabIndex,
 }) => (
   <div
@@ -17,7 +17,7 @@ const DateInput = ({
     onClick={toggleDialog}
     onKeyDown={toggleDialog}
   >
-    {hasIcon
+    {showIcon
     && <CalendarIcon className="icon-calendar" viewBox="0 0 24 24" />}
     <div className="selected-date">Fri, 21 Feb</div>
     <div className="change-date-group">
@@ -34,14 +34,14 @@ const DateInput = ({
 DateInput.propTypes = {
   className: PropTypes.string,
   toggleDialog: PropTypes.func,
-  hasIcon: PropTypes.bool,
+  showIcon: PropTypes.bool,
   tabIndex: PropTypes.string,
 }
 
 DateInput.defaultProps = {
   className: '',
   toggleDialog: () => {},
-  hasIcon: false,
+  showIcon: false,
   tabIndex: '',
 }
 
