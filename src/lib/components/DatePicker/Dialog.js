@@ -44,7 +44,7 @@ const Dialog = ({
 
   function onSelectDate(date) {
     if (inputFocus) {
-      if (inputFocus === 'from') {
+      if (inputFocus === 'from' || (fromDate && new Date(date) < new Date(fromDate))) {
         setFromDate(date)
         setInputFocus('to')
       } else {
@@ -52,7 +52,11 @@ const Dialog = ({
         setInputFocus(null)
       }
     } else {
-      // todo
+      setFromDate(date)
+      setInputFocus('to')
+      if (toDate && new Date(date) > new Date(toDate)) {
+        setToDate(null)
+      }
     }
   }
 
