@@ -86,7 +86,15 @@ const Dialog = ({
               toDay={toDay}
               hoverDay={hoverDay}
             />
-            <Calendar month={3} year={2020} onSelectDate={onSelectDate} />
+            <Calendar
+              month={3}
+              year={2020}
+              onSelectDate={onSelectDate}
+              onHoverDate={onHoverDate}
+              fromDay={fromDay}
+              toDay={toDay}
+              hoverDay={hoverDay}
+            />
           </div>
         </div>
 

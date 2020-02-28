@@ -14,11 +14,12 @@ const Week = ({
           key={index}
           day={dayIndex}
           selected={dayIndex === fromDay || dayIndex === toDay}
-          hovered={(fromDay && !toDay && dayIndex >= fromDay && dayIndex <= hoverDay)
-            || (fromDay && toDay && fromDay <= dayIndex && toDay >= dayIndex)}
+          hovered={(fromDay && hoverDay !== fromDay && fromDay !== toDay)
+            && ((!toDay && dayIndex >= fromDay && dayIndex <= hoverDay)
+            || (toDay && fromDay <= dayIndex && toDay >= dayIndex))}
           onSelectDay={onSelectDay}
           onHoverDay={onHoverDay}
-          endDay={dayIndex === toDay || dayIndex === hoverDay}
+          isEndDay={dayIndex === toDay || (!toDay && hoverDay === dayIndex)}
         />
       )
     })
