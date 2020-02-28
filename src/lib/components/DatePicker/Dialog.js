@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import PropTypes from 'prop-types'
+import dayjs from 'dayjs';
+import cx from 'classnames';
 import PrevIcon from '../../assets/svg/prev.svg'
 import NextIcon from '../../assets/svg/next.svg'
 import BackIcon from '../../assets/svg/back.png'
@@ -9,12 +11,16 @@ import Calendar from './Calendar'
 const Dialog = ({
   toggleDialog,
   isOpen,
+  focusDate,
+  increaseFocusDate,
+  decreaseFocusDate
 }) => {
   const [hideAnimation, setHideAnimation] = useState(false)
   const [fromDate, setFromDate] = useState(null)
   const [toDate, setToDate] = useState(null)
   const [hoverDate, setHoverDate] = useState(null)
   const [inputFocus, setInputFocus] = useState('from')
+  const [translateAmount, setTranslateAmount] = useState(0);
 
   useEffect(() => {
     if (isOpen && !hideAnimation) {
@@ -64,6 +70,44 @@ const Dialog = ({
     setHoverDate(date)
   }
 
+  function renderCalendars() {
+    const prevMonth = dayjs(focusDate).subtract(1, 'month').toDate();
+    const nextMonth = dayjs(focusDate).add(1, 'month').toDate();
+    const futureMonth = dayjs(focusDate).add(2, 'month').toDate();
+    const dateArray = [prevMonth, focusDate, nextMonth, futureMonth];
+
+    return dateArray.map((date, dateIndex) => (
+      <Calendar
+        isFirst={date === focusDate}
+        hidden={dateIndex === 0 && (translateAmount <= 0)}
+        isAnimating={dateIndex === 0 && translateAmount > 0}
+        month={date.getMonth() + 1}
+        year={date.getFullYear()}
+        onSelectDate={onSelectDate}
+        onHoverDate={onHoverDate}
+        fromDay={fromDay}
+        toDay={toDay}
+        hoverDay={hoverDay}
+      />
+    ));
+  }
+
+  function increaseCurrentMonth() {
+    setTranslateAmount(-378);
+    setTimeout(() => {
+      increaseFocusDate();
+      setTranslateAmount(0);
+    }, 200);
+  }
+
+  function decreaseCurrentMonth() {
+    setTranslateAmount(378);
+    setTimeout(() => {
+      decreaseFocusDate();
+      setTranslateAmount(0);
+    }, 200);
+  }
+
   return (
     <div className={`dialog-date-picker ${datePickerClassName}`}>
       <div className="dialog-header">
@@ -75,26 +119,22 @@ const Dialog = ({
       </div>
       <div className="dialog-content">
         <div className="calendar-wrapper">
-          <div className="calendar-content">
-            <Calendar
-              isFirst
-              month={2}
-              year={2020}
-              onSelectDate={onSelectDate}
-              onHoverDate={onHoverDate}
-              fromDay={fromDay}
-              toDay={toDay}
-              hoverDay={hoverDay}
-            />
-            <Calendar month={3} year={2020} onSelectDate={onSelectDate} />
+          <div
+            className={cx('calendar-content', {
+              isAnimating: translateAmount !== 0
+            })}
+            style={{
+              transform: `translateX(${translateAmount}px)`,
+            }}
+          >
+            {renderCalendars()}
           </div>
         </div>
-
         <div className="calendar-flippers">
-          <div className="flipper-button">
+          <div className="flipper-button" onClick={decreaseCurrentMonth}>
             <PrevIcon viewBox="0 0 24 24" />
           </div>
-          <div className="flipper-button">
+          <div className="flipper-button" onClick={increaseCurrentMonth}>
             <NextIcon viewBox="0 0 24 24" />
           </div>
         </div>

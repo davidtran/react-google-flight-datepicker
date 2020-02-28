@@ -36,8 +36,7 @@
   },
   "rules": {
     "semi": [
-      2,
-      "never"
+      2
     ],
     "arrow-parens": [
       "error",

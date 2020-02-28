@@ -1,21 +1,31 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Week from './Week'
-import { getWeeksInMonth, months } from '../../helpers'
+import React from 'react';
+import PropTypes from 'prop-types';
+import cx from 'classnames';
+import Week from './Week';
+import { getWeeksInMonth, months } from '../../helpers';
 
 const Calendar = ({
-  isFirst, month, year, onSelectDate, onHoverDate, fromDay, toDay, hoverDay,
+  hidden,
+  isFirst,
+  month,
+  year,
+  onSelectDate,
+  onHoverDate,
+  fromDay,
+  toDay,
+  hoverDay,
+  isAnimating
 }) => {
   function onSelectDay(day) {
-    onSelectDate(`${year}-${month}-${day}`)
+    onSelectDate(`${year}-${month}-${day}`);
   }
 
   function onHoverDay(day) {
-    onHoverDate(`${year}-${month}-${day}`)
+    onHoverDate(`${year}-${month}-${day}`);
   }
 
   function generateWeek() {
-    const weeks = getWeeksInMonth(year, month, 'monday')
+    const weeks = getWeeksInMonth(year, month, 'monday');
 
     return weeks.map((week, index) => (
       <Week
@@ -29,11 +39,17 @@ const Calendar = ({
         toDay={toDay}
         hoverDay={hoverDay}
       />
-    ))
+    ));
   }
 
   return (
-    <div className={`calendar ${isFirst ? 'first' : ''}`}>
+    <div
+      className={cx('calendar', {
+        first: isFirst,
+        isAnimating,
+        hidden,
+      })}
+    >
       <div className="calendar-header">{months[month - 1]}</div>
       <div className="weekdays">
         <div className="weekday">M</div>
@@ -46,8 +62,8 @@ const Calendar = ({
       </div>
       {generateWeek()}
     </div>
-  )
-}
+  );
+};
 
 Calendar.propTypes = {
   isFirst: PropTypes.bool,
@@ -57,8 +73,8 @@ Calendar.propTypes = {
   onHoverDate: PropTypes.func,
   fromDay: PropTypes.string,
   toDay: PropTypes.string,
-  hoverDay: PropTypes.string,
-}
+  hoverDay: PropTypes.string
+};
 
 Calendar.defaultProps = {
   isFirst: false,
@@ -68,7 +84,7 @@ Calendar.defaultProps = {
   onHoverDate: () => {},
   fromDay: null,
   toDay: null,
-  hoverDay: null,
-}
+  hoverDay: null
+};
 
-export default Calendar
+export default Calendar;

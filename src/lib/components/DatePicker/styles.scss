@@ -140,12 +140,12 @@
   left: -2px;
   z-index: 120;
   height: max-content;
-  width: 800px;
+  width: 770px;
   margin-bottom: 50px;
-  transform-origin: top left;  
+  transform-origin: top left;
   opacity: 0;
-  transform: scale(0);  
-  
+  transform: scale(0);
+
   &.open {
     animation: showPopup 0.2s forwards;
   }
@@ -208,13 +208,30 @@
 
 .calendar-content {
   display: flex;
-  justify-content: space-between;
-  padding: 0 10px;
+  padding: 0;
+  width: 692px;
+
+  &.isAnimating {
+    transition: transform 0.2s ease;
+  }
 }
 
 .calendar {
   width: 308px;
   color: #3c4043;
+  margin-right: 70px;
+
+  &.hidden {
+    position: absolute;
+    visibility: hidden;
+    z-index: -1;
+    opacity: 0;
+  }
+
+  &.isAnimating {
+    position: absolute;
+    left: -378px;
+  }
 }
 
 .calendar-header {
@@ -277,7 +294,7 @@
     right: 0;
     top: 0;
     width: 44px;
-    z-index: 2; 
+    z-index: 2;
   }
 
   &:hover::after {
@@ -300,7 +317,7 @@
       background-color: #4285f4;
       border-radius: 100%;
     }
-    
+
     &:hover::after {
       background-color: #fff;
     }
@@ -319,7 +336,7 @@
 
     &:hover {
       background-color: #D9EDFD;
-      
+
       &::after {
         border-radius: 100%;
         background-color: #fff;
@@ -338,7 +355,7 @@
     &:hover {
       color: #000;
     }
-      
+
     &::after {
       border-radius: 100%;
       background-color: #4285f4;
@@ -471,7 +488,7 @@
     display: flex;
     flex-direction: column;
     opacity: 1;
-    transform: none;  
+    transform: none;
 
     &.open {
       transition: all .2s ease-out;
@@ -540,7 +557,8 @@
     text-align: left;
     margin-left: 10px;
     margin-bottom: 0px;
-    margin-top: 10px;
+    margin-top: 15px;
+    font-weight: bold;
   }
 
   .dialog-footer {
