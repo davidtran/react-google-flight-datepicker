@@ -3,7 +3,17 @@ import PropTypes from 'prop-types'
 import Week from './Week'
 import { getWeeksInMonth, months } from '../../helpers'
 
-const Calendar = ({ isFirst, month, year }) => {
+const Calendar = ({
+  isFirst, month, year, onSelectDate, onHoverDate, fromDay, toDay, hoverDay,
+}) => {
+  function onSelectDay(day) {
+    onSelectDate(`${year}-${month}-${day}`)
+  }
+
+  function onHoverDay(day) {
+    onHoverDate(`${year}-${month}-${day}`)
+  }
+
   function generateWeek() {
     const weeks = getWeeksInMonth(year, month, 'monday')
 
@@ -13,6 +23,11 @@ const Calendar = ({ isFirst, month, year }) => {
         key={index}
         week={week}
         isFirst={index === 0}
+        onSelectDay={onSelectDay}
+        onHoverDay={onHoverDay}
+        fromDay={fromDay}
+        toDay={toDay}
+        hoverDay={hoverDay}
       />
     ))
   }
@@ -38,12 +53,22 @@ Calendar.propTypes = {
   isFirst: PropTypes.bool,
   month: PropTypes.number,
   year: PropTypes.number,
+  onSelectDate: PropTypes.func,
+  onHoverDate: PropTypes.func,
+  fromDay: PropTypes.string,
+  toDay: PropTypes.string,
+  hoverDay: PropTypes.string,
 }
 
 Calendar.defaultProps = {
   isFirst: false,
-  month: 0,
-  year: 1900,
+  month: null,
+  year: null,
+  onSelectDate: () => {},
+  onHoverDate: () => {},
+  fromDay: null,
+  toDay: null,
+  hoverDay: null,
 }
 
 export default Calendar

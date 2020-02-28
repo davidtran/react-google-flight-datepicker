@@ -253,6 +253,7 @@
 
 .day {
   box-sizing: border-box;
+  outline: none;
   cursor: pointer;
   height: 44px;
   margin: 2px 0;
@@ -300,6 +301,49 @@
       border-radius: 100%;
     }
     
+    &:hover::after {
+      background-color: #fff;
+    }
+  }
+
+  &.hovered {
+
+    &.end {
+      background: linear-gradient(90deg, #D9EDFD 50%, #fff 50%);
+    }
+
+    &::after {
+      background-color: #D9EDFD;
+      border-radius: unset;
+    }
+
+    &:hover {
+      background-color: #D9EDFD;
+      
+      &::after {
+        border-radius: 100%;
+        background-color: #fff;
+      }
+    }
+  }
+
+  &.selected.hovered {
+    background: linear-gradient(90deg, #fff 50%, #D9EDFD 50%);
+    color: #fff;
+
+    &.end {
+      background: linear-gradient(90deg, #D9EDFD 50%, #fff 50%);
+    }
+
+    &:hover {
+      color: #000;
+    }
+      
+    &::after {
+      border-radius: 100%;
+      background-color: #4285f4;
+    }
+
     &:hover::after {
       background-color: #fff;
     }

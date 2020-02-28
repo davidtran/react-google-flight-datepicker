@@ -5,13 +5,13 @@ import PrevIcon from '../../assets/svg/prev.svg'
 import NextIcon from '../../assets/svg/next.svg'
 
 const DateInput = ({
-  className,
   toggleDialog,
   showIcon,
   tabIndex,
+  isFocus,
 }) => (
   <div
-    className={`date ${className}`}
+    className={`date ${isFocus ? 'is-focus' : ''}`}
     role="button"
     tabIndex={tabIndex}
     onClick={toggleDialog}
@@ -31,17 +31,17 @@ const DateInput = ({
 )
 
 DateInput.propTypes = {
-  className: PropTypes.string,
   toggleDialog: PropTypes.func,
   showIcon: PropTypes.bool,
   tabIndex: PropTypes.string,
+  isFocus: PropTypes.bool,
 }
 
 DateInput.defaultProps = {
-  className: '',
   toggleDialog: () => {},
   showIcon: false,
   tabIndex: '',
+  isFocus: false,
 }
 
 export default DateInput

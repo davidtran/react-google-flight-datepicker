@@ -11,6 +11,10 @@ const Dialog = ({
   isOpen,
 }) => {
   const [hideAnimation, setHideAnimation] = useState(false)
+  const [fromDate, setFromDate] = useState(null)
+  const [toDate, setToDate] = useState(null)
+  const [hoverDate, setHoverDate] = useState(null)
+  const [inputFocus, setInputFocus] = useState('from')
 
   useEffect(() => {
     if (isOpen && !hideAnimation) {
@@ -20,20 +24,65 @@ const Dialog = ({
 
   const datePickerClassName = isOpen ? 'open' : hideAnimation ? 'hide' : ''
 
+  let fromDay = ''
+  if (fromDate) {
+    const arrFromDate = fromDate.split('-')
+    fromDay = parseInt(arrFromDate[2])
+  }
+
+  let toDay = ''
+  if (toDate) {
+    const arrToDate = toDate.split('-')
+    toDay = parseInt(arrToDate[2])
+  }
+
+  let hoverDay = ''
+  if (hoverDate) {
+    const arrHoverDate = hoverDate.split('-')
+    hoverDay = parseInt(arrHoverDate[2])
+  }
+
+  function onSelectDate(date) {
+    if (inputFocus) {
+      if (inputFocus === 'from') {
+        setFromDate(date)
+        setInputFocus('to')
+      } else {
+        setToDate(date)
+        setInputFocus(null)
+      }
+    } else {
+      // todo
+    }
+  }
+
+  function onHoverDate(date) {
+    setHoverDate(date)
+  }
+
   return (
     <div className={`dialog-date-picker ${datePickerClassName}`}>
       <div className="dialog-header">
         <button type="button" className="btn-outline back-button" onClick={toggleDialog}>
           <img src={BackIcon} alt="back-icon" className="back-icon" />
         </button>
-        <DateInputGroup />
+        <DateInputGroup inputFocus={inputFocus} />
         <button type="button" className="btn-outline reset-button">Reset</button>
       </div>
       <div className="dialog-content">
         <div className="calendar-wrapper">
           <div className="calendar-content">
-            <Calendar isFirst month={2} year={2020} />
-            <Calendar month={3} year={2020} />
+            <Calendar
+              isFirst
+              month={2}
+              year={2020}
+              onSelectDate={onSelectDate}
+              onHoverDate={onHoverDate}
+              fromDay={fromDay}
+              toDay={toDay}
+              hoverDay={hoverDay}
+            />
+            <Calendar month={3} year={2020} onSelectDate={onSelectDate} />
           </div>
         </div>
 
