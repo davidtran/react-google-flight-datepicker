@@ -2,13 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const Day = ({
-  day, selected, hovered, onSelectDay, onHoverDay, endDay,
+  day, selected, hovered, onSelectDay, onHoverDay, isEndDay,
 }) => (
   <div
     className={`day 
       ${selected ? 'selected' : ''} 
       ${hovered ? 'hovered' : ''}
-      ${endDay ? 'end' : ''}
+      ${isEndDay ? 'end' : ''}
     `}
     onClick={() => onSelectDay(day)}
     onMouseEnter={() => onHoverDay(day)}
@@ -21,7 +21,7 @@ const Day = ({
 
 Day.propTypes = {
   day: PropTypes.number,
-  endDay: PropTypes.bool,
+  isEndDay: PropTypes.bool,
   selected: PropTypes.bool,
   hovered: PropTypes.bool,
   onSelectDay: PropTypes.func,
@@ -30,7 +30,7 @@ Day.propTypes = {
 
 Day.defaultProps = {
   day: 1,
-  endDay: false,
+  isEndDay: false,
   selected: false,
   hovered: false,
   onSelectDay: () => {},
