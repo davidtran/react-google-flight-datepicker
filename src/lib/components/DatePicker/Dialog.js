@@ -8,17 +8,17 @@ import Calendar from './Calendar'
 
 const Dialog = ({
   toggleDialog,
-  isOpen
+  isOpen,
 }) => {
   const [hideAnimation, setHideAnimation] = useState(false)
 
   useEffect(() => {
     if (isOpen && !hideAnimation) {
-      setHideAnimation(true);
+      setHideAnimation(true)
     }
-  }, [isOpen]);
+  }, [isOpen])
 
-  const datePickerClassName = isOpen ? 'open' : hideAnimation ? 'hide' : '';
+  const datePickerClassName = isOpen ? 'open' : hideAnimation ? 'hide' : ''
 
   return (
     <div className={`dialog-date-picker ${datePickerClassName}`}>
@@ -32,10 +32,11 @@ const Dialog = ({
       <div className="dialog-content">
         <div className="calendar-wrapper">
           <div className="calendar-content">
-            <Calendar isFirst />
-            <Calendar />
+            <Calendar isFirst month={2} year={2020} />
+            <Calendar month={3} year={2020} />
           </div>
         </div>
+
         <div className="calendar-flippers">
           <div className="flipper-button">
             <PrevIcon viewBox="0 0 24 24" />

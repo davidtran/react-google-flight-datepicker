@@ -71,6 +71,7 @@
     "import/prefer-default-export": 0,
     "react/destructuring-assignment": 0,
     "linebreak-style": 0,
+    "jsx-a11y/click-events-have-key-events": 0,
     "no-multiple-empty-lines": [
       "error",
       {

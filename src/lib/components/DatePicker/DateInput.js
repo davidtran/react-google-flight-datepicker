@@ -15,7 +15,6 @@ const DateInput = ({
     role="button"
     tabIndex={tabIndex}
     onClick={toggleDialog}
-    onKeyDown={toggleDialog}
   >
     {showIcon
     && <CalendarIcon className="icon-calendar" viewBox="0 0 24 24" />}

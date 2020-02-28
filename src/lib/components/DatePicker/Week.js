@@ -1,29 +1,31 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import Day from './Day'
 
-const Week = () => (
-  <div className="week">
-    <div className="day">
-      <div className="text-day">1</div>
+const Week = ({
+  isFirst, week,
+}) => {
+  function generateDay() {
+    return [...Array(week.days).keys()].map(index => (
+      <Day key={index} day={index + week.start} />
+    ))
+  }
+
+  return (
+    <div className={`week ${isFirst ? 'first' : ''}`}>
+      {generateDay()}
     </div>
-    <div className="day">
-      <div className="text-day">2</div>
-    </div>
-    <div className="day">
-      <div className="text-day">3</div>
-    </div>
-    <div className="day">
-      <div className="text-day">4</div>
-    </div>
-    <div className="day">
-      <div className="text-day">5</div>
-    </div>
-    <div className="day">
-      <div className="text-day">6</div>
-    </div>
-    <div className="day">
-      <div className="text-day">7</div>
-    </div>
-  </div>
-)
+  )
+}
+
+Week.propTypes = {
+  isFirst: PropTypes.bool,
+  week: PropTypes.object,
+}
+
+Week.defaultProps = {
+  isFirst: false,
+  week: {},
+}
 
 export default Week

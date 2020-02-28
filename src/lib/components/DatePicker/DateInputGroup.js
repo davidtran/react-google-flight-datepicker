@@ -9,14 +9,14 @@ const DateInputGroup = ({ toggleDialog, showCalendarIcon }) => (
     && <CalendarIcon className="icon-calendar mobile" viewBox="0 0 24 24" />}
     <DateInput
       toggleDialog={toggleDialog}
-      tabIndex="-1"
       showIcon
+      tabIndex="-1"
     />
     <div className="divider" />
     <DateInput
       toggleDialog={toggleDialog}
-      tabIndex="-1"
       className="end-date"
+      tabIndex="0"
     />
   </div>
 )
@@ -28,7 +28,7 @@ DateInputGroup.propTypes = {
 
 DateInputGroup.defaultProps = {
   toggleDialog: () => {},
-  showCalendarIcon: true,
+  showCalendarIcon: false,
 }
 
 export default DateInputGroup
