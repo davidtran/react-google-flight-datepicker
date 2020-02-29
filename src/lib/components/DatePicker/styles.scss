@@ -381,9 +381,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: -1;
 }
 
 .flipper-button {
+  z-index: 150;
   background-color: #fff;
   border-radius: 100%;
   box-shadow: 0 0 4px rgba(0,0,0,.12), 0 4px 4px rgba(0,0,0,.24);
@@ -394,6 +396,7 @@
   justify-content: center;
   align-items: center;
   margin: 0 -20px;
+  outline: none;
 
   svg {
     width: 24px;

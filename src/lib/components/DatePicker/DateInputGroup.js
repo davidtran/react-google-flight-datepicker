@@ -1,7 +1,7 @@
-import React, { memo } from 'react'
-import PropTypes from 'prop-types'
-import DateInput from './DateInput'
-import CalendarIcon from '../../assets/svg/calendar.svg'
+import React, { memo } from 'react';
+import PropTypes from 'prop-types';
+import DateInput from './DateInput';
+import CalendarIcon from '../../assets/svg/calendar.svg';
 
 const DateInputGroup = ({ toggleDialog, showCalendarIcon, inputFocus }) => (
   <div className="date-picker-input">
@@ -21,18 +21,18 @@ const DateInputGroup = ({ toggleDialog, showCalendarIcon, inputFocus }) => (
       isFocus={inputFocus === 'to'}
     />
   </div>
-)
+);
 
 DateInputGroup.propTypes = {
   toggleDialog: PropTypes.func,
   showCalendarIcon: PropTypes.bool,
   inputFocus: PropTypes.string,
-}
+};
 
 DateInputGroup.defaultProps = {
   toggleDialog: () => {},
   showCalendarIcon: false,
   inputFocus: null,
-}
+};
 
-export default memo(DateInputGroup)
+export default memo(DateInputGroup);

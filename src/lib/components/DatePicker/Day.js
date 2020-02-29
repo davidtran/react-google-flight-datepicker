@@ -1,8 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const Day = ({
-  day, selected, hovered, onSelectDay, onHoverDay, isEndDay,
+  dateIndex, dateValue, selected, hovered, onSelectDate, onHoverDate, isEndDay,
 }) => (
   <div
     className={`day 
@@ -10,31 +10,33 @@ const Day = ({
       ${hovered ? 'hovered' : ''}
       ${isEndDay ? 'end' : ''}
     `}
-    onClick={() => onSelectDay(day)}
-    onMouseEnter={() => onHoverDay(day)}
+    onClick={() => onSelectDate(dateValue)}
+    onMouseEnter={() => onHoverDate(dateValue)}
     role="button"
     tabIndex="0"
   >
-    <div className="text-day">{day}</div>
+    <div className="text-day">{dateIndex}</div>
   </div>
-)
+);
 
 Day.propTypes = {
-  day: PropTypes.number,
+  dateIndex: PropTypes.number,
+  dateValue: PropTypes.string,
   isEndDay: PropTypes.bool,
   selected: PropTypes.bool,
   hovered: PropTypes.bool,
-  onSelectDay: PropTypes.func,
-  onHoverDay: PropTypes.func,
-}
+  onSelectDate: PropTypes.func,
+  onHoverDate: PropTypes.func,
+};
 
 Day.defaultProps = {
-  day: 1,
+  dateIndex: null,
+  dateValue: null,
   isEndDay: false,
   selected: false,
   hovered: false,
-  onSelectDay: () => {},
-  onHoverDay: () => {},
-}
+  onSelectDate: () => {},
+  onHoverDate: () => {},
+};
 
-export default Day
+export default Day;

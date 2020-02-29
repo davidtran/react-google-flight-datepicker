@@ -1,73 +1,55 @@
-import React, { useEffect, useState, useRef } from 'react'
-import PropTypes from 'prop-types'
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import cx from 'classnames';
-import PrevIcon from '../../assets/svg/prev.svg'
-import NextIcon from '../../assets/svg/next.svg'
-import BackIcon from '../../assets/svg/back.png'
-import DateInputGroup from './DateInputGroup'
-import Calendar from './Calendar'
+import PrevIcon from '../../assets/svg/prev.svg';
+import NextIcon from '../../assets/svg/next.svg';
+import BackIcon from '../../assets/svg/back.png';
+import DateInputGroup from './DateInputGroup';
+import Calendar from './Calendar';
 
 const Dialog = ({
   toggleDialog,
   isOpen,
   focusDate,
   increaseFocusDate,
-  decreaseFocusDate
+  decreaseFocusDate,
 }) => {
-  const [hideAnimation, setHideAnimation] = useState(false)
-  const [fromDate, setFromDate] = useState(null)
-  const [toDate, setToDate] = useState(null)
-  const [hoverDate, setHoverDate] = useState(null)
-  const [inputFocus, setInputFocus] = useState('from')
+  const [hideAnimation, setHideAnimation] = useState(false);
+  const [fromDate, setFromDate] = useState(null);
+  const [toDate, setToDate] = useState(null);
+  const [hoverDate, setHoverDate] = useState(null);
+  const [inputFocus, setInputFocus] = useState('from');
   const [translateAmount, setTranslateAmount] = useState(0);
 
   useEffect(() => {
     if (isOpen && !hideAnimation) {
-      setHideAnimation(true)
+      setHideAnimation(true);
     }
-  }, [isOpen])
+  }, [isOpen]);
 
-  const datePickerClassName = isOpen ? 'open' : hideAnimation ? 'hide' : ''
-
-  let fromDay = ''
-  if (fromDate) {
-    const arrFromDate = fromDate.split('-')
-    fromDay = parseInt(arrFromDate[2])
-  }
-
-  let toDay = ''
-  if (toDate) {
-    const arrToDate = toDate.split('-')
-    toDay = parseInt(arrToDate[2])
-  }
-
-  let hoverDay = ''
-  if (hoverDate) {
-    const arrHoverDate = hoverDate.split('-')
-    hoverDay = parseInt(arrHoverDate[2])
-  }
+  const datePickerClassName = isOpen ? 'open' : hideAnimation ? 'hide' : '';
 
   function onSelectDate(date) {
     if (inputFocus) {
       if (inputFocus === 'from' || (fromDate && new Date(date) < new Date(fromDate))) {
-        setFromDate(date)
-        setInputFocus('to')
+        setFromDate(date);
+        setInputFocus('to');
       } else {
-        setToDate(date)
-        setInputFocus(null)
+        setToDate(date);
+        setInputFocus(null);
       }
     } else {
-      setFromDate(date)
-      setInputFocus('to')
+      setFromDate(date);
+      setInputFocus('to');
       if (toDate && new Date(date) > new Date(toDate)) {
-        setToDate(null)
+        setToDate(null);
       }
     }
   }
 
   function onHoverDate(date) {
-    setHoverDate(date)
+    setHoverDate(date);
   }
 
   function renderCalendars() {
@@ -78,6 +60,8 @@ const Dialog = ({
 
     return dateArray.map((date, dateIndex) => (
       <Calendar
+        // eslint-disable-next-line react/no-array-index-key
+        key={dateIndex}
         isFirst={date === focusDate}
         hidden={dateIndex === 0 && (translateAmount <= 0)}
         isAnimating={dateIndex === 0 && translateAmount > 0}
@@ -85,9 +69,9 @@ const Dialog = ({
         year={date.getFullYear()}
         onSelectDate={onSelectDate}
         onHoverDate={onHoverDate}
-        fromDay={fromDay}
-        toDay={toDay}
-        hoverDay={hoverDay}
+        fromDate={fromDate}
+        toDate={toDate}
+        hoverDate={hoverDate}
       />
     ));
   }
@@ -121,7 +105,7 @@ const Dialog = ({
         <div className="calendar-wrapper">
           <div
             className={cx('calendar-content', {
-              isAnimating: translateAmount !== 0
+              isAnimating: translateAmount !== 0,
             })}
             style={{
               transform: `translateX(${translateAmount}px)`,
@@ -131,10 +115,10 @@ const Dialog = ({
           </div>
         </div>
         <div className="calendar-flippers">
-          <div className="flipper-button" onClick={decreaseCurrentMonth}>
+          <div className="flipper-button" onClick={decreaseCurrentMonth} role="button" tabIndex="-1">
             <PrevIcon viewBox="0 0 24 24" />
           </div>
-          <div className="flipper-button" onClick={increaseCurrentMonth}>
+          <div className="flipper-button" onClick={increaseCurrentMonth} role="button" tabIndex="0">
             <NextIcon viewBox="0 0 24 24" />
           </div>
         </div>
@@ -143,17 +127,23 @@ const Dialog = ({
         <button type="button" className="submit-button" onClick={toggleDialog}>Done</button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 Dialog.propTypes = {
-  toggleDialog: PropTypes.func,
   isOpen: PropTypes.bool,
-}
+  focusDate: PropTypes.instanceOf(Date),
+  toggleDialog: PropTypes.func,
+  increaseFocusDate: PropTypes.func,
+  decreaseFocusDate: PropTypes.func,
+};
 
 Dialog.defaultProps = {
-  toggleDialog: () => {},
   isOpen: false,
-}
+  focusDate: null,
+  toggleDialog: () => {},
+  increaseFocusDate: () => {},
+  decreaseFocusDate: () => {},
+};
 
-export default Dialog
+export default Dialog;

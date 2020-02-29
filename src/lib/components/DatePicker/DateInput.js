@@ -1,8 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import CalendarIcon from '../../assets/svg/calendar.svg'
-import PrevIcon from '../../assets/svg/prev.svg'
-import NextIcon from '../../assets/svg/next.svg'
+import React from 'react';
+import PropTypes from 'prop-types';
+import CalendarIcon from '../../assets/svg/calendar.svg';
+import PrevIcon from '../../assets/svg/prev.svg';
+import NextIcon from '../../assets/svg/next.svg';
 
 const DateInput = ({
   toggleDialog,
@@ -28,20 +28,20 @@ const DateInput = ({
       </button>
     </div>
   </div>
-)
+);
 
 DateInput.propTypes = {
   toggleDialog: PropTypes.func,
   showIcon: PropTypes.bool,
   tabIndex: PropTypes.string,
   isFocus: PropTypes.bool,
-}
+};
 
 DateInput.defaultProps = {
   toggleDialog: () => {},
   showIcon: false,
   tabIndex: '',
   isFocus: false,
-}
+};
 
-export default DateInput
+export default DateInput;

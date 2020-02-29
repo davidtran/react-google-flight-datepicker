@@ -11,19 +11,11 @@ const Calendar = ({
   year,
   onSelectDate,
   onHoverDate,
-  fromDay,
-  toDay,
-  hoverDay,
-  isAnimating
+  fromDate,
+  toDate,
+  hoverDate,
+  isAnimating,
 }) => {
-  function onSelectDay(day) {
-    onSelectDate(`${year}-${month}-${day}`);
-  }
-
-  function onHoverDay(day) {
-    onHoverDate(`${year}-${month}-${day}`);
-  }
-
   function generateWeek() {
     const weeks = getWeeksInMonth(year, month, 'monday');
 
@@ -32,12 +24,14 @@ const Calendar = ({
         // eslint-disable-next-line react/no-array-index-key
         key={index}
         week={week}
+        month={month}
+        year={year}
         isFirst={index === 0}
-        onSelectDay={onSelectDay}
-        onHoverDay={onHoverDay}
-        fromDay={fromDay}
-        toDay={toDay}
-        hoverDay={hoverDay}
+        onSelectDate={onSelectDate}
+        onHoverDate={onHoverDate}
+        fromDate={fromDate}
+        toDate={toDate}
+        hoverDate={hoverDate}
       />
     ));
   }
@@ -71,9 +65,11 @@ Calendar.propTypes = {
   year: PropTypes.number,
   onSelectDate: PropTypes.func,
   onHoverDate: PropTypes.func,
-  fromDay: PropTypes.string,
-  toDay: PropTypes.string,
-  hoverDay: PropTypes.string
+  fromDate: PropTypes.string,
+  toDate: PropTypes.string,
+  hoverDate: PropTypes.string,
+  hidden: PropTypes.bool,
+  isAnimating: PropTypes.bool,
 };
 
 Calendar.defaultProps = {
@@ -82,9 +78,11 @@ Calendar.defaultProps = {
   year: null,
   onSelectDate: () => {},
   onHoverDate: () => {},
-  fromDay: null,
-  toDay: null,
-  hoverDay: null
+  fromDate: null,
+  toDate: null,
+  hoverDate: null,
+  hidden: false,
+  isAnimating: false,
 };
 
 export default Calendar;

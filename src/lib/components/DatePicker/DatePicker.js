@@ -5,7 +5,7 @@ import './styles.scss';
 import DateInputGroup from './DateInputGroup';
 import Dialog from './Dialog';
 
-const DatePicker = ({ startDate, endDate }) => {
+const DatePicker = ({ startDate }) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
   const [focusDate, setFocusDate] = useState(new Date());
@@ -20,8 +20,8 @@ const DatePicker = ({ startDate, endDate }) => {
 
   function handleDocumentClick(e) {
     if (
-      containerRef.current &&
-      containerRef.current.contains(e.target) === false
+      containerRef.current
+      && containerRef.current.contains(e.target) === false
     ) {
       setIsOpen(false);
     }
@@ -29,6 +29,7 @@ const DatePicker = ({ startDate, endDate }) => {
 
   useEffect(() => {
     document.addEventListener('click', handleDocumentClick);
+
     return () => document.removeEventListener('click', handleDocumentClick);
   }, []);
 
@@ -66,9 +67,10 @@ const DatePicker = ({ startDate, endDate }) => {
 
 DatePicker.propTypes = {
   startDate: PropTypes.instanceOf(Date),
-  endDate: PropTypes.instanceOf(Date)
 };
 
-DatePicker.defaultProps = {};
+DatePicker.defaultProps = {
+  startDate: null,
+};
 
 export default DatePicker;
