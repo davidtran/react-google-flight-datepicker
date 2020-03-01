@@ -2,8 +2,6 @@
 [![dependency status][deps-svg]][deps-url]
 [![dev dependency status][dev-deps-svg]][dev-deps-url]
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-
 [![Downloads][downloads-image]][downloads-url]
 
 A responsive and mobile friendly datepicker implemented by ReactJS.
