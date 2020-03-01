@@ -1,14 +1,10 @@
 {
-  "name": "react-rollup-boilerplate",
-  "version": "1.2.0",
-  "description": "Boilerplate for writing React Libraries bundled with Rollup.js to commonJs and ES6 Modules and React Styleguidist",
-  "author": "Kai Hotz",
+  "name": "react-google-flight-datepicker",
+  "version": "0.0.1",
+  "description": "An ReactJS implementation for Google Flight date-picker by JSLancer team",
+  "author": "David Tran, Leo Phan",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:KaiHotz/react-rollup-boilerplate.git"
-  },
-  "homepage": "https://github.com/KaiHotz/react-rollup-boilerplate",
+  "homepage": "https://github.com/JSLancerTeam/react-google-flight-datepicker",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
