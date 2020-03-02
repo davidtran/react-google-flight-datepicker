@@ -38,8 +38,8 @@ import { DateRangePicker } from 'react-google-flight-datepicker`;
 |onDateChange|Function|null|Event handler when user select a date from calendar|
 
 ### Author
-David Tran - david@jslancer.com
-Leo Phan - leophan@jslancer.com
+- David Tran - david@jslancer.com
+- Leo Phan - leophan@jslancer.com
 
 ### License
 MIT

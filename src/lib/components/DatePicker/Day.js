@@ -5,8 +5,8 @@ const Day = ({
   dateIndex, dateValue, selected, hovered, onSelectDate, onHoverDate, isEndDay,
 }) => (
   <div
-    className={`day 
-      ${selected ? 'selected' : ''} 
+    className={`day
+      ${selected ? 'selected' : ''}
       ${hovered ? 'hovered' : ''}
       ${isEndDay ? 'end' : ''}
     `}

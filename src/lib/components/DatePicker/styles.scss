@@ -216,7 +216,7 @@
   }
 }
 
-.calendar {
+.month-calendar {
   width: 308px;
   color: #3c4043;
   margin-right: 70px;
@@ -234,7 +234,7 @@
   }
 }
 
-.calendar-header {
+.month-name {
   text-align: center;
   font-size: 16px;
   margin-bottom: 10px;
@@ -532,13 +532,13 @@
     flex-direction: column;
   }
 
-  .calendar {
+  .month-calendar {
     width: 100%;
     display: flex;
     flex-direction: column;
 
     &.first {
-      .calendar-header {
+      .month-name {
         margin-top: 36px;
       }
 
@@ -556,7 +556,7 @@
     width: calc(100% / 7);
   }
 
-  .calendar-header {
+  .month-name {
     text-align: left;
     margin-left: 10px;
     margin-bottom: 0px;

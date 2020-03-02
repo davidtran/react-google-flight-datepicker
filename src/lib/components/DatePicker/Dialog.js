@@ -6,7 +6,7 @@ import PrevIcon from '../../assets/svg/prev.svg';
 import NextIcon from '../../assets/svg/next.svg';
 import BackIcon from '../../assets/svg/back.png';
 import DateInputGroup from './DateInputGroup';
-import Calendar from './Calendar';
+import MonthCalendar from './MonthCalendar';
 
 const Dialog = ({
   toggleDialog,
@@ -27,8 +27,6 @@ const Dialog = ({
       setHideAnimation(true);
     }
   }, [isOpen]);
-
-  const datePickerClassName = isOpen ? 'open' : hideAnimation ? 'hide' : '';
 
   function onSelectDate(date) {
     if (inputFocus) {
@@ -52,14 +50,30 @@ const Dialog = ({
     setHoverDate(date);
   }
 
-  function renderCalendars() {
+  function increaseCurrentMonth() {
+    setTranslateAmount(-378);
+    setTimeout(() => {
+      increaseFocusDate();
+      setTranslateAmount(0);
+    }, 200);
+  }
+
+  function decreaseCurrentMonth() {
+    setTranslateAmount(378);
+    setTimeout(() => {
+      decreaseFocusDate();
+      setTranslateAmount(0);
+    }, 200);
+  }
+
+  function renderMonthCalendars() {
     const prevMonth = dayjs(focusDate).subtract(1, 'month').toDate();
     const nextMonth = dayjs(focusDate).add(1, 'month').toDate();
     const futureMonth = dayjs(focusDate).add(2, 'month').toDate();
-    const dateArray = [prevMonth, focusDate, nextMonth, futureMonth];
+    const monthArray = [prevMonth, focusDate, nextMonth, futureMonth];
 
-    return dateArray.map((date, dateIndex) => (
-      <Calendar
+    return monthArray.map((date, dateIndex) => (
+      <MonthCalendar
         // eslint-disable-next-line react/no-array-index-key
         key={dateIndex}
         isFirst={date === focusDate}
@@ -76,21 +90,7 @@ const Dialog = ({
     ));
   }
 
-  function increaseCurrentMonth() {
-    setTranslateAmount(-378);
-    setTimeout(() => {
-      increaseFocusDate();
-      setTranslateAmount(0);
-    }, 200);
-  }
-
-  function decreaseCurrentMonth() {
-    setTranslateAmount(378);
-    setTimeout(() => {
-      decreaseFocusDate();
-      setTranslateAmount(0);
-    }, 200);
-  }
+  const datePickerClassName = isOpen ? 'open' : hideAnimation ? 'hide' : '';
 
   return (
     <div className={`dialog-date-picker ${datePickerClassName}`}>
@@ -111,7 +111,7 @@ const Dialog = ({
               transform: `translateX(${translateAmount}px)`,
             }}
           >
-            {renderCalendars()}
+            {renderMonthCalendars()}
           </div>
         </div>
         <div className="calendar-flippers">
