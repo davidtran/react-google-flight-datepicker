@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import dayjs from 'dayjs';
 import './styles.scss';
 import DateInputGroup from './DateInputGroup';
 import Dialog from './Dialog';
@@ -8,7 +7,11 @@ import Dialog from './Dialog';
 const DatePicker = ({ startDate }) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
+  const [inputFocus, setInputFocus] = useState('to');
   const [focusDate, setFocusDate] = useState(new Date());
+  const [fromDate, setFromDate] = useState(null);
+  const [toDate, setToDate] = useState(null);
+  const [hoverDate, setHoverDate] = useState(true);
 
   useEffect(() => {
     const date = startDate
@@ -38,28 +41,97 @@ const DatePicker = ({ startDate }) => {
   }
 
   function increaseFocusDate() {
-    const nextDate = dayjs(focusDate)
-      .add(1, 'month')
-      .toDate();
+    const nextDate = new Date(focusDate.setMonth(focusDate.getMonth() + 1));
     setFocusDate(nextDate);
   }
 
   function decreaseFocusDate() {
-    const nextFocusDate = dayjs(focusDate)
-      .subtract(1, 'month')
-      .toDate();
+    const nextFocusDate = new Date(focusDate.setMonth(focusDate.getMonth() - 1));
     setFocusDate(nextFocusDate);
   }
 
+  function handleClickDateInput(inputFocus) {
+    if (!isOpen) {
+      setIsOpen(true);
+    }
+
+    if (inputFocus === 'to' && !fromDate) {
+      return;
+    }
+
+    setInputFocus(inputFocus);
+  }
+
+  function onSelectDate(date) {
+    if (inputFocus) {
+      if (inputFocus === 'from' || (fromDate && date < fromDate)) {
+        setFromDate(date);
+        if (toDate && date > toDate) {
+          setToDate(null);
+        }
+        setInputFocus('to');
+      } else {
+        setToDate(date);
+        setInputFocus(null);
+      }
+    } else {
+      setFromDate(date);
+      setInputFocus('to');
+      if (toDate && date > toDate) {
+        setToDate(null);
+      }
+    }
+  }
+
+  function onHoverDate(date) {
+    setHoverDate(date);
+  }
+
+  function handleReset() {
+    setInputFocus('from');
+    setFromDate(null);
+    setToDate(null);
+    setHoverDate(null);
+  }
+
+  function handleChangeDate(value, input) {
+    if (input === 'from') {
+      setInputFocus('from');
+      setFromDate(value);
+      if (value > toDate) {
+        setToDate(null);
+      }
+    } else {
+      setInputFocus('to');
+      setToDate(value);
+    }
+  }
+
   return (
-    <div className="date-picker">
-      <DateInputGroup toggleDialog={toggleDialog} showCalendarIcon />
+    <div className="date-picker" ref={containerRef}>
+      <DateInputGroup
+        handleClickDateInput={handleClickDateInput}
+        showCalendarIcon
+        fromDate={fromDate}
+        toDate={toDate}
+        handleChangeDate={handleChangeDate}
+      />
       <Dialog
         isOpen={isOpen}
         toggleDialog={toggleDialog}
         focusDate={focusDate}
         increaseFocusDate={increaseFocusDate}
         decreaseFocusDate={decreaseFocusDate}
+        handleClickDateInput={handleClickDateInput}
+        inputFocus={inputFocus}
+        setInputFocus={setInputFocus}
+        onSelectDate={onSelectDate}
+        onHoverDate={onHoverDate}
+        fromDate={fromDate}
+        toDate={toDate}
+        hoverDate={hoverDate}
+        handleReset={handleReset}
+        handleChangeDate={handleChangeDate}
       />
     </div>
   );

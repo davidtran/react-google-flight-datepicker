@@ -51,19 +51,6 @@
   flex-grow: 1.21;
   width: 50%;
   box-sizing: border-box;
-
-  &:focus::after {
-    content: '';
-    margin: -1px;
-    border: 2px solid #1a73e8;
-    border-radius: 4px;
-    position: absolute;
-    pointer-events: none;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
 }
 
 .selected-date {
@@ -78,6 +65,10 @@
   white-space: nowrap;
 }
 
+.date-placeholder {
+  color: rgba(0,0,0,.56);
+}
+
 .change-date-group {
   width: 48px;
   display: flex;
@@ -89,6 +80,14 @@
     cursor: pointer;
     padding: 8px 0;
     flex-grow: 1;
+
+    &:disabled {
+      cursor: default;
+      
+      .icon-arrow {
+        fill: #93989e;
+      }
+    }
   }
 }
 
@@ -174,11 +173,21 @@
 
 
 .date.is-focus {
-  border: 2px solid #1a73e8;
-  height: 48px;
-  border-radius: 4px;
   box-sizing: border-box;
   background-color: #F4F8FF;
+
+  &::after {
+    content: '';
+    margin: -1px;
+    border: 2px solid #1a73e8;
+    border-radius: 4px;
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
 }
 
 .back-button {
@@ -208,12 +217,14 @@
 .calendar-wrapper {
   margin: 12px 38px 8px;
   overflow: hidden;
+  min-height: 353px;
 }
 
 .calendar-content {
   display: flex;
   padding: 0;
   width: 692px;
+  position: relative;
 
   &.isAnimating {
     transition: transform 0.2s ease;
@@ -286,6 +297,26 @@
   vertical-align: top;
   position: relative;
 
+  .background-day {
+    bottom: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    width: 10px;
+    z-index: 1;
+
+    &.first-day {
+      background: linear-gradient(to right,#fff,#DAEDFD);
+      left: -10px;
+    } 
+
+    &.last-day {
+      background: linear-gradient(to left,#fff,#DAEDFD);
+      right: -10px;
+    }
+  }
+
   &::after {
     border-radius: 100%;
     bottom: 0;
@@ -328,6 +359,10 @@
   }
 
   &.hovered {
+
+    .background-day {
+      opacity: 1;
+    }
 
     &.end {
       background: linear-gradient(90deg, #D9EDFD 50%, #fff 50%);
@@ -385,11 +420,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: -1;
+  pointer-events: none;
 }
 
 .flipper-button {
-  z-index: 150;
   background-color: #fff;
   border-radius: 100%;
   box-shadow: 0 0 4px rgba(0,0,0,.12), 0 4px 4px rgba(0,0,0,.24);
@@ -401,6 +435,7 @@
   align-items: center;
   margin: 0 -20px;
   outline: none;
+  pointer-events: all;
 
   svg {
     width: 24px;

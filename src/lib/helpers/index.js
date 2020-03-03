@@ -1,4 +1,4 @@
-export function getWeeksInMonth(year, month, startDay) {
+export function getMonthInfo(year, month, startDay) {
   const weeks = [];
   const firstDate = new Date(year, month - 1, 1);
   const lastDate = new Date(year, month, 0);
@@ -23,8 +23,9 @@ export function getWeeksInMonth(year, month, startDay) {
     }
   }
 
-  return weeks;
+  return { totalWeek: weeks, totalDay: numDays };
 }
 
 export const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
+export const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];

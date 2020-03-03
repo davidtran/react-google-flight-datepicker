@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Week from './Week';
-import { getWeeksInMonth, months } from '../../helpers';
+import { getMonthInfo, months } from '../../helpers';
 
 const MonthCalendar = ({
   hidden,
@@ -17,9 +17,9 @@ const MonthCalendar = ({
   isAnimating,
 }) => {
   function generateWeek() {
-    const weeks = getWeeksInMonth(year, month, 'monday');
+    const { totalWeek, totalDay } = getMonthInfo(year, month, 'monday');
 
-    return weeks.map((week, index) => (
+    return totalWeek.map((week, index) => (
       <Week
         // eslint-disable-next-line react/no-array-index-key
         key={index}
@@ -32,6 +32,7 @@ const MonthCalendar = ({
         fromDate={fromDate}
         toDate={toDate}
         hoverDate={hoverDate}
+        totalDay={totalDay}
       />
     ));
   }

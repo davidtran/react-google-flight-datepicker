@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import dayjs from 'dayjs';
 import cx from 'classnames';
 import PrevIcon from '../../assets/svg/prev.svg';
 import NextIcon from '../../assets/svg/next.svg';
@@ -12,14 +11,19 @@ const Dialog = ({
   toggleDialog,
   isOpen,
   focusDate,
+  fromDate,
+  toDate,
+  hoverDate,
+  onSelectDate,
+  onHoverDate,
+  handleReset,
   increaseFocusDate,
   decreaseFocusDate,
+  handleClickDateInput,
+  inputFocus,
+  handleChangeDate,
 }) => {
   const [hideAnimation, setHideAnimation] = useState(false);
-  const [fromDate, setFromDate] = useState(null);
-  const [toDate, setToDate] = useState(null);
-  const [hoverDate, setHoverDate] = useState(null);
-  const [inputFocus, setInputFocus] = useState('from');
   const [translateAmount, setTranslateAmount] = useState(0);
 
   useEffect(() => {
@@ -27,28 +31,6 @@ const Dialog = ({
       setHideAnimation(true);
     }
   }, [isOpen]);
-
-  function onSelectDate(date) {
-    if (inputFocus) {
-      if (inputFocus === 'from' || (fromDate && new Date(date) < new Date(fromDate))) {
-        setFromDate(date);
-        setInputFocus('to');
-      } else {
-        setToDate(date);
-        setInputFocus(null);
-      }
-    } else {
-      setFromDate(date);
-      setInputFocus('to');
-      if (toDate && new Date(date) > new Date(toDate)) {
-        setToDate(null);
-      }
-    }
-  }
-
-  function onHoverDate(date) {
-    setHoverDate(date);
-  }
 
   function increaseCurrentMonth() {
     setTranslateAmount(-378);
@@ -67,9 +49,10 @@ const Dialog = ({
   }
 
   function renderMonthCalendars() {
-    const prevMonth = dayjs(focusDate).subtract(1, 'month').toDate();
-    const nextMonth = dayjs(focusDate).add(1, 'month').toDate();
-    const futureMonth = dayjs(focusDate).add(2, 'month').toDate();
+    const prevMonth = new Date(new Date(focusDate).setMonth(new Date(focusDate).getMonth() - 1));
+    const nextMonth = new Date(new Date(focusDate).setMonth(new Date(focusDate).getMonth() + 1));
+    const futureMonth = new Date(new Date(focusDate).setMonth(new Date(focusDate).getMonth() + 2));
+
     const monthArray = [prevMonth, focusDate, nextMonth, futureMonth];
 
     return monthArray.map((date, dateIndex) => (
@@ -90,16 +73,31 @@ const Dialog = ({
     ));
   }
 
-  const datePickerClassName = isOpen ? 'open' : hideAnimation ? 'hide' : '';
-
   return (
-    <div className={`dialog-date-picker ${datePickerClassName}`}>
+    <div
+      className={cx('dialog-date-picker', {
+        open: isOpen,
+        hide: !isOpen && hideAnimation,
+      })}
+    >
       <div className="dialog-header">
         <button type="button" className="btn-outline back-button" onClick={toggleDialog}>
           <img src={BackIcon} alt="back-icon" className="back-icon" />
         </button>
-        <DateInputGroup inputFocus={inputFocus} />
-        <button type="button" className="btn-outline reset-button">Reset</button>
+        <DateInputGroup
+          inputFocus={inputFocus}
+          handleClickDateInput={handleClickDateInput}
+          fromDate={fromDate}
+          toDate={toDate}
+          handleChangeDate={handleChangeDate}
+        />
+        <button
+          type="button"
+          className="btn-outline reset-button"
+          onClick={handleReset}
+        >
+          Reset
+        </button>
       </div>
       <div className="dialog-content">
         <div className="calendar-wrapper">
@@ -113,13 +111,13 @@ const Dialog = ({
           >
             {renderMonthCalendars()}
           </div>
-        </div>
-        <div className="calendar-flippers">
-          <div className="flipper-button" onClick={decreaseCurrentMonth} role="button" tabIndex="-1">
-            <PrevIcon viewBox="0 0 24 24" />
-          </div>
-          <div className="flipper-button" onClick={increaseCurrentMonth} role="button" tabIndex="0">
-            <NextIcon viewBox="0 0 24 24" />
+          <div className="calendar-flippers">
+            <div className="flipper-button" onClick={decreaseCurrentMonth} role="button" tabIndex="-1">
+              <PrevIcon viewBox="0 0 24 24" />
+            </div>
+            <div className="flipper-button" onClick={increaseCurrentMonth} role="button" tabIndex="0">
+              <NextIcon viewBox="0 0 24 24" />
+            </div>
           </div>
         </div>
       </div>
@@ -132,18 +130,36 @@ const Dialog = ({
 
 Dialog.propTypes = {
   isOpen: PropTypes.bool,
+  inputFocus: PropTypes.string,
   focusDate: PropTypes.instanceOf(Date),
+  fromDate: PropTypes.instanceOf(Date),
+  toDate: PropTypes.instanceOf(Date),
+  hoverDate: PropTypes.instanceOf(Date),
   toggleDialog: PropTypes.func,
   increaseFocusDate: PropTypes.func,
   decreaseFocusDate: PropTypes.func,
+  handleClickDateInput: PropTypes.func,
+  onSelectDate: PropTypes.func,
+  onHoverDate: PropTypes.func,
+  handleReset: PropTypes.func,
+  handleChangeDate: PropTypes.func,
 };
 
 Dialog.defaultProps = {
   isOpen: false,
+  inputFocus: null,
   focusDate: null,
+  fromDate: null,
+  toDate: null,
+  hoverDate: null,
   toggleDialog: () => {},
   increaseFocusDate: () => {},
   decreaseFocusDate: () => {},
+  handleClickDateInput: () => {},
+  onSelectDate: () => {},
+  onHoverDate: () => {},
+  handleReset: () => {},
+  handleChangeDate: () => {},
 };
 
 export default Dialog;

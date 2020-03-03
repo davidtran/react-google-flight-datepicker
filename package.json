@@ -29,8 +29,7 @@
     "deploy": "gh-pages -d styleguide"
   },
   "dependencies": {
-    "classnames": "^2.2.6",
-    "dayjs": "^1.8.21"
+    "classnames": "^2.2.6"
   },
   "peerDependencies": {
     "react": "^16.12.0",
