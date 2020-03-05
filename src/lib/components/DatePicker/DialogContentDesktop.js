@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import { ReactComponent as PrevIcon } from '../../assets/svg/prev.svg';
-import { ReactComponent as NextIcon} from '../../assets/svg/next.svg';
+import { ReactComponent as NextIcon } from '../../assets/svg/next.svg';
 
 import MonthCalendar from './MonthCalendar';
 
@@ -77,7 +77,7 @@ const DialogContentDesktop = ({
         key={dateIndex}
         hidden={dateIndex === 0 && (translateAmount <= 0)}
         isAnimating={dateIndex === 0 && translateAmount > 0}
-        month={date.getMonth() + 1}
+        month={date.getMonth()}
         year={date.getFullYear()}
         onSelectDate={onSelectDate}
         onHoverDate={onHoverDate}

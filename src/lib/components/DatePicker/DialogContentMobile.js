@@ -30,7 +30,7 @@ const DialogContentMobile = ({
   // eslint-disable-next-line react/prop-types
   function rowRenderer({ key, index, style }) {
     const year = 1900 + Math.floor(index / 12);
-    const month = index - (Math.floor(index / 12) * 12) + 1;
+    const month = index - (Math.floor(index / 12) * 12);
 
     return (
       <div key={key} style={style}>
@@ -49,7 +49,7 @@ const DialogContentMobile = ({
 
   function getRowHeight({ index }) {
     const year = 1900 + Math.floor(index / 12);
-    const month = index - (Math.floor(index / 12) * 12) + 1;
+    const month = index - (Math.floor(index / 12) * 12);
     const { totalWeek } = getMonthInfo(year, month, 'monday');
 
     return totalWeek.length * 48 + 34;

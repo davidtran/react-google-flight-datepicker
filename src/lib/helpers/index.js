@@ -1,7 +1,7 @@
 export function getMonthInfo(year, month, startDay) {
   const weeks = [];
-  const firstDate = new Date(year, month - 1, 1);
-  const lastDate = new Date(year, month, 0);
+  const firstDate = new Date(year, month, 1);
+  const lastDate = new Date(year, month + 1, 0);
   const numDays = lastDate.getDate();
 
   let start = 1;

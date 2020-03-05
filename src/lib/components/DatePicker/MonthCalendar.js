@@ -44,7 +44,7 @@ const MonthCalendar = ({
       })}
     >
       <div className="month-name">
-        {months[month - 1]}
+        {months[month]}
         {' '}
 -
         {' '}
