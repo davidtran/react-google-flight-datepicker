@@ -74,7 +74,6 @@ const DialogContentDesktop = ({
       <MonthCalendar
         // eslint-disable-next-line react/no-array-index-key
         key={dateIndex}
-        isFirst={new Date(date).getTime() === focusDate.getTime()}
         hidden={dateIndex === 0 && (translateAmount <= 0)}
         isAnimating={dateIndex === 0 && translateAmount > 0}
         month={date.getMonth() + 1}

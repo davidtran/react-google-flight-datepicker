@@ -38,4 +38,9 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
+  devServer: {
+    compress: true,
+    disableHostCheck: true,   // That solved it
+
+  },
 };

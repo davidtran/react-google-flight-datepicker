@@ -571,6 +571,7 @@
 
   .dialog-content {
     border: none;
+    overflow: hidden;
     height: 100%;
   }
 
@@ -586,21 +587,15 @@
     flex-direction: column;
   }
 
+  .weekdays.mobile {
+    display: flex;
+    background-color: #f3f3f3;
+  }
+
   .month-calendar {
     width: 100%;
     display: flex;
     flex-direction: column;
-
-    &.first {
-      .weekdays {
-        display: flex;
-        order: -1;
-        position: sticky;
-        top: -1px;
-        background-color: #f3f3f3;
-        z-index: 20;
-      }
-    }
   }
 
   .day {

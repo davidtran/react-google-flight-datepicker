@@ -6,7 +6,6 @@ import MonthCalendar from './MonthCalendar';
 import { getMonthInfo } from '../../helpers';
 
 const DialogContentMobile = ({
-  isOpen,
   fromDate,
   toDate,
   hoverDate,
@@ -17,16 +16,16 @@ const DialogContentMobile = ({
   const [sizeList, setSizeList] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
-    if (isOpen) {
-      if (calendarContentRef.current) {
+    if (calendarContentRef.current) {
+      setTimeout(() => {
         const calendarRect = calendarContentRef.current.getBoundingClientRect();
         setSizeList({
           width: calendarRect.width,
           height: calendarRect.height,
         });
-      }
+      }, 200);
     }
-  }, [isOpen]);
+  }, []);
 
   // eslint-disable-next-line react/prop-types
   function rowRenderer({ key, index, style }) {
@@ -72,6 +71,15 @@ const DialogContentMobile = ({
   return (
     <div className="calendar-wrapper">
       <div className="calendar-content" ref={calendarContentRef}>
+        <div className="weekdays mobile">
+          <div className="weekday">M</div>
+          <div className="weekday">T</div>
+          <div className="weekday">W</div>
+          <div className="weekday">T</div>
+          <div className="weekday">F</div>
+          <div className="weekday">S</div>
+          <div className="weekday">S</div>
+        </div>
         {renderMonthCalendars()}
       </div>
     </div>
@@ -80,7 +88,6 @@ const DialogContentMobile = ({
 };
 
 DialogContentMobile.propTypes = {
-  isOpen: PropTypes.bool,
   fromDate: PropTypes.instanceOf(Date),
   toDate: PropTypes.instanceOf(Date),
   hoverDate: PropTypes.instanceOf(Date),
@@ -89,7 +96,6 @@ DialogContentMobile.propTypes = {
 };
 
 DialogContentMobile.defaultProps = {
-  isOpen: false,
   fromDate: null,
   toDate: null,
   hoverDate: null,

@@ -10,7 +10,7 @@ const Week = ({
   function generateDay() {
     return [...Array(week.days).keys()].map(index => {
       const dateIndex = index + week.start;
-      const dateValue = new Date(`${year}-${month}-${dateIndex}`).getTime();
+      const dateValue = new Date(year, month, dateIndex).getTime();
       const selected = dateValue === fromDate || dateValue === toDate;
       let hovered = false;
       if (fromDate && fromDate !== toDate) {

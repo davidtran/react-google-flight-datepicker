@@ -6,7 +6,6 @@ import { getMonthInfo, months } from '../../helpers';
 
 const MonthCalendar = ({
   hidden,
-  isFirst,
   month,
   year,
   onSelectDate,
@@ -40,7 +39,6 @@ const MonthCalendar = ({
   return (
     <div
       className={cx('month-calendar', {
-        first: isFirst,
         isAnimating,
         hidden,
       })}
@@ -67,7 +65,6 @@ const MonthCalendar = ({
 };
 
 MonthCalendar.propTypes = {
-  isFirst: PropTypes.bool,
   month: PropTypes.number,
   year: PropTypes.number,
   onSelectDate: PropTypes.func,
@@ -80,7 +77,6 @@ MonthCalendar.propTypes = {
 };
 
 MonthCalendar.defaultProps = {
-  isFirst: false,
   month: null,
   year: null,
   onSelectDate: () => {},

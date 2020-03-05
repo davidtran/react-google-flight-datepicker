@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
@@ -22,6 +22,23 @@ const Dialog = ({
   handleChangeDate,
 }) => {
   const [hideAnimation, setHideAnimation] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  function handleResize() {
+    if (window.innerWidth <= 500) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  }
+
+  useLayoutEffect(() => {
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     if (isOpen && !hideAnimation) {
@@ -56,22 +73,26 @@ const Dialog = ({
         </button>
       </div>
       <div className="dialog-content">
-        <DialogContentMobile
-          isOpen={isOpen}
-          fromDate={fromDate}
-          toDate={toDate}
-          hoverDate={hoverDate}
-          onSelectDate={onSelectDate}
-          onHoverDate={onHoverDate}
-        />
-        {/* <DialogContentDesktop
-          startDate={startDate}
-          fromDate={fromDate}
-          toDate={toDate}
-          hoverDate={hoverDate}
-          onSelectDate={onSelectDate}
-          onHoverDate={onHoverDate}
-        /> */}
+        {isMobile
+          ? (
+            <DialogContentMobile
+              fromDate={fromDate}
+              toDate={toDate}
+              hoverDate={hoverDate}
+              onSelectDate={onSelectDate}
+              onHoverDate={onHoverDate}
+            />
+          )
+          : (
+            <DialogContentDesktop
+              startDate={startDate}
+              fromDate={fromDate}
+              toDate={toDate}
+              hoverDate={hoverDate}
+              onSelectDate={onSelectDate}
+              onHoverDate={onHoverDate}
+            />
+          )}
       </div>
       <div className="dialog-footer">
         <button type="button" className="submit-button" onClick={toggleDialog}>Done</button>
