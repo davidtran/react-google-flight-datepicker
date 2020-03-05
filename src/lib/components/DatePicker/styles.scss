@@ -570,7 +570,6 @@
   }
 
   .dialog-content {
-    overflow: hidden;
     border: none;
     height: 100%;
   }
@@ -578,14 +577,13 @@
   .calendar-wrapper {
     margin: 0;
     height: 100%;
-    overflow-y: auto;
   }
 
   .calendar-content {
     padding: 0;
-    flex-direction: column;
-    height: max-content;
     width: 100%;
+    height: 100%;
+    flex-direction: column;
   }
 
   .month-calendar {
@@ -621,7 +619,7 @@
     text-align: left;
     margin-left: 10px;
     margin-bottom: 0px;
-    margin-top: 15px;
+    margin-top: 25px;
     font-weight: bold;
   }
 

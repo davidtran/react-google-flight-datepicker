@@ -45,7 +45,13 @@ const MonthCalendar = ({
         hidden,
       })}
     >
-      <div className="month-name">{months[month - 1]}</div>
+      <div className="month-name">
+        {months[month - 1]}
+        {' '}
+-
+        {' '}
+        {year}
+      </div>
       <div className="weekdays">
         <div className="weekday">M</div>
         <div className="weekday">T</div>
