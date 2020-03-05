@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
-import CalendarIcon from '../../assets/svg/calendar.svg';
-import PrevIcon from '../../assets/svg/prev.svg';
-import NextIcon from '../../assets/svg/next.svg';
+import { ReactComponent as CalendarIcon } from '../../assets/svg/calendar.svg';
+import { ReactComponent as PrevIcon } from '../../assets/svg/prev.svg';
+import { ReactComponent as NextIcon } from '../../assets/svg/next.svg';
+
 import { days, months } from '../../helpers';
 
 const DateInput = ({
