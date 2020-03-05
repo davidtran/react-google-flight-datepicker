@@ -13,11 +13,11 @@ const Week = ({
       const dateValue = new Date(`${year}-${month}-${dateIndex}`).getTime();
       const selected = dateValue === fromDate || dateValue === toDate;
       let hovered = false;
-      if (fromDate && fromDate !== hoverDate && fromDate !== toDate) {
+      if (fromDate && fromDate !== toDate) {
         if (toDate && (fromDate <= dateValue && toDate >= dateValue)) {
           hovered = true;
         }
-        if (!toDate && (fromDate <= dateValue && hoverDate >= dateValue)) {
+        if (!toDate && (fromDate <= dateValue && hoverDate >= dateValue) && fromDate < hoverDate) {
           hovered = true;
         }
       }

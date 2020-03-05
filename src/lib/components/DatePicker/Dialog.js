@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import PrevIcon from '../../assets/svg/prev.svg';
@@ -10,27 +10,74 @@ import MonthCalendar from './MonthCalendar';
 const Dialog = ({
   toggleDialog,
   isOpen,
-  focusDate,
+  startDate,
   fromDate,
   toDate,
   hoverDate,
   onSelectDate,
   onHoverDate,
   handleReset,
-  increaseFocusDate,
-  decreaseFocusDate,
   handleClickDateInput,
   inputFocus,
   handleChangeDate,
 }) => {
   const [hideAnimation, setHideAnimation] = useState(false);
   const [translateAmount, setTranslateAmount] = useState(0);
+  const [monthArray, setMonthArray] = useState([]);
+  const [focusDate, setFocusDate] = useState(new Date());
+
+  function getArrayMonth(date) {
+    const prevMonth = new Date(new Date(date).setMonth(new Date(date).getMonth() - 1));
+    const nextMonth = new Date(new Date(date).setMonth(new Date(date).getMonth() + 1));
+    const futureMonth = new Date(new Date(date).setMonth(new Date(date).getMonth() + 2));
+
+    return [prevMonth, focusDate, nextMonth, futureMonth];
+  }
+
+  function generateMonthForMobile(year) {
+    const arrayMonth = [];
+    for (let index = 0; index < 12; index += 1) {
+      const date = new Date(year, index, 1);
+      arrayMonth.push(date);
+    }
+
+    return arrayMonth;
+  }
+
+  useEffect(() => {
+    const date = startDate
+      ? new Date(startDate.getFullYear(), startDate.getMonth(), 1)
+      : new Date();
+    date.setDate(1);
+    date.setHours(0);
+    date.setMinutes(0);
+    date.setSeconds(0);
+    date.setMilliseconds(0);
+    setFocusDate(date);
+  }, [startDate]);
+
+  useEffect(() => {
+    const arrayMonth = getArrayMonth(focusDate);
+    // const arrayMonth = generateMonthForMobile(2020);
+
+    setMonthArray(arrayMonth);
+  }, [focusDate]);
 
   useEffect(() => {
     if (isOpen && !hideAnimation) {
       setHideAnimation(true);
     }
   }, [isOpen]);
+
+  function increaseFocusDate() {
+    const nextDate = new Date(focusDate.setMonth(focusDate.getMonth() + 1));
+    setFocusDate(nextDate);
+  }
+
+  function decreaseFocusDate() {
+    const nextFocusDate = new Date(focusDate.setMonth(focusDate.getMonth() - 1));
+    setFocusDate(nextFocusDate);
+  }
 
   function increaseCurrentMonth() {
     setTranslateAmount(-378);
@@ -49,17 +96,11 @@ const Dialog = ({
   }
 
   function renderMonthCalendars() {
-    const prevMonth = new Date(new Date(focusDate).setMonth(new Date(focusDate).getMonth() - 1));
-    const nextMonth = new Date(new Date(focusDate).setMonth(new Date(focusDate).getMonth() + 1));
-    const futureMonth = new Date(new Date(focusDate).setMonth(new Date(focusDate).getMonth() + 2));
-
-    const monthArray = [prevMonth, focusDate, nextMonth, futureMonth];
-
     return monthArray.map((date, dateIndex) => (
       <MonthCalendar
         // eslint-disable-next-line react/no-array-index-key
         key={dateIndex}
-        isFirst={date === focusDate}
+        isFirst={new Date(date).getTime() === focusDate.getTime()}
         hidden={dateIndex === 0 && (translateAmount <= 0)}
         isAnimating={dateIndex === 0 && translateAmount > 0}
         month={date.getMonth() + 1}
@@ -123,6 +164,13 @@ const Dialog = ({
       </div>
       <div className="dialog-footer">
         <button type="button" className="submit-button" onClick={toggleDialog}>Done</button>
+        <button
+          type="button"
+          className="btn-outline reset-button mobile"
+          onClick={handleReset}
+        >
+          Reset
+        </button>
       </div>
     </div>
   );
@@ -131,13 +179,11 @@ const Dialog = ({
 Dialog.propTypes = {
   isOpen: PropTypes.bool,
   inputFocus: PropTypes.string,
-  focusDate: PropTypes.instanceOf(Date),
+  startDate: PropTypes.instanceOf(Date),
   fromDate: PropTypes.instanceOf(Date),
   toDate: PropTypes.instanceOf(Date),
   hoverDate: PropTypes.instanceOf(Date),
   toggleDialog: PropTypes.func,
-  increaseFocusDate: PropTypes.func,
-  decreaseFocusDate: PropTypes.func,
   handleClickDateInput: PropTypes.func,
   onSelectDate: PropTypes.func,
   onHoverDate: PropTypes.func,
@@ -148,13 +194,11 @@ Dialog.propTypes = {
 Dialog.defaultProps = {
   isOpen: false,
   inputFocus: null,
-  focusDate: null,
+  startDate: null,
   fromDate: null,
   toDate: null,
   hoverDate: null,
   toggleDialog: () => {},
-  increaseFocusDate: () => {},
-  decreaseFocusDate: () => {},
   handleClickDateInput: () => {},
   onSelectDate: () => {},
   onHoverDate: () => {},

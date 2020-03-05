@@ -187,6 +187,7 @@
     bottom: 0;
     left: 0;
     right: 0;
+    z-index: 5;
   }
 }
 
@@ -211,6 +212,10 @@
 
   &:hover {
     background-color: #fafafa;
+  }
+
+  &.mobile {
+    display: none;
   }
 }
 
@@ -360,17 +365,15 @@
 
   &.hovered {
 
+    background-color: #D9EDFD;
+    border-radius: unset;
+
     .background-day {
       opacity: 1;
     }
 
     &.end {
       background: linear-gradient(90deg, #D9EDFD 50%, #fff 50%);
-    }
-
-    &::after {
-      background-color: #D9EDFD;
-      border-radius: unset;
     }
 
     &:hover {
@@ -501,7 +504,18 @@
     }
   }
 
-  .change-date-group, .divider, .reset-button, .calendar-flippers, .weekdays {
+  .reset-button {
+    display: none;
+
+    &.mobile {
+      display: block;
+      color: rgba(0,0,0,.87);
+      min-width: 88px;
+      font-weight: 500;
+    }
+  }
+
+  .change-date-group, .divider, .calendar-flippers, .weekdays {
     display: none;
   }
 
@@ -557,18 +571,20 @@
 
   .dialog-content {
     overflow: hidden;
-    overflow-y: auto;
     border: none;
+    height: 100%;
   }
 
   .calendar-wrapper {
     margin: 0;
-    flex-grow: 1;
+    height: 100%;
+    overflow-y: auto;
   }
 
   .calendar-content {
     padding: 0;
     flex-direction: column;
+    height: max-content;
     width: 100%;
   }
 
@@ -578,14 +594,11 @@
     flex-direction: column;
 
     &.first {
-      .month-name {
-        margin-top: 40px;
-      }
-
       .weekdays {
         display: flex;
         order: -1;
-        position: fixed;
+        position: sticky;
+        top: -1px;
         background-color: #f3f3f3;
         z-index: 20;
       }
@@ -594,6 +607,14 @@
 
   .day {
     width: (100% / 7);
+
+    &.selected:hover, &.hovered:hover {
+      color: #fff !important;
+
+      &::after {
+        background-color: #4285f4 !important;
+      }
+    }
   }
 
   .month-name {

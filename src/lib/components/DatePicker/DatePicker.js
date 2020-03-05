@@ -8,18 +8,9 @@ const DatePicker = ({ startDate }) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
   const [inputFocus, setInputFocus] = useState('to');
-  const [focusDate, setFocusDate] = useState(new Date());
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
   const [hoverDate, setHoverDate] = useState(true);
-
-  useEffect(() => {
-    const date = startDate
-      ? new Date(startDate.getFullYear(), startDate.getMonth(), 1)
-      : new Date();
-    date.setDate(1);
-    setFocusDate(date);
-  }, [startDate]);
 
   function handleDocumentClick(e) {
     if (
@@ -38,16 +29,6 @@ const DatePicker = ({ startDate }) => {
 
   function toggleDialog() {
     setIsOpen(!isOpen);
-  }
-
-  function increaseFocusDate() {
-    const nextDate = new Date(focusDate.setMonth(focusDate.getMonth() + 1));
-    setFocusDate(nextDate);
-  }
-
-  function decreaseFocusDate() {
-    const nextFocusDate = new Date(focusDate.setMonth(focusDate.getMonth() - 1));
-    setFocusDate(nextFocusDate);
   }
 
   function handleClickDateInput(inputFocus) {
@@ -119,9 +100,7 @@ const DatePicker = ({ startDate }) => {
       <Dialog
         isOpen={isOpen}
         toggleDialog={toggleDialog}
-        focusDate={focusDate}
-        increaseFocusDate={increaseFocusDate}
-        decreaseFocusDate={decreaseFocusDate}
+        startDate={startDate}
         handleClickDateInput={handleClickDateInput}
         inputFocus={inputFocus}
         setInputFocus={setInputFocus}

@@ -50,13 +50,13 @@ const DateInputGroup = ({
       <div className="divider" />
       <DateInput
         handleClickDateInput={handleClickToInput}
-        className="end-date"
         tabIndex="0"
         isFocus={inputFocus === 'to'}
         value={toDate}
         fromDate={fromDate}
         placeholder="To date"
         handleChangeDate={handleChangeToDate}
+        endDate
       />
     </div>
   );
