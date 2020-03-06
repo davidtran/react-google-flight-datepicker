@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DateInput from './DateInput';
-import { ReactComponent as CalendarIcon } from '../../assets/svg/calendar.svg';
+import CalendarIcon from '../../assets/svg/calendar.svg';
 
 const DateInputGroup = ({
   showCalendarIcon, inputFocus, handleClickDateInput, fromDate, toDate, handleChangeDate,

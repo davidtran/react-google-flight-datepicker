@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
-import { ReactComponent as PrevIcon } from '../../assets/svg/prev.svg';
-import { ReactComponent as NextIcon } from '../../assets/svg/next.svg';
+import PrevIcon from '../../assets/svg/prev.svg';
+import NextIcon from '../../assets/svg/next.svg';
 
 import MonthCalendar from './MonthCalendar';
 
