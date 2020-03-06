@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+.date-picker-demo {
+  width: 400px;
+}
+
 .btn-outline {
   background-color: Transparent;
   background-repeat:no-repeat;
@@ -13,10 +17,16 @@
 
 .date-picker {
   position: relative;
+  cursor: pointer;
+
+  &.disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
 }
 
 .date-picker-input {
-  width: 400px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   border: 1px solid #dadce0;
@@ -29,6 +39,7 @@
   align-items: center;
   overflow: visible;
   padding: 0;
+  outline: none;
 }
 
 .divider {
@@ -167,6 +178,7 @@
 
   .date-picker-input {
     height: 48px;
+    width: 50%;
   }
 }
 
@@ -472,8 +484,11 @@
 
 /** RESPONSIVE MOBILE */
 @media screen and (max-width: 500px) {
-  .date-picker-input {
+  .date-picker-demo {
     width: 100%;
+  }
+
+  .date-picker-input {
     height: 40px;
     border: none;
     border-radius: 0;
@@ -566,6 +581,7 @@
 
     .date-picker-input {
       height: 40px;
+      width: 100%;
     }
   }
 

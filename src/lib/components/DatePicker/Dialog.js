@@ -20,6 +20,8 @@ const Dialog = ({
   handleClickDateInput,
   inputFocus,
   handleChangeDate,
+  startDatePlaceholder,
+  endDatePlaceholder,
 }) => {
   const [hideAnimation, setHideAnimation] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -63,6 +65,8 @@ const Dialog = ({
           fromDate={fromDate}
           toDate={toDate}
           handleChangeDate={handleChangeDate}
+          startDatePlaceholder={startDatePlaceholder}
+          endDatePlaceholder={endDatePlaceholder}
         />
         <button
           type="button"
@@ -121,6 +125,8 @@ Dialog.propTypes = {
   onHoverDate: PropTypes.func,
   handleReset: PropTypes.func,
   handleChangeDate: PropTypes.func,
+  startDatePlaceholder: PropTypes.string,
+  endDatePlaceholder: PropTypes.string,
 };
 
 Dialog.defaultProps = {
@@ -136,6 +142,8 @@ Dialog.defaultProps = {
   onHoverDate: () => {},
   handleReset: () => {},
   handleChangeDate: () => {},
+  startDatePlaceholder: null,
+  endDatePlaceholder: null,
 };
 
 export default Dialog;

@@ -4,5 +4,11 @@ DatePicker examples:
 ```js
 import { DatePicker } from 'react-google-flight-datepicker';
 
-<DatePicker text="date picker"/>
+<div className="date-picker-demo">
+  <DatePicker 
+    startDatePlaceholder="My from date"
+    // onChange={(startDate, endDate) => console.log(startDate, endDate)}
+    onFocus={(inputFocus) => console.log(inputFocus)}
+  />
+</div>
 ```

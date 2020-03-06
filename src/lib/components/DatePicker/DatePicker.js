@@ -1,16 +1,27 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
+
 import './styles.scss';
 import DateInputGroup from './DateInputGroup';
 import Dialog from './Dialog';
 
-const DatePicker = ({ startDate }) => {
+const DatePicker = ({
+  startDate,
+  startDatePlaceholder,
+  endDatePlaceholder,
+  className,
+  disabled,
+  onChange,
+  onFocus,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
   const [inputFocus, setInputFocus] = useState('to');
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
   const [hoverDate, setHoverDate] = useState(true);
+  const [isFirstTime, setIsFirstTime] = useState(false);
 
   function handleDocumentClick(e) {
     if (
@@ -22,16 +33,34 @@ const DatePicker = ({ startDate }) => {
   }
 
   useEffect(() => {
+    setIsFirstTime(true);
     document.addEventListener('click', handleDocumentClick);
 
     return () => document.removeEventListener('click', handleDocumentClick);
   }, []);
+
+  useEffect(() => {
+    if (isFirstTime) {
+      const startDate = fromDate ? new Date(fromDate) : null;
+      const endDate = toDate ? new Date(toDate) : null;
+      onChange(startDate, endDate);
+    }
+  }, [fromDate, toDate]);
+
+  useEffect(() => {
+    if (isFirstTime) {
+      const input = inputFocus === 'from' ? 'Start Date' : inputFocus === 'to' ? 'End Date' : '';
+      onFocus(input);
+    }
+  }, [inputFocus]);
 
   function toggleDialog() {
     setIsOpen(!isOpen);
   }
 
   function handleClickDateInput(inputFocus) {
+    if (disabled) return;
+
     if (!isOpen) {
       setIsOpen(true);
     }
@@ -89,13 +118,20 @@ const DatePicker = ({ startDate }) => {
   }
 
   return (
-    <div className="date-picker" ref={containerRef}>
+    <div
+      className={cx('date-picker', className, {
+        disabled,
+      })}
+      ref={containerRef}
+    >
       <DateInputGroup
         handleClickDateInput={handleClickDateInput}
         showCalendarIcon
         fromDate={fromDate}
         toDate={toDate}
         handleChangeDate={handleChangeDate}
+        startDatePlaceholder={startDatePlaceholder}
+        endDatePlaceholder={endDatePlaceholder}
       />
       <Dialog
         isOpen={isOpen}
@@ -111,6 +147,8 @@ const DatePicker = ({ startDate }) => {
         hoverDate={hoverDate}
         handleReset={handleReset}
         handleChangeDate={handleChangeDate}
+        startDatePlaceholder={startDatePlaceholder}
+        endDatePlaceholder={endDatePlaceholder}
       />
     </div>
   );
@@ -118,10 +156,22 @@ const DatePicker = ({ startDate }) => {
 
 DatePicker.propTypes = {
   startDate: PropTypes.instanceOf(Date),
+  startDatePlaceholder: PropTypes.string,
+  endDatePlaceholder: PropTypes.string,
+  className: PropTypes.string,
+  disabled: PropTypes.bool,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
 };
 
 DatePicker.defaultProps = {
   startDate: null,
+  className: '',
+  disabled: false,
+  startDatePlaceholder: 'Start date',
+  endDatePlaceholder: 'End date',
+  onChange: () => {},
+  onFocus: () => {},
 };
 
 export default DatePicker;

@@ -4,7 +4,14 @@ import DateInput from './DateInput';
 import CalendarIcon from '../../assets/svg/calendar.svg';
 
 const DateInputGroup = ({
-  showCalendarIcon, inputFocus, handleClickDateInput, fromDate, toDate, handleChangeDate,
+  showCalendarIcon,
+  inputFocus,
+  handleClickDateInput,
+  fromDate,
+  toDate,
+  handleChangeDate,
+  startDatePlaceholder,
+  endDatePlaceholder,
 }) => {
   function handleClickFromInput() {
     handleClickDateInput('from');
@@ -44,7 +51,7 @@ const DateInputGroup = ({
         tabIndex="-1"
         isFocus={inputFocus === 'from'}
         value={fromDate}
-        placeholder="From date"
+        placeholder={startDatePlaceholder}
         handleChangeDate={handleChangeFromDate}
       />
       <div className="divider" />
@@ -54,7 +61,7 @@ const DateInputGroup = ({
         isFocus={inputFocus === 'to'}
         value={toDate}
         fromDate={fromDate}
-        placeholder="To date"
+        placeholder={endDatePlaceholder}
         handleChangeDate={handleChangeToDate}
         endDate
       />
@@ -69,6 +76,8 @@ DateInputGroup.propTypes = {
   fromDate: PropTypes.instanceOf(Date),
   toDate: PropTypes.instanceOf(Date),
   handleChangeDate: PropTypes.func,
+  startDatePlaceholder: PropTypes.string,
+  endDatePlaceholder: PropTypes.string,
 };
 
 DateInputGroup.defaultProps = {
@@ -78,6 +87,8 @@ DateInputGroup.defaultProps = {
   fromDate: null,
   toDate: null,
   handleChangeDate: () => {},
+  startDatePlaceholder: null,
+  endDatePlaceholder: null,
 };
 
 export default DateInputGroup;
