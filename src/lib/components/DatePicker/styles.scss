@@ -4,19 +4,18 @@
   }
 
   .btn-outline {
-    background-color: Transparent;
-    background-repeat:no-repeat;
+    background-color: transparent;
+    background-repeat: no-repeat;
     border: none;
     cursor: pointer;
     overflow: hidden;
-    outline:none;
+    outline: none;
   }
 
   .date-picker {
     position: relative;
     cursor: pointer;
-    background: white;
-    border-radius: 4px;;
+    border-radius: 4px;
 
     &.disabled {
       opacity: 0.6;
@@ -32,22 +31,24 @@
     border-radius: 4px;
     color: #3c4043;
     height: 56px;
-    box-sizing: border-box;
     letter-spacing: 0.2px;
     font-size: 16px;
     align-items: center;
     overflow: visible;
-    padding: 0;
-    outline: none;
-    background: white;
+
+
+    svg {
+      min-width: 24px;
+      min-height: 24px;
+    }
   }
 
-  .divider {
-    height: 70%;
+  .date-picker-date-group {
+    position: relative;
     display: flex;
-    align-items: center;
-    width: 1px;
-    background-color: #dadce0;
+    justify-content: space-between;
+    height: 100%;
+    flex-grow: 1;
   }
 
   .date {
@@ -57,11 +58,22 @@
     outline: none;
     position: relative;
     border-radius: 2px 0 0 2px;
-    margin: -1px;
     padding: 0 13px;
-    flex-grow: 1.21;
+    flex-grow: 1;
     width: 50%;
-    box-sizing: border-box;
+    background: white;
+    border-radius: 4px;
+  }
+
+  .date:first-child::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 1px;
+    height: 70%;
+    background: #dadce0;
   }
 
   .selected-date {
@@ -77,27 +89,26 @@
   }
 
   .date-placeholder {
-    color: rgba(0,0,0,.56);
+    color: rgba(0, 0, 0, 0.56);
   }
 
   .change-date-group {
     width: 48px;
     display: flex;
+  }
 
-    .change-date-button {
-      height: 40px;
-      box-sizing: border-box;
-      color: #5f6368;
-      cursor: pointer;
-      padding: 8px 0;
-      flex-grow: 1;
+  .change-date-group .change-date-button {
+    height: 40px;
+    color: #5f6368;
+    cursor: pointer;
+    padding: 8px 0;
+    flex-grow: 1;
 
-      &:disabled {
-        cursor: default;
+    &:disabled {
+      cursor: default;
 
-        .icon-arrow {
-          fill: #93989e;
-        }
+      .icon-arrow {
+        fill: #93989e;
       }
     }
   }
@@ -118,7 +129,6 @@
     height: 24px;
     fill: #5f6368;
   }
-
 
   @keyframes showPopup {
     0% {
@@ -147,7 +157,8 @@
   .dialog-date-picker {
     background: #fff;
     border-radius: 5px;
-    box-shadow: 0 1px 3px rgba(60,64,67, 0.3), 0 4px 8px 3px rgba(60,64,67, 0.15);
+    box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3),
+      0 4px 8px 3px rgba(60, 64, 67, 0.15);
     min-width: 200px;
     position: absolute;
     top: -2px;
@@ -167,7 +178,6 @@
     &.hide {
       animation: hidePopup 0.2s forwards;
     }
-
   }
 
   .dialog-header {
@@ -175,18 +185,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    .date-picker-input {
-      height: 48px;
-      width: 50%;
-    }
   }
 
-
+  .dialog-header .date-picker-input {
+    height: 48px;
+    width: 50%;
+  }
 
   .date.is-focus {
-    box-sizing: border-box;
-    background-color: #F4F8FF;
+    background-color: #f4f8ff;
 
     &::after {
       content: '';
@@ -275,11 +282,10 @@
   .weekdays {
     width: 100%;
     font-size: small;
-    color: rgba(0,0,0,.54);
+    color: rgba(0, 0, 0, 0.54);
     display: flex;
 
     .weekday {
-      box-sizing: border-box;
       display: inline-block;
       height: 36px;
       margin: 0;
@@ -301,14 +307,14 @@
   }
 
   .day {
-    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     outline: none;
     cursor: pointer;
     height: 44px;
     margin: 2px 0;
-    padding-left: 2px;
-    padding-right: 2px;
-    padding-top: 14px;
+
     text-align: center;
     width: 44px;
     vertical-align: top;
@@ -324,12 +330,12 @@
       z-index: 1;
 
       &.first-day {
-        background: linear-gradient(to right,#fff,#DAEDFD);
+        background: linear-gradient(to right, #fff, #daedfd);
         left: -10px;
       }
 
       &.last-day {
-        background: linear-gradient(to left,#fff,#DAEDFD);
+        background: linear-gradient(to left, #fff, #daedfd);
         right: -10px;
       }
     }
@@ -337,7 +343,6 @@
     &::after {
       border-radius: 100%;
       bottom: 0;
-      box-sizing: border-box;
       content: '';
       height: 44px;
       left: 0;
@@ -376,8 +381,7 @@
     }
 
     &.hovered {
-
-      background-color: #D9EDFD;
+      background-color: #d9edfd;
       border-radius: unset;
 
       .background-day {
@@ -385,11 +389,11 @@
       }
 
       &.end {
-        background: linear-gradient(90deg, #D9EDFD 50%, #fff 50%);
+        background: linear-gradient(90deg, #d9edfd 50%, #fff 50%);
       }
 
       &:hover {
-        background-color: #D9EDFD;
+        background-color: #d9edfd;
 
         &::after {
           border-radius: 100%;
@@ -399,11 +403,11 @@
     }
 
     &.selected.hovered {
-      background: linear-gradient(90deg, #fff 50%, #D9EDFD 50%);
+      background: linear-gradient(90deg, #fff 50%, #d9edfd 50%);
       color: #fff;
 
       &.end {
-        background: linear-gradient(90deg, #D9EDFD 50%, #fff 50%);
+        background: linear-gradient(90deg, #d9edfd 50%, #fff 50%);
       }
 
       &:hover {
@@ -441,7 +445,7 @@
   .flipper-button {
     background-color: #fff;
     border-radius: 100%;
-    box-shadow: 0 0 4px rgba(0,0,0,.12), 0 4px 4px rgba(0,0,0,.24);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.12), 0 4px 4px rgba(0, 0, 0, 0.24);
     cursor: pointer;
     height: 40px;
     width: 40px;
@@ -475,7 +479,6 @@
       background: #4285f4;
       height: 36px;
       min-width: 88px;
-      box-sizing: border-box;
       font-weight: 500;
       font-size: 14px;
       cursor: pointer;
@@ -492,7 +495,6 @@
       height: 40px;
       border: none;
       border-radius: 0;
-      box-sizing: border-box;
       position: relative;
     }
 
@@ -511,6 +513,10 @@
       }
     }
 
+    .date:first-child::before {
+      display: none;
+    }
+
     .icon-calendar {
       display: none;
 
@@ -524,13 +530,16 @@
 
       &.mobile {
         display: block;
-        color: rgba(0,0,0,.87);
+        color: rgba(0, 0, 0, 0.87);
         min-width: 88px;
         font-weight: 500;
       }
     }
 
-    .change-date-group, .divider, .calendar-flippers, .weekdays {
+    .change-date-group,
+    .divider,
+    .calendar-flippers,
+    .weekdays {
       display: none;
     }
 
@@ -562,13 +571,13 @@
       transform: none;
 
       &.open {
-        transition: all .2s ease-out;
+        transition: all 0.2s ease-out;
         animation: none;
         top: 0;
       }
 
       &.hide {
-        transition: all .2s ease-in;
+        transition: all 0.2s ease-in;
         animation: none;
         top: 100%;
       }
@@ -576,7 +585,7 @@
 
     .dialog-header {
       padding: 8px;
-      box-shadow: 0 0 2px rgba(0,0,0,.12), 0 2px 2px rgba(0,0,0,.24);
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.24);
       z-index: 50;
 
       .date-picker-input {
@@ -616,8 +625,10 @@
 
     .day {
       width: (100% / 7);
+      max-width: (100% / 7);
 
-      &.selected:hover, &.hovered:hover {
+      &.selected:hover,
+      &.hovered:hover {
         color: #fff !important;
 
         &::after {
@@ -635,7 +646,7 @@
     }
 
     .dialog-footer {
-      box-shadow: 0 0 4px rgba(0,0,0,.12), 0 4px 4px rgba(0,0,0,.24);
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.12), 0 4px 4px rgba(0, 0, 0, 0.24);
     }
   }
 }

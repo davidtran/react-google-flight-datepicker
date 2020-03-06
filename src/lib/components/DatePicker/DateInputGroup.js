@@ -45,26 +45,27 @@ const DateInputGroup = ({
     <div className="date-picker-input">
       {showCalendarIcon
         && <CalendarIcon className="icon-calendar mobile" viewBox="0 0 24 24" />}
-      <DateInput
-        handleClickDateInput={handleClickFromInput}
-        showIcon
-        tabIndex="-1"
-        isFocus={inputFocus === 'from'}
-        value={fromDate}
-        placeholder={startDatePlaceholder}
-        handleChangeDate={handleChangeFromDate}
-      />
-      <div className="divider" />
-      <DateInput
-        handleClickDateInput={handleClickToInput}
-        tabIndex="0"
-        isFocus={inputFocus === 'to'}
-        value={toDate}
-        fromDate={fromDate}
-        placeholder={endDatePlaceholder}
-        handleChangeDate={handleChangeToDate}
-        endDate
-      />
+      <div className="date-picker-date-group">
+        <DateInput
+          handleClickDateInput={handleClickFromInput}
+          showIcon
+          tabIndex="-1"
+          isFocus={inputFocus === 'from'}
+          value={fromDate}
+          placeholder={startDatePlaceholder}
+          handleChangeDate={handleChangeFromDate}
+        />
+        <DateInput
+          handleClickDateInput={handleClickToInput}
+          tabIndex="0"
+          isFocus={inputFocus === 'to'}
+          value={toDate}
+          fromDate={fromDate}
+          placeholder={endDatePlaceholder}
+          handleChangeDate={handleChangeToDate}
+          endDate
+        />
+      </div>
     </div>
   );
 };
