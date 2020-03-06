@@ -8,12 +8,14 @@ import Dialog from './Dialog';
 
 const DatePicker = ({
   startDate,
+  endDate,
   startDatePlaceholder,
   endDatePlaceholder,
   className,
   disabled,
   onChange,
-  onFocus
+  onFocus,
+  startWeekDay,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
@@ -25,8 +27,8 @@ const DatePicker = ({
 
   function handleDocumentClick(e) {
     if (
-      containerRef.current &&
-      containerRef.current.contains(e.target) === false
+      containerRef.current
+      && containerRef.current.contains(e.target) === false
     ) {
       setIsOpen(false);
     }
@@ -34,6 +36,21 @@ const DatePicker = ({
 
   useEffect(() => {
     setIsFirstTime(true);
+    if (startDate) {
+      startDate.setHours(0);
+      startDate.setMinutes(0);
+      startDate.setSeconds(0);
+      startDate.setMilliseconds(0);
+      setFromDate(startDate.getTime());
+    }
+    if (endDate) {
+      endDate.setHours(0);
+      endDate.setMinutes(0);
+      endDate.setSeconds(0);
+      endDate.setMilliseconds(0);
+      setToDate(endDate.getTime());
+    }
+
     document.addEventListener('click', handleDocumentClick);
 
     return () => document.removeEventListener('click', handleDocumentClick);
@@ -49,10 +66,9 @@ const DatePicker = ({
 
   useEffect(() => {
     if (isFirstTime) {
-      const input =
-        inputFocus === 'from'
-          ? 'Start Date'
-          : inputFocus === 'to'
+      const input = inputFocus === 'from'
+        ? 'Start Date'
+        : inputFocus === 'to'
           ? 'End Date'
           : '';
       onFocus(input);
@@ -126,7 +142,7 @@ const DatePicker = ({
     <div className="react-google-flight-datepicker">
       <div
         className={cx('date-picker', className, {
-          disabled
+          disabled,
         })}
         ref={containerRef}
       >
@@ -142,7 +158,6 @@ const DatePicker = ({
         <Dialog
           isOpen={isOpen}
           toggleDialog={toggleDialog}
-          startDate={startDate}
           handleClickDateInput={handleClickDateInput}
           inputFocus={inputFocus}
           setInputFocus={setInputFocus}
@@ -155,6 +170,7 @@ const DatePicker = ({
           handleChangeDate={handleChangeDate}
           startDatePlaceholder={startDatePlaceholder}
           endDatePlaceholder={endDatePlaceholder}
+          startWeekDay={startWeekDay}
         />
       </div>
     </div>
@@ -163,22 +179,26 @@ const DatePicker = ({
 
 DatePicker.propTypes = {
   startDate: PropTypes.instanceOf(Date),
+  endDate: PropTypes.instanceOf(Date),
   startDatePlaceholder: PropTypes.string,
   endDatePlaceholder: PropTypes.string,
   className: PropTypes.string,
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
-  onFocus: PropTypes.func
+  onFocus: PropTypes.func,
+  startWeekDay: PropTypes.oneOf(['monday', 'sunday']),
 };
 
 DatePicker.defaultProps = {
   startDate: null,
+  endDate: null,
   className: '',
   disabled: false,
   startDatePlaceholder: 'Start date',
   endDatePlaceholder: 'End date',
   onChange: () => {},
-  onFocus: () => {}
+  onFocus: () => {},
+  startWeekDay: 'monday',
 };
 
 export default DatePicker;

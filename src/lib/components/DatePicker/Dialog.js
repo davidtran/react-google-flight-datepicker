@@ -2,7 +2,7 @@ import React, { useEffect, useState, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
-import BackIcon from '../../assets/svg/back.png';
+import BackIcon from '../../assets/svg/back.svg';
 import DateInputGroup from './DateInputGroup';
 import DialogContentMobile from './DialogContentMobile';
 import DialogContentDesktop from './DialogContentDesktop';
@@ -10,7 +10,6 @@ import DialogContentDesktop from './DialogContentDesktop';
 const Dialog = ({
   toggleDialog,
   isOpen,
-  startDate,
   fromDate,
   toDate,
   hoverDate,
@@ -22,6 +21,7 @@ const Dialog = ({
   handleChangeDate,
   startDatePlaceholder,
   endDatePlaceholder,
+  startWeekDay,
 }) => {
   const [hideAnimation, setHideAnimation] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -57,7 +57,7 @@ const Dialog = ({
     >
       <div className="dialog-header">
         <button type="button" className="btn-outline back-button" onClick={toggleDialog}>
-          <img src={BackIcon} alt="back-icon" className="back-icon" />
+          <BackIcon viewBox="0 0 492 492" />
         </button>
         <DateInputGroup
           inputFocus={inputFocus}
@@ -85,16 +85,17 @@ const Dialog = ({
               hoverDate={hoverDate}
               onSelectDate={onSelectDate}
               onHoverDate={onHoverDate}
+              startWeekDay={startWeekDay}
             />
           )
           : (
             <DialogContentDesktop
-              startDate={startDate}
               fromDate={fromDate}
               toDate={toDate}
               hoverDate={hoverDate}
               onSelectDate={onSelectDate}
               onHoverDate={onHoverDate}
+              startWeekDay={startWeekDay}
             />
           )}
       </div>
@@ -115,7 +116,6 @@ const Dialog = ({
 Dialog.propTypes = {
   isOpen: PropTypes.bool,
   inputFocus: PropTypes.string,
-  startDate: PropTypes.instanceOf(Date),
   fromDate: PropTypes.instanceOf(Date),
   toDate: PropTypes.instanceOf(Date),
   hoverDate: PropTypes.instanceOf(Date),
@@ -127,12 +127,12 @@ Dialog.propTypes = {
   handleChangeDate: PropTypes.func,
   startDatePlaceholder: PropTypes.string,
   endDatePlaceholder: PropTypes.string,
+  startWeekDay: PropTypes.string,
 };
 
 Dialog.defaultProps = {
   isOpen: false,
   inputFocus: null,
-  startDate: null,
   fromDate: null,
   toDate: null,
   hoverDate: null,
@@ -144,6 +144,7 @@ Dialog.defaultProps = {
   handleChangeDate: () => {},
   startDatePlaceholder: null,
   endDatePlaceholder: null,
+  startWeekDay: null,
 };
 
 export default Dialog;

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Week from './Week';
-import { getMonthInfo, months } from '../../helpers';
+import { getMonthInfo, months, getWeekDay } from '../../helpers';
 
 const MonthCalendar = ({
   hidden,
@@ -14,9 +14,10 @@ const MonthCalendar = ({
   toDate,
   hoverDate,
   isAnimating,
+  startWeekDay,
 }) => {
   function generateWeek() {
-    const { totalWeek, totalDay } = getMonthInfo(year, month, 'monday');
+    const { totalWeek, totalDay } = getMonthInfo(year, month, startWeekDay);
 
     return totalWeek.map((week, index) => (
       <Week
@@ -36,6 +37,14 @@ const MonthCalendar = ({
     ));
   }
 
+  function generateWeekDay() {
+    const arrWeekDay = getWeekDay(startWeekDay);
+
+    return arrWeekDay.map((day, index) => (
+      <div className="weekday" key={index}>{day}</div>
+    ));
+  }
+
   return (
     <div
       className={cx('month-calendar', {
@@ -51,13 +60,7 @@ const MonthCalendar = ({
         {year}
       </div>
       <div className="weekdays">
-        <div className="weekday">M</div>
-        <div className="weekday">T</div>
-        <div className="weekday">W</div>
-        <div className="weekday">T</div>
-        <div className="weekday">F</div>
-        <div className="weekday">S</div>
-        <div className="weekday">S</div>
+        {generateWeekDay()}
       </div>
       {generateWeek()}
     </div>
@@ -74,6 +77,7 @@ MonthCalendar.propTypes = {
   hoverDate: PropTypes.string,
   hidden: PropTypes.bool,
   isAnimating: PropTypes.bool,
+  startWeekDay: PropTypes.string,
 };
 
 MonthCalendar.defaultProps = {
@@ -86,6 +90,7 @@ MonthCalendar.defaultProps = {
   hoverDate: null,
   hidden: false,
   isAnimating: false,
+  startWeekDay: null,
 };
 
 export default MonthCalendar;

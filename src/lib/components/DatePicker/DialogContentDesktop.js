@@ -8,12 +8,12 @@ import NextIcon from '../../assets/svg/next.svg';
 import MonthCalendar from './MonthCalendar';
 
 const DialogContentDesktop = ({
-  startDate,
   fromDate,
   toDate,
   hoverDate,
   onSelectDate,
   onHoverDate,
+  startWeekDay,
 }) => {
   const [translateAmount, setTranslateAmount] = useState(0);
   const [monthArray, setMonthArray] = useState([]);
@@ -28,16 +28,14 @@ const DialogContentDesktop = ({
   }
 
   useEffect(() => {
-    const date = startDate
-      ? new Date(startDate.getFullYear(), startDate.getMonth(), 1)
-      : new Date();
+    const date = fromDate ? new Date(fromDate) : new Date();
     date.setDate(1);
     date.setHours(0);
     date.setMinutes(0);
     date.setSeconds(0);
     date.setMilliseconds(0);
     setFocusDate(date);
-  }, [startDate]);
+  }, [fromDate]);
 
   useEffect(() => {
     const arrayMonth = getArrayMonth(focusDate);
@@ -84,6 +82,7 @@ const DialogContentDesktop = ({
         fromDate={fromDate}
         toDate={toDate}
         hoverDate={hoverDate}
+        startWeekDay={startWeekDay}
       />
     ));
   }
@@ -114,21 +113,21 @@ const DialogContentDesktop = ({
 };
 
 DialogContentDesktop.propTypes = {
-  startDate: PropTypes.instanceOf(Date),
   fromDate: PropTypes.instanceOf(Date),
   toDate: PropTypes.instanceOf(Date),
   hoverDate: PropTypes.instanceOf(Date),
   onSelectDate: PropTypes.func,
   onHoverDate: PropTypes.func,
+  startWeekDay: PropTypes.string,
 };
 
 DialogContentDesktop.defaultProps = {
-  startDate: null,
   fromDate: null,
   toDate: null,
   hoverDate: null,
   onSelectDate: () => {},
   onHoverDate: () => {},
+  startWeekDay: null,
 };
 
 export default DialogContentDesktop;

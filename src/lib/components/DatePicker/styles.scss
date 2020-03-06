@@ -5,6 +5,10 @@
     box-sizing: border-box;
   }
 
+  .date-picker-demo {
+    width: 400px;
+  }
+
   .btn-outline {
     background-color: transparent;
     background-repeat: no-repeat;
@@ -290,13 +294,11 @@
     display: flex;
 
     .weekday {
-      display: inline-block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       height: 36px;
       margin: 0;
-      padding-left: 2px;
-      padding-right: 2px;
-      padding-top: 14px;
-      text-align: center;
       flex-grow: 1;
     }
   }
@@ -554,9 +556,10 @@
       margin-right: 16px;
       padding: 0;
 
-      .back-icon {
+      svg {
         width: 24px;
         height: 24px;
+        fill: rgba(0, 0, 0, 0.87);
       }
     }
 

@@ -5,13 +5,9 @@ export function getMonthInfo(year, month, startDay) {
   const numDays = lastDate.getDate();
 
   let start = 1;
-  let end = 7 - firstDate.getDay();
-  if (startDay === 'monday') {
-    if (firstDate.getDay() === 0) {
-      end = 1;
-    } else {
-      end = 7 - firstDate.getDay() + 1;
-    }
+  let end = firstDate.getDay() === 0 ? 1 : (7 - firstDate.getDay() + 1);
+  if (startDay === 'sunday') {
+    end = 7 - firstDate.getDay();
   }
   while (start <= numDays) {
     weeks.push({ start, days: end - start + 1 });
@@ -24,6 +20,16 @@ export function getMonthInfo(year, month, startDay) {
   }
 
   return { totalWeek: weeks, totalDay: numDays };
+}
+
+export function getWeekDay(startWeekDay) {
+  const arrWeekDay = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+  if (startWeekDay === 'sunday') {
+    arrWeekDay.pop();
+    arrWeekDay.unshift('S');
+  }
+
+  return arrWeekDay;
 }
 
 export const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];

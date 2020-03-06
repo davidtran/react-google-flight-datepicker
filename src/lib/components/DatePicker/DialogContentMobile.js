@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import List from 'react-virtualized/dist/commonjs/List';
 
 import MonthCalendar from './MonthCalendar';
-import { getMonthInfo } from '../../helpers';
+import { getMonthInfo, getWeekDay } from '../../helpers';
 
 const DialogContentMobile = ({
   fromDate,
@@ -11,11 +11,19 @@ const DialogContentMobile = ({
   hoverDate,
   onSelectDate,
   onHoverDate,
+  startWeekDay,
 }) => {
   const calendarContentRef = useRef(null);
   const [sizeList, setSizeList] = useState({ width: 0, height: 0 });
+  const [scrollToIndex, setScrollToIndex] = useState(0);
 
   useEffect(() => {
+    const date = fromDate ? new Date(fromDate) : new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const index = parseInt((year - 1900) * 12 + month, 10);
+    setScrollToIndex(index);
+
     if (calendarContentRef.current) {
       setTimeout(() => {
         const calendarRect = calendarContentRef.current.getBoundingClientRect();
@@ -42,6 +50,7 @@ const DialogContentMobile = ({
           fromDate={fromDate}
           toDate={toDate}
           hoverDate={hoverDate}
+          startWeekDay={startWeekDay}
         />
       </div>
     );
@@ -62,23 +71,25 @@ const DialogContentMobile = ({
         height={sizeList.height}
         rowCount={2400}
         rowHeight={getRowHeight}
-        scrollToIndex={1443}
+        scrollToIndex={scrollToIndex}
         rowRenderer={rowRenderer}
       />
     );
+  }
+
+  function generateWeekDay() {
+    const arrWeekDay = getWeekDay(startWeekDay);
+
+    return arrWeekDay.map((day, index) => (
+      <div className="weekday" key={index}>{day}</div>
+    ));
   }
 
   return (
     <div className="calendar-wrapper">
       <div className="calendar-content" ref={calendarContentRef}>
         <div className="weekdays mobile">
-          <div className="weekday">M</div>
-          <div className="weekday">T</div>
-          <div className="weekday">W</div>
-          <div className="weekday">T</div>
-          <div className="weekday">F</div>
-          <div className="weekday">S</div>
-          <div className="weekday">S</div>
+          {generateWeekDay()}
         </div>
         {renderMonthCalendars()}
       </div>
@@ -93,6 +104,7 @@ DialogContentMobile.propTypes = {
   hoverDate: PropTypes.instanceOf(Date),
   onSelectDate: PropTypes.func,
   onHoverDate: PropTypes.func,
+  startWeekDay: PropTypes.string,
 };
 
 DialogContentMobile.defaultProps = {
@@ -101,6 +113,7 @@ DialogContentMobile.defaultProps = {
   hoverDate: null,
   onSelectDate: () => {},
   onHoverDate: () => {},
+  startWeekDay: null,
 };
 
 export default DialogContentMobile;
