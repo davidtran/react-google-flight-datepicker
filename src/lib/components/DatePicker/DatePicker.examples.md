@@ -1,14 +1,17 @@
 DatePicker examples:
 
 ###### DatePicker
+
 ```js
 import { DatePicker } from 'react-google-flight-datepicker';
-
-<div className="date-picker-demo">
-  <DatePicker 
-    startDatePlaceholder="My from date"
-    // onChange={(startDate, endDate) => console.log(startDate, endDate)}
-    onFocus={(inputFocus) => console.log(inputFocus)}
-  />
-</div>
+<>
+  <div className="react-google-flight-datepicker">
+    <div className="date-picker-demo">
+      <DatePicker
+        startDatePlaceholder="Start Date"
+        endDatePlaceholder="End Date"
+      />
+    </div>
+  </div>
+</>;
 ```

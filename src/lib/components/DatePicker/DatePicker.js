@@ -13,7 +13,7 @@ const DatePicker = ({
   className,
   disabled,
   onChange,
-  onFocus,
+  onFocus
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
@@ -25,8 +25,8 @@ const DatePicker = ({
 
   function handleDocumentClick(e) {
     if (
-      containerRef.current
-      && containerRef.current.contains(e.target) === false
+      containerRef.current &&
+      containerRef.current.contains(e.target) === false
     ) {
       setIsOpen(false);
     }
@@ -49,7 +49,12 @@ const DatePicker = ({
 
   useEffect(() => {
     if (isFirstTime) {
-      const input = inputFocus === 'from' ? 'Start Date' : inputFocus === 'to' ? 'End Date' : '';
+      const input =
+        inputFocus === 'from'
+          ? 'Start Date'
+          : inputFocus === 'to'
+          ? 'End Date'
+          : '';
       onFocus(input);
     }
   }, [inputFocus]);
@@ -118,38 +123,40 @@ const DatePicker = ({
   }
 
   return (
-    <div
-      className={cx('date-picker', className, {
-        disabled,
-      })}
-      ref={containerRef}
-    >
-      <DateInputGroup
-        handleClickDateInput={handleClickDateInput}
-        showCalendarIcon
-        fromDate={fromDate}
-        toDate={toDate}
-        handleChangeDate={handleChangeDate}
-        startDatePlaceholder={startDatePlaceholder}
-        endDatePlaceholder={endDatePlaceholder}
-      />
-      <Dialog
-        isOpen={isOpen}
-        toggleDialog={toggleDialog}
-        startDate={startDate}
-        handleClickDateInput={handleClickDateInput}
-        inputFocus={inputFocus}
-        setInputFocus={setInputFocus}
-        onSelectDate={onSelectDate}
-        onHoverDate={onHoverDate}
-        fromDate={fromDate}
-        toDate={toDate}
-        hoverDate={hoverDate}
-        handleReset={handleReset}
-        handleChangeDate={handleChangeDate}
-        startDatePlaceholder={startDatePlaceholder}
-        endDatePlaceholder={endDatePlaceholder}
-      />
+    <div className="react-google-flight-datepicker">
+      <div
+        className={cx('date-picker', className, {
+          disabled
+        })}
+        ref={containerRef}
+      >
+        <DateInputGroup
+          handleClickDateInput={handleClickDateInput}
+          showCalendarIcon
+          fromDate={fromDate}
+          toDate={toDate}
+          handleChangeDate={handleChangeDate}
+          startDatePlaceholder={startDatePlaceholder}
+          endDatePlaceholder={endDatePlaceholder}
+        />
+        <Dialog
+          isOpen={isOpen}
+          toggleDialog={toggleDialog}
+          startDate={startDate}
+          handleClickDateInput={handleClickDateInput}
+          inputFocus={inputFocus}
+          setInputFocus={setInputFocus}
+          onSelectDate={onSelectDate}
+          onHoverDate={onHoverDate}
+          fromDate={fromDate}
+          toDate={toDate}
+          hoverDate={hoverDate}
+          handleReset={handleReset}
+          handleChangeDate={handleChangeDate}
+          startDatePlaceholder={startDatePlaceholder}
+          endDatePlaceholder={endDatePlaceholder}
+        />
+      </div>
     </div>
   );
 };
@@ -161,7 +168,7 @@ DatePicker.propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
-  onFocus: PropTypes.func,
+  onFocus: PropTypes.func
 };
 
 DatePicker.defaultProps = {
@@ -171,7 +178,7 @@ DatePicker.defaultProps = {
   startDatePlaceholder: 'Start date',
   endDatePlaceholder: 'End date',
   onChange: () => {},
-  onFocus: () => {},
+  onFocus: () => {}
 };
 
 export default DatePicker;
