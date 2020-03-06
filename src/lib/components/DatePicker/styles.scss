@@ -1,4 +1,6 @@
 .react-google-flight-datepicker {
+  font-size: 1rem;
+
   & > * {
     box-sizing: border-box;
   }
@@ -16,6 +18,8 @@
     position: relative;
     cursor: pointer;
     border-radius: 4px;
+    background: white;
+    padding: 6px;
 
     &.disabled {
       opacity: 0.6;
@@ -32,7 +36,7 @@
     color: #3c4043;
     height: 56px;
     letter-spacing: 0.2px;
-    font-size: 16px;
+    font-size: 1rem;
     align-items: center;
     overflow: visible;
 
@@ -81,7 +85,7 @@
     flex: 1 1 0px;
     align-items: center;
     height: 100%;
-    font-size: 14px;
+    font-size: 0.9rem;
     line-height: normal;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -221,7 +225,7 @@
   }
 
   .reset-button {
-    font-size: 15px;
+    font-size: 0.9rem;
     padding: 0 8px;
     height: 36px;
     border-radius: 4px;
@@ -275,13 +279,13 @@
 
   .month-name {
     text-align: center;
-    font-size: 16px;
+    font-size: 1rem;
     margin-bottom: 10px;
   }
 
   .weekdays {
     width: 100%;
-    font-size: small;
+    font-size: 0.9rem;
     color: rgba(0, 0, 0, 0.54);
     display: flex;
 
@@ -480,7 +484,7 @@
       height: 36px;
       min-width: 88px;
       font-weight: 500;
-      font-size: 14px;
+      font-size: 0.9rem;
       cursor: pointer;
     }
   }
@@ -569,6 +573,7 @@
       flex-direction: column;
       opacity: 1;
       transform: none;
+      z-index: 999999999;
 
       &.open {
         transition: all 0.2s ease-out;
