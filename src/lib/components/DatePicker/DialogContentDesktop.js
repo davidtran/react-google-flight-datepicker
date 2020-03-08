@@ -6,6 +6,7 @@ import PrevIcon from '../../assets/svg/prev.svg';
 import NextIcon from '../../assets/svg/next.svg';
 
 import MonthCalendar from './MonthCalendar';
+import { resetTimeDate } from '../../helpers';
 
 const DialogContentDesktop = ({
   fromDate,
@@ -14,10 +15,14 @@ const DialogContentDesktop = ({
   onSelectDate,
   onHoverDate,
   startWeekDay,
+  minDate,
+  maxDate,
 }) => {
   const [translateAmount, setTranslateAmount] = useState(0);
   const [monthArray, setMonthArray] = useState([]);
   const [focusDate, setFocusDate] = useState(new Date());
+  const [disablePrev, setDisablePrev] = useState(false);
+  const [disableNext, setDisableNext] = useState(false);
 
   function getArrayMonth(date) {
     const prevMonth = new Date(new Date(date).setMonth(new Date(date).getMonth() - 1));
@@ -28,16 +33,40 @@ const DialogContentDesktop = ({
   }
 
   useEffect(() => {
-    const date = fromDate ? new Date(fromDate) : new Date();
+    let date = fromDate ? new Date(fromDate) : new Date();
+    date = resetTimeDate(date);
     date.setDate(1);
-    date.setHours(0);
-    date.setMinutes(0);
-    date.setSeconds(0);
-    date.setMilliseconds(0);
     setFocusDate(date);
   }, [fromDate]);
 
   useEffect(() => {
+    const newFocusDate = resetTimeDate(focusDate);
+    newFocusDate.setDate(1);
+
+    if (minDate) {
+      const newMinDate = resetTimeDate(minDate);
+      newMinDate.setDate(1);
+
+      if (newMinDate.getTime() >= newFocusDate.getTime()) {
+        setDisablePrev(true);
+      } else {
+        setDisablePrev(false);
+      }
+    }
+
+    if (maxDate) {
+      const newMaxDate = resetTimeDate(maxDate);
+      newMaxDate.setDate(1);
+      const nextDate = resetTimeDate((new Date(focusDate).setMonth(new Date(focusDate).getMonth() + 1)));
+      nextDate.setDate(1);
+
+      if (newMaxDate.getTime() <= nextDate.getTime()) {
+        setDisableNext(true);
+      } else {
+        setDisableNext(false);
+      }
+    }
+
     const arrayMonth = getArrayMonth(focusDate);
     setMonthArray(arrayMonth);
   }, [focusDate]);
@@ -53,6 +82,8 @@ const DialogContentDesktop = ({
   }
 
   function increaseCurrentMonth() {
+    if (disableNext) return;
+
     setTranslateAmount(-378);
     setTimeout(() => {
       increaseFocusDate();
@@ -61,6 +92,8 @@ const DialogContentDesktop = ({
   }
 
   function decreaseCurrentMonth() {
+    if (disablePrev) return;
+
     setTranslateAmount(378);
     setTimeout(() => {
       decreaseFocusDate();
@@ -83,6 +116,8 @@ const DialogContentDesktop = ({
         toDate={toDate}
         hoverDate={hoverDate}
         startWeekDay={startWeekDay}
+        minDate={minDate}
+        maxDate={maxDate}
       />
     ));
   }
@@ -100,10 +135,10 @@ const DialogContentDesktop = ({
         {renderMonthCalendars()}
       </div>
       <div className="calendar-flippers">
-        <div className="flipper-button" onClick={decreaseCurrentMonth} role="button" tabIndex="-1">
+        <div className={cx('flipper-button', { disabled: disablePrev })} onClick={decreaseCurrentMonth} role="button" tabIndex="-1">
           <PrevIcon viewBox="0 0 24 24" />
         </div>
-        <div className="flipper-button" onClick={increaseCurrentMonth} role="button" tabIndex="0">
+        <div className={cx('flipper-button', { disabled: disableNext })} onClick={increaseCurrentMonth} role="button" tabIndex="0">
           <NextIcon viewBox="0 0 24 24" />
         </div>
       </div>
@@ -119,6 +154,8 @@ DialogContentDesktop.propTypes = {
   onSelectDate: PropTypes.func,
   onHoverDate: PropTypes.func,
   startWeekDay: PropTypes.string,
+  minDate: PropTypes.instanceOf(Date),
+  maxDate: PropTypes.instanceOf(Date),
 };
 
 DialogContentDesktop.defaultProps = {
@@ -128,6 +165,8 @@ DialogContentDesktop.defaultProps = {
   onSelectDate: () => {},
   onHoverDate: () => {},
   startWeekDay: null,
+  minDate: null,
+  maxDate: null,
 };
 
 export default DialogContentDesktop;

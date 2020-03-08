@@ -3,12 +3,16 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 const Day = ({
-  dateIndex, dateValue, selected, hovered, onSelectDate, onHoverDate, isEndDay, totalDay,
+  dateIndex, dateValue, selected, hovered, disabled, onSelectDate, onHoverDate, isEndDay, totalDay,
 }) => {
   function selectDate() {
+    if (disabled) return;
+
     onSelectDate(dateValue);
   }
   function handleHoverDate() {
+    if (disabled) return;
+
     onHoverDate(dateValue);
   }
 
@@ -17,6 +21,7 @@ const Day = ({
       className={cx('day', {
         selected,
         hovered,
+        disabled,
         end: isEndDay,
       })}
       onClick={selectDate}
@@ -43,6 +48,7 @@ Day.propTypes = {
   isEndDay: PropTypes.bool,
   selected: PropTypes.bool,
   hovered: PropTypes.bool,
+  disabled: PropTypes.bool,
   onSelectDate: PropTypes.func,
   onHoverDate: PropTypes.func,
   totalDay: PropTypes.number,
@@ -54,6 +60,7 @@ Day.defaultProps = {
   isEndDay: false,
   selected: false,
   hovered: false,
+  disabled: false,
   totalDay: null,
   onSelectDate: () => {},
   onHoverDate: () => {},

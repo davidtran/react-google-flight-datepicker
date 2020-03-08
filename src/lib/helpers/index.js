@@ -32,6 +32,16 @@ export function getWeekDay(startWeekDay) {
   return arrWeekDay;
 }
 
+export function resetTimeDate(date) {
+  const newDate = new Date(date);
+  newDate.setHours(0);
+  newDate.setMinutes(0);
+  newDate.setSeconds(0);
+  newDate.setMilliseconds(0);
+
+  return newDate;
+}
+
 export const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 export const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];

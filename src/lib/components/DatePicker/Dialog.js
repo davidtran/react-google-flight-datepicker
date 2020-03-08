@@ -22,6 +22,8 @@ const Dialog = ({
   startDatePlaceholder,
   endDatePlaceholder,
   startWeekDay,
+  minDate,
+  maxDate,
 }) => {
   const [hideAnimation, setHideAnimation] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -86,6 +88,8 @@ const Dialog = ({
               onSelectDate={onSelectDate}
               onHoverDate={onHoverDate}
               startWeekDay={startWeekDay}
+              minDate={minDate}
+              maxDate={maxDate}
             />
           )
           : (
@@ -96,6 +100,8 @@ const Dialog = ({
               onSelectDate={onSelectDate}
               onHoverDate={onHoverDate}
               startWeekDay={startWeekDay}
+              minDate={minDate}
+              maxDate={maxDate}
             />
           )}
       </div>
@@ -128,6 +134,8 @@ Dialog.propTypes = {
   startDatePlaceholder: PropTypes.string,
   endDatePlaceholder: PropTypes.string,
   startWeekDay: PropTypes.string,
+  minDate: PropTypes.instanceOf(Date),
+  maxDate: PropTypes.instanceOf(Date),
 };
 
 Dialog.defaultProps = {
@@ -145,6 +153,8 @@ Dialog.defaultProps = {
   startDatePlaceholder: null,
   endDatePlaceholder: null,
   startWeekDay: null,
+  minDate: null,
+  maxDate: null,
 };
 
 export default Dialog;
