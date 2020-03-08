@@ -21,13 +21,13 @@ const Dialog = ({
   handleChangeDate,
   startDatePlaceholder,
   endDatePlaceholder,
-  startWeekDay,
+  startWeekDay
 }) => {
   const [hideAnimation, setHideAnimation] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   function handleResize() {
-    if (window.innerWidth <= 500) {
+    if (typeof window !== 'undefined' && window.innerWidth <= 500) {
       setIsMobile(true);
     } else {
       setIsMobile(false);
@@ -36,10 +36,11 @@ const Dialog = ({
 
   useLayoutEffect(() => {
     handleResize();
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', handleResize);
 
-    window.addEventListener('resize', handleResize);
-
-    return () => window.removeEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }
   }, []);
 
   useEffect(() => {
@@ -52,11 +53,15 @@ const Dialog = ({
     <div
       className={cx('dialog-date-picker', {
         open: isOpen,
-        hide: !isOpen && hideAnimation,
+        hide: !isOpen && hideAnimation
       })}
     >
       <div className="dialog-header">
-        <button type="button" className="btn-outline back-button" onClick={toggleDialog}>
+        <button
+          type="button"
+          className="btn-outline back-button"
+          onClick={toggleDialog}
+        >
           <BackIcon viewBox="0 0 492 492" />
         </button>
         <DateInputGroup
@@ -77,30 +82,30 @@ const Dialog = ({
         </button>
       </div>
       <div className="dialog-content">
-        {isMobile
-          ? (
-            <DialogContentMobile
-              fromDate={fromDate}
-              toDate={toDate}
-              hoverDate={hoverDate}
-              onSelectDate={onSelectDate}
-              onHoverDate={onHoverDate}
-              startWeekDay={startWeekDay}
-            />
-          )
-          : (
-            <DialogContentDesktop
-              fromDate={fromDate}
-              toDate={toDate}
-              hoverDate={hoverDate}
-              onSelectDate={onSelectDate}
-              onHoverDate={onHoverDate}
-              startWeekDay={startWeekDay}
-            />
-          )}
+        {isMobile ? (
+          <DialogContentMobile
+            fromDate={fromDate}
+            toDate={toDate}
+            hoverDate={hoverDate}
+            onSelectDate={onSelectDate}
+            onHoverDate={onHoverDate}
+            startWeekDay={startWeekDay}
+          />
+        ) : (
+          <DialogContentDesktop
+            fromDate={fromDate}
+            toDate={toDate}
+            hoverDate={hoverDate}
+            onSelectDate={onSelectDate}
+            onHoverDate={onHoverDate}
+            startWeekDay={startWeekDay}
+          />
+        )}
       </div>
       <div className="dialog-footer">
-        <button type="button" className="submit-button" onClick={toggleDialog}>Done</button>
+        <button type="button" className="submit-button" onClick={toggleDialog}>
+          Done
+        </button>
         <button
           type="button"
           className="btn-outline reset-button mobile"
@@ -127,7 +132,7 @@ Dialog.propTypes = {
   handleChangeDate: PropTypes.func,
   startDatePlaceholder: PropTypes.string,
   endDatePlaceholder: PropTypes.string,
-  startWeekDay: PropTypes.string,
+  startWeekDay: PropTypes.string
 };
 
 Dialog.defaultProps = {
@@ -144,7 +149,7 @@ Dialog.defaultProps = {
   handleChangeDate: () => {},
   startDatePlaceholder: null,
   endDatePlaceholder: null,
-  startWeekDay: null,
+  startWeekDay: null
 };
 
 export default Dialog;
