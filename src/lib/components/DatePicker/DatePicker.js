@@ -5,6 +5,7 @@ import cx from 'classnames';
 import './styles.scss';
 import DateInputGroup from './DateInputGroup';
 import Dialog from './Dialog';
+import { resetTimeDate } from '../../helpers';
 
 const DatePicker = ({
   startDate,
@@ -16,6 +17,8 @@ const DatePicker = ({
   onChange,
   onFocus,
   startWeekDay,
+  minDate,
+  maxDate,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
@@ -37,18 +40,12 @@ const DatePicker = ({
   useEffect(() => {
     setIsFirstTime(true);
     if (startDate) {
-      startDate.setHours(0);
-      startDate.setMinutes(0);
-      startDate.setSeconds(0);
-      startDate.setMilliseconds(0);
-      setFromDate(startDate.getTime());
+      const newStartDate = resetTimeDate(startDate);
+      setFromDate(newStartDate.getTime());
     }
     if (endDate) {
-      endDate.setHours(0);
-      endDate.setMinutes(0);
-      endDate.setSeconds(0);
-      endDate.setMilliseconds(0);
-      setToDate(endDate.getTime());
+      const newEndDate = resetTimeDate(endDate);
+      setToDate(newEndDate.getTime());
     }
 
     document.addEventListener('click', handleDocumentClick);
@@ -171,6 +168,8 @@ const DatePicker = ({
           startDatePlaceholder={startDatePlaceholder}
           endDatePlaceholder={endDatePlaceholder}
           startWeekDay={startWeekDay}
+          minDate={minDate}
+          maxDate={maxDate}
         />
       </div>
     </div>
@@ -187,6 +186,8 @@ DatePicker.propTypes = {
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
   startWeekDay: PropTypes.oneOf(['monday', 'sunday']),
+  minDate: PropTypes.instanceOf(Date),
+  maxDate: PropTypes.instanceOf(Date),
 };
 
 DatePicker.defaultProps = {
@@ -199,6 +200,9 @@ DatePicker.defaultProps = {
   onChange: () => {},
   onFocus: () => {},
   startWeekDay: 'monday',
+  minDate: null,
+  maxDate: null,
+
 };
 
 export default DatePicker;

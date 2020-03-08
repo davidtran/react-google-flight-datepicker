@@ -15,6 +15,8 @@ const MonthCalendar = ({
   hoverDate,
   isAnimating,
   startWeekDay,
+  minDate,
+  maxDate,
 }) => {
   function generateWeek() {
     const { totalWeek, totalDay } = getMonthInfo(year, month, startWeekDay);
@@ -33,6 +35,8 @@ const MonthCalendar = ({
         toDate={toDate}
         hoverDate={hoverDate}
         totalDay={totalDay}
+        minDate={minDate}
+        maxDate={maxDate}
       />
     ));
   }
@@ -55,7 +59,7 @@ const MonthCalendar = ({
       <div className="month-name">
         {months[month]}
         {' '}
--
+        -
         {' '}
         {year}
       </div>
@@ -78,6 +82,8 @@ MonthCalendar.propTypes = {
   hidden: PropTypes.bool,
   isAnimating: PropTypes.bool,
   startWeekDay: PropTypes.string,
+  minDate: PropTypes.instanceOf(Date),
+  maxDate: PropTypes.instanceOf(Date),
 };
 
 MonthCalendar.defaultProps = {
@@ -91,6 +97,8 @@ MonthCalendar.defaultProps = {
   hidden: false,
   isAnimating: false,
   startWeekDay: null,
+  minDate: null,
+  maxDate: null,
 };
 
 export default MonthCalendar;

@@ -5,12 +5,13 @@ import cx from 'classnames';
 import Day from './Day';
 
 const Week = ({
-  isFirst, week, month, year, fromDate, toDate, hoverDate, onSelectDate, onHoverDate, totalDay,
+  isFirst, week, month, year, fromDate, toDate, hoverDate, onSelectDate, onHoverDate, totalDay, minDate, maxDate,
 }) => {
   function generateDay() {
     return [...Array(week.days).keys()].map(index => {
       const dateIndex = index + week.start;
       const dateValue = new Date(year, month, dateIndex).getTime();
+      const disabled = (minDate && dateValue < new Date(minDate).getTime()) || (maxDate && dateValue > new Date(maxDate).getTime());
       const selected = dateValue === fromDate || dateValue === toDate;
       let hovered = false;
       if (fromDate && fromDate !== toDate) {
@@ -37,6 +38,7 @@ const Week = ({
           onHoverDate={onHoverDate}
           selected={selected}
           hovered={hovered}
+          disabled={disabled}
           isEndDay={isEndDate}
           totalDay={totalDay}
         />
@@ -62,6 +64,8 @@ Week.propTypes = {
   hoverDate: PropTypes.number,
   onSelectDate: PropTypes.func,
   onHoverDate: PropTypes.func,
+  minDate: PropTypes.instanceOf(Date),
+  maxDate: PropTypes.instanceOf(Date),
 };
 
 Week.defaultProps = {
@@ -75,6 +79,8 @@ Week.defaultProps = {
   hoverDate: null,
   onSelectDate: () => {},
   onHoverDate: () => {},
+  minDate: null,
+  maxDate: null,
 };
 
 export default Week;

@@ -21,7 +21,9 @@ const Dialog = ({
   handleChangeDate,
   startDatePlaceholder,
   endDatePlaceholder,
-  startWeekDay
+  startWeekDay,
+  minDate,
+  maxDate,
 }) => {
   const [hideAnimation, setHideAnimation] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -82,25 +84,31 @@ const Dialog = ({
         </button>
       </div>
       <div className="dialog-content">
-        {isMobile ? (
-          <DialogContentMobile
-            fromDate={fromDate}
-            toDate={toDate}
-            hoverDate={hoverDate}
-            onSelectDate={onSelectDate}
-            onHoverDate={onHoverDate}
-            startWeekDay={startWeekDay}
-          />
-        ) : (
-          <DialogContentDesktop
-            fromDate={fromDate}
-            toDate={toDate}
-            hoverDate={hoverDate}
-            onSelectDate={onSelectDate}
-            onHoverDate={onHoverDate}
-            startWeekDay={startWeekDay}
-          />
-        )}
+        {isMobile
+          ? (
+            <DialogContentMobile
+              fromDate={fromDate}
+              toDate={toDate}
+              hoverDate={hoverDate}
+              onSelectDate={onSelectDate}
+              onHoverDate={onHoverDate}
+              startWeekDay={startWeekDay}
+              minDate={minDate}
+              maxDate={maxDate}
+            />
+          )
+          : (
+            <DialogContentDesktop
+              fromDate={fromDate}
+              toDate={toDate}
+              hoverDate={hoverDate}
+              onSelectDate={onSelectDate}
+              onHoverDate={onHoverDate}
+              startWeekDay={startWeekDay}
+              minDate={minDate}
+              maxDate={maxDate}
+            />
+          )}
       </div>
       <div className="dialog-footer">
         <button type="button" className="submit-button" onClick={toggleDialog}>
@@ -132,7 +140,13 @@ Dialog.propTypes = {
   handleChangeDate: PropTypes.func,
   startDatePlaceholder: PropTypes.string,
   endDatePlaceholder: PropTypes.string,
+<<<<<<< HEAD
   startWeekDay: PropTypes.string
+=======
+  startWeekDay: PropTypes.string,
+  minDate: PropTypes.instanceOf(Date),
+  maxDate: PropTypes.instanceOf(Date),
+>>>>>>> fb7353dfbd1215eef6f2207c71b7262df78dd299
 };
 
 Dialog.defaultProps = {
@@ -149,7 +163,13 @@ Dialog.defaultProps = {
   handleChangeDate: () => {},
   startDatePlaceholder: null,
   endDatePlaceholder: null,
+<<<<<<< HEAD
   startWeekDay: null
+=======
+  startWeekDay: null,
+  minDate: null,
+  maxDate: null,
+>>>>>>> fb7353dfbd1215eef6f2207c71b7262df78dd299
 };
 
 export default Dialog;

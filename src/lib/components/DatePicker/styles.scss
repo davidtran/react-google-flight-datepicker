@@ -20,7 +20,6 @@
 
   .date-picker {
     position: relative;
-    cursor: pointer;
     border-radius: 4px;
     background: white;
     padding: 6px;
@@ -254,8 +253,7 @@
 
   .calendar-content {
     display: flex;
-    padding: 0;
-    width: 692px;
+    padding: 0 2px;
     position: relative;
 
     &.isAnimating {
@@ -430,6 +428,15 @@
       }
     }
 
+    &.disabled {
+      pointer-events: none;
+      color: rgba(0, 0, 0, 0.26);
+
+      &.selected {
+        color: #fff;
+      }
+    }
+
     .text-day {
       position: relative;
       z-index: 3;
@@ -465,6 +472,14 @@
     svg {
       width: 24px;
       height: 24px;
+    }
+
+    &.disabled {
+      cursor: default;
+
+      svg {
+        fill: #93989e
+      }
     }
   }
 
