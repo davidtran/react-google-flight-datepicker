@@ -140,13 +140,9 @@ Dialog.propTypes = {
   handleChangeDate: PropTypes.func,
   startDatePlaceholder: PropTypes.string,
   endDatePlaceholder: PropTypes.string,
-<<<<<<< HEAD
-  startWeekDay: PropTypes.string
-=======
   startWeekDay: PropTypes.string,
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
->>>>>>> fb7353dfbd1215eef6f2207c71b7262df78dd299
 };
 
 Dialog.defaultProps = {
@@ -163,13 +159,9 @@ Dialog.defaultProps = {
   handleChangeDate: () => {},
   startDatePlaceholder: null,
   endDatePlaceholder: null,
-<<<<<<< HEAD
-  startWeekDay: null
-=======
   startWeekDay: null,
   minDate: null,
   maxDate: null,
->>>>>>> fb7353dfbd1215eef6f2207c71b7262df78dd299
 };
 
 export default Dialog;
