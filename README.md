@@ -14,11 +14,9 @@ Google flight date picker implemented in ReactJS
   - `yarn run dev`
 
 ### Screenshot
-**Desktop**
 <img src="https://jslancerteam.github.io/react-google-flight-datepicker/desktop.png"/>
-
-**Mobile**
-<img src="https://jslancerteam.github.io/react-google-flight-datepicker/mobile.png" width="200">
+<br />
+<img src="https://jslancerteam.github.io/react-google-flight-datepicker/mobile.png" width="300">
 ### Usage
 
 ##### DateRangeInput
