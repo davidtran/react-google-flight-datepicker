@@ -17,10 +17,11 @@ Google flight date picker implemented in ReactJS
 <img src="https://jslancerteam.github.io/react-google-flight-datepicker/desktop.png"/>
 <br />
 <img src="https://jslancerteam.github.io/react-google-flight-datepicker/mobile.png" width="300">
+
 ### Usage
 
 ##### DateRangeInput
-```js
+```
 import DateRangePicker from 'react-google-flight-datepicker`;
 import 'react-google-flight-datepicker/dist/main.css';
 
