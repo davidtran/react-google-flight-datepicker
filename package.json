@@ -1,6 +1,6 @@
 {
   "name": "react-google-flight-datepicker",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "An ReactJS implementation for Google Flight date-picker by JSLancer team",
   "author": "David Tran, Leo Phan",
   "license": "MIT",
