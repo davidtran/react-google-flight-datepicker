@@ -1,41 +1,56 @@
 # react-google-flight-datepicker
-[![dependency status][deps-svg]][deps-url]
-[![dev dependency status][dev-deps-svg]][dev-deps-url]
+<!-- [![dependency status][deps-svg]][deps-url]
+[![dev dependency status][dev-deps-svg]][dev-deps-url] -->
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Downloads][downloads-image]][downloads-url]
 
 A responsive and mobile friendly datepicker implemented by ReactJS.
 
 ### Demo
-To run demo:
-- Clone this repository
-- `yarn install`
-- `yarn run dev`
+- Live demo: https://jslancerteam.github.io/react-google-flight-datepicker/
+- To run demo on your computer:
+  - Clone this repository
+  - `yarn install`
+  - `yarn run dev`
 
 ### Usage
 
 #### DateRangeInput
 ```jsx
-import { DateRangePicker } from 'react-google-flight-datepicker`;
+import DateRangePicker from 'react-google-flight-datepicker`;
+import 'react-google-flight-datepicker/dist/main.css';
 
-<DateRangePicker
-  startDate={this.state.startDate}
-  startDateInputId="my-start-date-input-id"
-  endDate={this.state.endDate}
-  endDateInputId="my-end-date-input-id"
-  onFocus={this.onFocus}
-  onDateChange={{startDate, endDate} => this.onDateChange(startDate, endDate)}
+<DatePicker
+  startDate={new Date()}
+  endDate={new Date()}
+  onChange={({startDate, endDate}) => onDateChange(startDate, endDate)}
+  minDate={new Date(1900, 0, 1)}
+  maxDate={new Date(2100, 0, 1)}
+  dateFormat="D"
+  monthFormat="MMM YYYY"
+  startDatePlaceholder="Start Date"
+  endDatePlaceholder="End Date"
+  disabled={false}
+  className="my-own-class-name"
+  startWeekDay="monday"
 />
 ```
 ##### Props
-|Prop name|Prop type|Default value|Description|
+|Prop name |Prop type|Default value|Description|
 |---------|---------|-------------|-----------|
-|startDate|Date     |Current date |Selected start date|
-|startDateInputId|String|null|Html ID for start date text input|
-|endDate  |Date     |null         |Selected end date|
-|endDateInputId|String|null|Html ID for end date text input|
-|onFocus|Function|null|Event handler when an input get focus event|
-|onDateChange|Function|null|Event handler when user select a date from calendar|
+startDate | Date | null | Selected start date |
+endDate | Date | null | Selected end date |
+dateFormat | String | D | Display format for date. Check momentjs doc for information (<a target="_blank" href="https://momentjs.com/docs/#/displaying/" class="jsx-1329640032" data-reactroot="">https://momentjs.com/docs/#/displaying/</a>) |
+monthFormat | String | MMM YYYY | Display format for month. Check momentjs doc for information (<a target="_blank" href="https://momentjs.com/docs/#/displaying/" class="jsx-1329640032" data-reactroot="">https://momentjs.com/docs/#/displaying/</a>) |
+onChange | Function | null | Event handler that is called when startDate and endDate are changed |
+onFocus | Function | null | Return a string (START_DATE, END_DATE) which indicate which text input is focused |
+minDate | Date | 1900 Jan 01 | Minimum date that user can select |
+maxDate | Date | 2100 Jan 01 | Maximum date that user can select |
+className | String |  | Custom CSS className for datepicker |
+disabled | String | false | Disable the datepicker |
+startDatePlaceholder | String | Start Date | Placeholder text for startDate text input |
+endDatePlaceholder | String | End Date | Placeholder text for endDate text input |
+startWeekDay | String (monday or sunday) | monday | Determine the start day for a week (monday or sunday) |
 
 ### Author
 - David Tran - david@jslancer.com
