@@ -11,11 +11,11 @@ import { DatePicker } from 'react-google-flight-datepicker';
       // startDatePlaceholder="My from date"
       // onChange={(startDate, endDate) => console.log(startDate, endDate)}
       // onFocus={(inputFocus) => console.log(inputFocus)}
-      startDate={new Date('2020-2-25')}
-      endDate={new Date('2020-2-27')}
+      startDate={new Date(2020, 7, 25)}
+      endDate={new Date('2020-10-25')}
       // startWeekDay="sunday"
-      minDate={new Date('2020-2-20')}
-      maxDate={new Date('2020-5-20')}
+      minDate={new Date(2019, 11, 10)}
+      maxDate={new Date('2020-11-25')}
     />
   </div>
 </div>
