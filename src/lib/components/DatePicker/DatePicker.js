@@ -19,6 +19,8 @@ const DatePicker = ({
   startWeekDay,
   minDate,
   maxDate,
+  dateFormat,
+  monthFormat,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
@@ -151,6 +153,7 @@ const DatePicker = ({
           handleChangeDate={handleChangeDate}
           startDatePlaceholder={startDatePlaceholder}
           endDatePlaceholder={endDatePlaceholder}
+          dateFormat={dateFormat}
         />
         <Dialog
           isOpen={isOpen}
@@ -170,6 +173,8 @@ const DatePicker = ({
           startWeekDay={startWeekDay}
           minDate={minDate}
           maxDate={maxDate}
+          dateFormat={dateFormat}
+          monthFormat={monthFormat}
         />
       </div>
     </div>
@@ -188,6 +193,8 @@ DatePicker.propTypes = {
   startWeekDay: PropTypes.oneOf(['monday', 'sunday']),
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
+  dateFormat: PropTypes.string,
+  monthFormat: PropTypes.string,
 };
 
 DatePicker.defaultProps = {
@@ -202,7 +209,8 @@ DatePicker.defaultProps = {
   startWeekDay: 'monday',
   minDate: null,
   maxDate: null,
-
+  dateFormat: '',
+  monthFormat: '',
 };
 
 export default DatePicker;

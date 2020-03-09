@@ -15,6 +15,7 @@ const DialogContentMobile = ({
   startWeekDay,
   minDate,
   maxDate,
+  monthFormat,
 }) => {
   const calendarContentRef = useRef(null);
   const [sizeList, setSizeList] = useState({ width: 0, height: 0 });
@@ -73,6 +74,7 @@ const DialogContentMobile = ({
           startWeekDay={startWeekDay}
           minDate={minDate}
           maxDate={maxDate}
+          monthFormat={monthFormat}
         />
       </div>
     );
@@ -128,6 +130,7 @@ DialogContentMobile.propTypes = {
   startWeekDay: PropTypes.string,
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
+  monthFormat: PropTypes.string,
 };
 
 DialogContentMobile.defaultProps = {
@@ -139,6 +142,7 @@ DialogContentMobile.defaultProps = {
   startWeekDay: null,
   minDate: null,
   maxDate: null,
+  monthFormat: '',
 };
 
 export default DialogContentMobile;

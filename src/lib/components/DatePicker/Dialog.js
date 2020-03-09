@@ -24,6 +24,8 @@ const Dialog = ({
   startWeekDay,
   minDate,
   maxDate,
+  dateFormat,
+  monthFormat,
 }) => {
   const [hideAnimation, setHideAnimation] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -55,7 +57,7 @@ const Dialog = ({
     <div
       className={cx('dialog-date-picker', {
         open: isOpen,
-        hide: !isOpen && hideAnimation
+        hide: !isOpen && hideAnimation,
       })}
     >
       <div className="dialog-header">
@@ -74,6 +76,7 @@ const Dialog = ({
           handleChangeDate={handleChangeDate}
           startDatePlaceholder={startDatePlaceholder}
           endDatePlaceholder={endDatePlaceholder}
+          dateFormat={dateFormat}
         />
         <button
           type="button"
@@ -95,6 +98,8 @@ const Dialog = ({
               startWeekDay={startWeekDay}
               minDate={minDate}
               maxDate={maxDate}
+              dateFormat={dateFormat}
+              monthFormat={monthFormat}
             />
           )
           : (
@@ -107,6 +112,8 @@ const Dialog = ({
               startWeekDay={startWeekDay}
               minDate={minDate}
               maxDate={maxDate}
+              dateFormat={dateFormat}
+              monthFormat={monthFormat}
             />
           )}
       </div>
@@ -143,6 +150,8 @@ Dialog.propTypes = {
   startWeekDay: PropTypes.string,
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
+  dateFormat: PropTypes.string,
+  monthFormat: PropTypes.string,
 };
 
 Dialog.defaultProps = {
@@ -162,6 +171,8 @@ Dialog.defaultProps = {
   startWeekDay: null,
   minDate: null,
   maxDate: null,
+  dateFormat: '',
+  monthFormat: '',
 };
 
 export default Dialog;

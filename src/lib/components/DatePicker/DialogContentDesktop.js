@@ -17,6 +17,7 @@ const DialogContentDesktop = ({
   startWeekDay,
   minDate,
   maxDate,
+  monthFormat,
 }) => {
   const [translateAmount, setTranslateAmount] = useState(0);
   const [monthArray, setMonthArray] = useState([]);
@@ -118,6 +119,7 @@ const DialogContentDesktop = ({
         startWeekDay={startWeekDay}
         minDate={minDate}
         maxDate={maxDate}
+        monthFormat={monthFormat}
       />
     ));
   }
@@ -156,6 +158,7 @@ DialogContentDesktop.propTypes = {
   startWeekDay: PropTypes.string,
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
+  monthFormat: PropTypes.string,
 };
 
 DialogContentDesktop.defaultProps = {
@@ -167,6 +170,7 @@ DialogContentDesktop.defaultProps = {
   startWeekDay: null,
   minDate: null,
   maxDate: null,
+  monthFormat: '',
 };
 
 export default DialogContentDesktop;
