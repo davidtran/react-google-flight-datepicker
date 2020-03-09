@@ -54,7 +54,7 @@ startWeekDay | String (monday or sunday) | monday | Determine the start day for 
 
 ### Author
 - David Tran - david@jslancer.com
-- Leo Phan - leophan@jslancer.com
+- Leo Phan - leo.phan@jslancer.com
 
 ### License
 MIT
