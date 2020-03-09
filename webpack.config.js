@@ -2,6 +2,8 @@
 const path = require('path');
 const isProduction = process.env.NODE_ENV === 'production';
 const supportServerSide = !!process.env.SERVER_SIDE;
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 module.exports = {
   mode: isProduction ? 'production' : 'development',
   entry: './src/lib/components/DatePicker/index.js',
@@ -27,7 +29,7 @@ module.exports = {
       {
         test: /\.(s?)css$/,
         use: [
-          supportServerSide ? 'isomorphic-style-loader' : 'style-loader',
+          MiniCssExtractPlugin.loader,
           'css-loader',
           'sass-loader'
         ],
@@ -47,5 +49,6 @@ module.exports = {
         ]
       },
     ],
-  }
+  },
+  plugins: [new MiniCssExtractPlugin()],
 };
