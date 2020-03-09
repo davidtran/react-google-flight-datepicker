@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
+    "dayjs": "^1.8.22",
     "react-virtualized": "^9.21.2"
   },
   "peerDependencies": {

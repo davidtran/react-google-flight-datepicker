@@ -12,6 +12,7 @@ const DateInputGroup = ({
   handleChangeDate,
   startDatePlaceholder,
   endDatePlaceholder,
+  dateFormat,
 }) => {
   function handleClickFromInput() {
     handleClickDateInput('from');
@@ -54,6 +55,7 @@ const DateInputGroup = ({
           value={fromDate}
           placeholder={startDatePlaceholder}
           handleChangeDate={handleChangeFromDate}
+          dateFormat={dateFormat}
         />
         <DateInput
           handleClickDateInput={handleClickToInput}
@@ -63,6 +65,7 @@ const DateInputGroup = ({
           fromDate={fromDate}
           placeholder={endDatePlaceholder}
           handleChangeDate={handleChangeToDate}
+          dateFormat={dateFormat}
           endDate
         />
       </div>
@@ -79,6 +82,7 @@ DateInputGroup.propTypes = {
   handleChangeDate: PropTypes.func,
   startDatePlaceholder: PropTypes.string,
   endDatePlaceholder: PropTypes.string,
+  dateFormat: PropTypes.string,
 };
 
 DateInputGroup.defaultProps = {
@@ -90,6 +94,7 @@ DateInputGroup.defaultProps = {
   handleChangeDate: () => {},
   startDatePlaceholder: null,
   endDatePlaceholder: null,
+  dateFormat: '',
 };
 
 export default DateInputGroup;

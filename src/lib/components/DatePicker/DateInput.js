@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import dayjs from 'dayjs';
 
 import CalendarIcon from '../../assets/svg/calendar.svg';
 import PrevIcon from '../../assets/svg/prev.svg';
 import NextIcon from '../../assets/svg/next.svg';
-
-import { days, months } from '../../helpers';
 
 const DateInput = ({
   handleClickDateInput,
@@ -18,17 +17,17 @@ const DateInput = ({
   handleChangeDate,
   fromDate,
   endDate,
+  dateFormat,
 }) => {
   const [formattedDate, setFormattedDate] = useState(null);
 
   useEffect(() => {
     if (value) {
-      const newDate = new Date(value);
-      const date = newDate.getDate();
-      const day = days[newDate.getDay()];
-      const month = months[newDate.getMonth()].substr(0, 3);
-      const text = `${day}, ${date} ${month}`;
-
+      const newDate = dayjs(value);
+      let text = newDate.format('ddd, DD MMM');
+      if (dateFormat) {
+        text = newDate.format(dateFormat);
+      }
       setFormattedDate(text);
     } else {
       setFormattedDate(null);
@@ -97,6 +96,7 @@ DateInput.propTypes = {
   placeholder: PropTypes.string,
   handleChangeDate: PropTypes.func,
   endDate: PropTypes.bool,
+  dateFormat: PropTypes.string,
 };
 
 DateInput.defaultProps = {
@@ -109,6 +109,7 @@ DateInput.defaultProps = {
   placeholder: null,
   handleChangeDate: () => {},
   endDate: false,
+  dateFormat: '',
 };
 
 export default DateInput;

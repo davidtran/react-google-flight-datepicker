@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import dayjs from 'dayjs';
+
 import Week from './Week';
-import { getMonthInfo, months, getWeekDay } from '../../helpers';
+import { getMonthInfo, getWeekDay } from '../../helpers';
 
 const MonthCalendar = ({
   hidden,
@@ -17,6 +19,7 @@ const MonthCalendar = ({
   startWeekDay,
   minDate,
   maxDate,
+  monthFormat,
 }) => {
   function generateWeek() {
     const { totalWeek, totalDay } = getMonthInfo(year, month, startWeekDay);
@@ -57,11 +60,7 @@ const MonthCalendar = ({
       })}
     >
       <div className="month-name">
-        {months[month]}
-        {' '}
-        -
-        {' '}
-        {year}
+        {monthFormat ? dayjs(`${year}-${month}-1`).format(monthFormat) : dayjs(`${year}-${month}-1`).format('MMMM - YYYY')}
       </div>
       <div className="weekdays">
         {generateWeekDay()}
@@ -84,6 +83,7 @@ MonthCalendar.propTypes = {
   startWeekDay: PropTypes.string,
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
+  monthFormat: PropTypes.string,
 };
 
 MonthCalendar.defaultProps = {
@@ -99,6 +99,7 @@ MonthCalendar.defaultProps = {
   startWeekDay: null,
   minDate: null,
   maxDate: null,
+  monthFormat: '',
 };
 
 export default MonthCalendar;

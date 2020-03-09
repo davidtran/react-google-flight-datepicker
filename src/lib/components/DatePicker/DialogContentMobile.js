@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import List from 'react-virtualized/dist/commonjs/List';
+import dayjs from 'dayjs';
 
 import MonthCalendar from './MonthCalendar';
 import { getMonthInfo, getWeekDay } from '../../helpers';
@@ -12,17 +13,30 @@ const DialogContentMobile = ({
   onSelectDate,
   onHoverDate,
   startWeekDay,
+  minDate,
+  maxDate,
+  monthFormat,
 }) => {
   const calendarContentRef = useRef(null);
   const [sizeList, setSizeList] = useState({ width: 0, height: 0 });
   const [scrollToIndex, setScrollToIndex] = useState(0);
+  const [rowCount, setRowCount] = useState(2400);
+  const minYear = minDate ? dayjs(minDate).year() : 1900;
+  const minMonth = minDate ? dayjs(minDate).month() : 0;
 
   useEffect(() => {
-    const date = fromDate ? new Date(fromDate) : new Date();
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const index = parseInt((year - 1900) * 12 + month, 10);
-    setScrollToIndex(index);
+    const date = fromDate ? dayjs(fromDate) : dayjs();
+    let monthDiff = date.diff(dayjs('1900-01-01'), 'month');
+
+    if (minDate) {
+      monthDiff = date.diff(dayjs(minDate), 'month');
+    }
+    setScrollToIndex(monthDiff + 1);
+
+    if (maxDate) {
+      const _minDate = minDate ? dayjs(minDate) : dayjs('1900-01-01');
+      setRowCount(dayjs(maxDate).diff(_minDate, 'month') + 1);
+    }
 
     if (calendarContentRef.current) {
       setTimeout(() => {
@@ -35,10 +49,17 @@ const DialogContentMobile = ({
     }
   }, []);
 
+  function getMonthYearFromIndex(index) {
+    const _index = index + minMonth;
+    const year = minYear + Math.floor(_index / 12);
+    const month = _index % 12;
+
+    return { year, month };
+  }
+
   // eslint-disable-next-line react/prop-types
   function rowRenderer({ key, index, style }) {
-    const year = 1900 + Math.floor(index / 12);
-    const month = index - (Math.floor(index / 12) * 12);
+    const { year, month } = getMonthYearFromIndex(index);
 
     return (
       <div key={key} style={style}>
@@ -51,14 +72,16 @@ const DialogContentMobile = ({
           toDate={toDate}
           hoverDate={hoverDate}
           startWeekDay={startWeekDay}
+          minDate={minDate}
+          maxDate={maxDate}
+          monthFormat={monthFormat}
         />
       </div>
     );
   }
 
   function getRowHeight({ index }) {
-    const year = 1900 + Math.floor(index / 12);
-    const month = index - (Math.floor(index / 12) * 12);
+    const { year, month } = getMonthYearFromIndex(index);
     const { totalWeek } = getMonthInfo(year, month, 'monday');
 
     return totalWeek.length * 48 + 34;
@@ -69,7 +92,7 @@ const DialogContentMobile = ({
       <List
         width={sizeList.width}
         height={sizeList.height}
-        rowCount={2400}
+        rowCount={rowCount}
         rowHeight={getRowHeight}
         scrollToIndex={scrollToIndex}
         rowRenderer={rowRenderer}
@@ -105,6 +128,9 @@ DialogContentMobile.propTypes = {
   onSelectDate: PropTypes.func,
   onHoverDate: PropTypes.func,
   startWeekDay: PropTypes.string,
+  minDate: PropTypes.instanceOf(Date),
+  maxDate: PropTypes.instanceOf(Date),
+  monthFormat: PropTypes.string,
 };
 
 DialogContentMobile.defaultProps = {
@@ -114,6 +140,9 @@ DialogContentMobile.defaultProps = {
   onSelectDate: () => {},
   onHoverDate: () => {},
   startWeekDay: null,
+  minDate: null,
+  maxDate: null,
+  monthFormat: '',
 };
 
 export default DialogContentMobile;
