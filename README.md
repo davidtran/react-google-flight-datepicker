@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Downloads][downloads-image]][downloads-url]
 
-A responsive and mobile friendly datepicker implemented by ReactJS.
+Google flight date picker implemented in ReactJS
 
 ### Demo
 - Live demo: https://jslancerteam.github.io/react-google-flight-datepicker/
@@ -13,10 +13,16 @@ A responsive and mobile friendly datepicker implemented by ReactJS.
   - `yarn install`
   - `yarn run dev`
 
+### Screenshot
+**Desktop**
+<img src="https://jslancerteam.github.io/react-google-flight-datepicker/desktop.png"/>
+
+**Mobile**
+<img src="https://jslancerteam.github.io/react-google-flight-datepicker/mobile.png" width="200">
 ### Usage
 
-#### DateRangeInput
-```jsx
+##### DateRangeInput
+```js
 import DateRangePicker from 'react-google-flight-datepicker`;
 import 'react-google-flight-datepicker/dist/main.css';
 
