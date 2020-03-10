@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import List from 'react-virtualized/dist/commonjs/List';
+import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import dayjs from 'dayjs';
 
 import MonthCalendar from './MonthCalendar';
@@ -18,8 +19,6 @@ const DialogContentMobile = ({
   monthFormat,
   isSingle,
 }) => {
-  const calendarContentRef = useRef(null);
-  const [sizeList, setSizeList] = useState({ width: 0, height: 0 });
   const [scrollToIndex, setScrollToIndex] = useState(0);
   const [rowCount, setRowCount] = useState(2400);
   const minYear = minDate ? dayjs(minDate).year() : 1900;
@@ -37,16 +36,6 @@ const DialogContentMobile = ({
     if (maxDate) {
       const _minDate = minDate ? dayjs(minDate) : dayjs('1900-01-01');
       setRowCount(dayjs(maxDate).diff(_minDate, 'month') + 1);
-    }
-
-    if (calendarContentRef.current) {
-      setTimeout(() => {
-        const calendarRect = calendarContentRef.current.getBoundingClientRect();
-        setSizeList({
-          width: calendarRect.width,
-          height: calendarRect.height,
-        });
-      }, 200);
     }
   }, []);
 
@@ -91,14 +80,18 @@ const DialogContentMobile = ({
 
   function renderMonthCalendars() {
     return (
-      <List
-        width={sizeList.width}
-        height={sizeList.height}
-        rowCount={rowCount}
-        rowHeight={getRowHeight}
-        scrollToIndex={scrollToIndex}
-        rowRenderer={rowRenderer}
-      />
+      <AutoSizer>
+        {({ height, width }) => (
+          <List
+            width={width}
+            height={height}
+            rowCount={rowCount}
+            rowHeight={getRowHeight}
+            scrollToIndex={scrollToIndex}
+            rowRenderer={rowRenderer}
+          />
+        )}
+      </AutoSizer>
     );
   }
 
@@ -112,7 +105,7 @@ const DialogContentMobile = ({
 
   return (
     <div className="calendar-wrapper">
-      <div className="calendar-content" ref={calendarContentRef}>
+      <div className="calendar-content">
         <div className="weekdays mobile">
           {generateWeekDay()}
         </div>
