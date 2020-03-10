@@ -55,6 +55,7 @@ const RangeDatePicker = ({
     if (
       containerRef.current
       && containerRef.current.contains(e.target) === false
+      && window.innerWidth > 500
     ) {
       setIsOpen(false);
     }
