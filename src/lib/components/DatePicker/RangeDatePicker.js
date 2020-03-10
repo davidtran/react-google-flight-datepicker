@@ -7,7 +7,7 @@ import DateInputGroup from './DateInputGroup';
 import Dialog from './Dialog';
 import { resetTimeDate } from '../../helpers';
 
-const DatePicker = ({
+const RangeDatePicker = ({
   startDate,
   endDate,
   startDatePlaceholder,
@@ -25,8 +25,8 @@ const DatePicker = ({
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
   const [inputFocus, setInputFocus] = useState('to');
-  const [fromDate, setFromDate] = useState(null);
-  const [toDate, setToDate] = useState(null);
+  const [fromDate, setFromDate] = useState(startDate);
+  const [toDate, setToDate] = useState(endDate);
   const [hoverDate, setHoverDate] = useState(true);
   const [isFirstTime, setIsFirstTime] = useState(false);
 
@@ -138,7 +138,7 @@ const DatePicker = ({
   }
 
   return (
-    <div className="react-google-flight-datepicker">
+    <div className="react-google-flight-RangeDatePicker">
       <div
         className={cx('date-picker', className, {
           disabled,
@@ -181,7 +181,7 @@ const DatePicker = ({
   );
 };
 
-DatePicker.propTypes = {
+RangeDatePicker.propTypes = {
   startDate: PropTypes.instanceOf(Date),
   endDate: PropTypes.instanceOf(Date),
   startDatePlaceholder: PropTypes.string,
@@ -197,7 +197,7 @@ DatePicker.propTypes = {
   monthFormat: PropTypes.string,
 };
 
-DatePicker.defaultProps = {
+RangeDatePicker.defaultProps = {
   startDate: null,
   endDate: null,
   className: '',
@@ -213,4 +213,4 @@ DatePicker.defaultProps = {
   monthFormat: '',
 };
 
-export default DatePicker;
+export default RangeDatePicker;

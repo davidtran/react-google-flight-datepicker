@@ -26,6 +26,7 @@ const Dialog = ({
   maxDate,
   dateFormat,
   monthFormat,
+  isSingle,
 }) => {
   const [hideAnimation, setHideAnimation] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -77,6 +78,7 @@ const Dialog = ({
           startDatePlaceholder={startDatePlaceholder}
           endDatePlaceholder={endDatePlaceholder}
           dateFormat={dateFormat}
+          isSingle={isSingle}
         />
         <button
           type="button"
@@ -114,6 +116,7 @@ const Dialog = ({
               maxDate={maxDate}
               dateFormat={dateFormat}
               monthFormat={monthFormat}
+              isSingle={isSingle}
             />
           )}
       </div>
@@ -152,6 +155,7 @@ Dialog.propTypes = {
   maxDate: PropTypes.instanceOf(Date),
   dateFormat: PropTypes.string,
   monthFormat: PropTypes.string,
+  isSingle: PropTypes.bool,
 };
 
 Dialog.defaultProps = {
@@ -173,6 +177,7 @@ Dialog.defaultProps = {
   maxDate: null,
   dateFormat: '',
   monthFormat: '',
+  isSingle: false,
 };
 
 export default Dialog;

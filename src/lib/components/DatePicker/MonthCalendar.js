@@ -20,6 +20,7 @@ const MonthCalendar = ({
   minDate,
   maxDate,
   monthFormat,
+  isSingle,
 }) => {
   function generateWeek() {
     const { totalWeek, totalDay } = getMonthInfo(year, month, startWeekDay);
@@ -40,6 +41,7 @@ const MonthCalendar = ({
         totalDay={totalDay}
         minDate={minDate}
         maxDate={maxDate}
+        isSingle={isSingle}
       />
     ));
   }
@@ -60,7 +62,7 @@ const MonthCalendar = ({
       })}
     >
       <div className="month-name">
-        {monthFormat ? dayjs(`${year}-${month}-1`).format(monthFormat) : dayjs(`${year}-${month}-1`).format('MMMM - YYYY')}
+        {monthFormat ? dayjs(`${year}-${month + 1}-1`).format(monthFormat) : dayjs(`${year}-${month + 1}-1`).format('MMMM - YYYY')}
       </div>
       <div className="weekdays">
         {generateWeekDay()}
@@ -84,6 +86,7 @@ MonthCalendar.propTypes = {
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
   monthFormat: PropTypes.string,
+  isSingle: PropTypes.bool,
 };
 
 MonthCalendar.defaultProps = {
@@ -100,6 +103,7 @@ MonthCalendar.defaultProps = {
   minDate: null,
   maxDate: null,
   monthFormat: '',
+  isSingle: false,
 };
 
 export default MonthCalendar;

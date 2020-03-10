@@ -70,6 +70,10 @@
     width: 50%;
     background: white;
     border-radius: 4px;
+
+    &.is-single::before {
+      display: none;
+    }
   }
 
   .date:first-child::before {
@@ -572,9 +576,9 @@
       padding: 0;
 
       svg {
-        width: 24px;
-        height: 24px;
-        fill: rgba(0, 0, 0, 0.87);
+        width: 20px;
+        height: 20px;
+        fill: rgba(0, 0, 0, 0.7);
       }
     }
 

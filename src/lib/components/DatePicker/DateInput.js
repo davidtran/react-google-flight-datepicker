@@ -18,6 +18,7 @@ const DateInput = ({
   fromDate,
   endDate,
   dateFormat,
+  isSingle,
 }) => {
   const [formattedDate, setFormattedDate] = useState(null);
 
@@ -46,7 +47,8 @@ const DateInput = ({
 
   return (
     <div
-      className={cx('date', { 'is-focus': isFocus, 'end-date': endDate })}
+      className={cx('date',
+        { 'is-focus': isFocus, 'end-date': endDate, 'is-single': isSingle })}
       role="button"
       tabIndex={tabIndex}
       onClick={handleClickDateInput}
@@ -97,6 +99,7 @@ DateInput.propTypes = {
   handleChangeDate: PropTypes.func,
   endDate: PropTypes.bool,
   dateFormat: PropTypes.string,
+  isSingle: PropTypes.bool,
 };
 
 DateInput.defaultProps = {
@@ -110,6 +113,7 @@ DateInput.defaultProps = {
   handleChangeDate: () => {},
   endDate: false,
   dateFormat: '',
+  isSingle: false,
 };
 
 export default DateInput;

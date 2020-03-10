@@ -16,6 +16,7 @@ const DialogContentMobile = ({
   minDate,
   maxDate,
   monthFormat,
+  isSingle,
 }) => {
   const calendarContentRef = useRef(null);
   const [sizeList, setSizeList] = useState({ width: 0, height: 0 });
@@ -75,6 +76,7 @@ const DialogContentMobile = ({
           minDate={minDate}
           maxDate={maxDate}
           monthFormat={monthFormat}
+          isSingl={isSingle}
         />
       </div>
     );
@@ -131,6 +133,7 @@ DialogContentMobile.propTypes = {
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
   monthFormat: PropTypes.string,
+  isSingle: PropTypes.bool,
 };
 
 DialogContentMobile.defaultProps = {
@@ -143,6 +146,7 @@ DialogContentMobile.defaultProps = {
   minDate: null,
   maxDate: null,
   monthFormat: '',
+  isSingle: false,
 };
 
 export default DialogContentMobile;

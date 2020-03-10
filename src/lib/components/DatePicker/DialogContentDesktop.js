@@ -18,6 +18,7 @@ const DialogContentDesktop = ({
   minDate,
   maxDate,
   monthFormat,
+  isSingle,
 }) => {
   const [translateAmount, setTranslateAmount] = useState(0);
   const [monthArray, setMonthArray] = useState([]);
@@ -38,7 +39,7 @@ const DialogContentDesktop = ({
     date = resetTimeDate(date);
     date.setDate(1);
     setFocusDate(date);
-  }, [fromDate]);
+  }, []);
 
   useEffect(() => {
     const newFocusDate = resetTimeDate(focusDate);
@@ -120,6 +121,7 @@ const DialogContentDesktop = ({
         minDate={minDate}
         maxDate={maxDate}
         monthFormat={monthFormat}
+        isSingle={isSingle}
       />
     ));
   }
@@ -159,6 +161,7 @@ DialogContentDesktop.propTypes = {
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
   monthFormat: PropTypes.string,
+  isSingle: PropTypes.bool,
 };
 
 DialogContentDesktop.defaultProps = {
@@ -171,6 +174,7 @@ DialogContentDesktop.defaultProps = {
   minDate: null,
   maxDate: null,
   monthFormat: '',
+  isSingle: false,
 };
 
 export default DialogContentDesktop;

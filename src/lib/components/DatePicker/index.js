@@ -1,1 +1,4 @@
-export { default } from './DatePicker';
+import RangeDatePicker from './RangeDatePicker';
+import SingleDatePicker from './SingleDatePicker';
+
+export { RangeDatePicker, SingleDatePicker };

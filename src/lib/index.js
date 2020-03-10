@@ -1,5 +1,6 @@
-import DatePicker from './components/DatePicker';
+import { RangeDatePicker, SingleDatePicker } from './components/DatePicker';
 
 export {
-  DatePicker,
+  RangeDatePicker,
+  SingleDatePicker,
 };

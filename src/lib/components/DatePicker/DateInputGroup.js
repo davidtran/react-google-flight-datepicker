@@ -13,6 +13,7 @@ const DateInputGroup = ({
   startDatePlaceholder,
   endDatePlaceholder,
   dateFormat,
+  isSingle,
 }) => {
   function handleClickFromInput() {
     handleClickDateInput('from');
@@ -56,18 +57,22 @@ const DateInputGroup = ({
           placeholder={startDatePlaceholder}
           handleChangeDate={handleChangeFromDate}
           dateFormat={dateFormat}
+          isSingle={isSingle}
         />
-        <DateInput
-          handleClickDateInput={handleClickToInput}
-          tabIndex="0"
-          isFocus={inputFocus === 'to'}
-          value={toDate}
-          fromDate={fromDate}
-          placeholder={endDatePlaceholder}
-          handleChangeDate={handleChangeToDate}
-          dateFormat={dateFormat}
-          endDate
-        />
+        {!isSingle
+        && (
+          <DateInput
+            handleClickDateInput={handleClickToInput}
+            tabIndex="0"
+            isFocus={inputFocus === 'to'}
+            value={toDate}
+            fromDate={fromDate}
+            placeholder={endDatePlaceholder}
+            handleChangeDate={handleChangeToDate}
+            dateFormat={dateFormat}
+            endDate
+          />
+        )}
       </div>
     </div>
   );
@@ -83,6 +88,7 @@ DateInputGroup.propTypes = {
   startDatePlaceholder: PropTypes.string,
   endDatePlaceholder: PropTypes.string,
   dateFormat: PropTypes.string,
+  isSingle: PropTypes.bool,
 };
 
 DateInputGroup.defaultProps = {
@@ -95,6 +101,7 @@ DateInputGroup.defaultProps = {
   startDatePlaceholder: null,
   endDatePlaceholder: null,
   dateFormat: '',
+  isSingle: false,
 };
 
 export default DateInputGroup;

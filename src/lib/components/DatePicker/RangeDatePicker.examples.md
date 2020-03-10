@@ -1,13 +1,13 @@
 DatePicker examples:
 
-###### DatePicker
+###### RangeDatePicker
 
 ```js
-import { DatePicker } from 'react-google-flight-datepicker';
+import { RangeDatePicker } from 'react-google-flight-datepicker';
 
 <div className="react-google-flight-datepicker">
   <div className="date-picker-demo">
-    <DatePicker 
+    <RangeDatePicker 
       // startDatePlaceholder="My from date"
       // onChange={(startDate, endDate) => console.log(startDate, endDate)}
       // onFocus={(inputFocus) => console.log(inputFocus)}
@@ -17,7 +17,7 @@ import { DatePicker } from 'react-google-flight-datepicker';
       minDate={new Date(2019, 11, 10)}
       maxDate={new Date('2020-11-25')}
       dateFormat="DD/MM/YYYY"
-      monthFormat="MMM --- YY"
+      // monthFormat="MMM --- YY"
     />
   </div>
 </div>
