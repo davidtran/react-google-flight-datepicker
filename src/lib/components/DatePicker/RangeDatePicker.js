@@ -138,7 +138,7 @@ const RangeDatePicker = ({
   }
 
   return (
-    <div className="react-google-flight-RangeDatePicker">
+    <div className="react-google-flight-datepicker">
       <div
         className={cx('date-picker', className, {
           disabled,
