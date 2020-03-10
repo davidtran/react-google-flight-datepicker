@@ -1,6 +1,6 @@
 {
   "name": "react-google-flight-datepicker",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "An ReactJS implementation for Google Flight date-picker by JSLancer team",
   "author": "David Tran, Leo Phan",
   "license": "MIT",
@@ -86,7 +86,6 @@
     "react-svg-loader": "^3.0.3",
     "react-test-renderer": "^16.12.0",
     "sass-loader": "^8.0.2",
-    "style-loader": "^1.0.1",
     "typescript": "^3.7.3",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.11"
