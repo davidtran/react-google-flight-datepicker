@@ -138,6 +138,7 @@ const SingleDatePicker = ({
             maxDate={maxDate}
             dateFormat={dateFormat}
             monthFormat={monthFormat}
+            isMobile={isMobile}
             isSingle
           />
         </DialogWrapper>
