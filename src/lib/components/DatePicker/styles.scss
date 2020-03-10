@@ -600,14 +600,14 @@
 
       &.open {
         transition: all 0.2s ease-out;
+        transform: translate(0, -100%);
         animation: none;
-        top: 0;
       }
 
       &.hide {
         transition: all 0.2s ease-in;
+        transform: translate(0, 0);
         animation: none;
-        top: 100%;
       }
     }
 
