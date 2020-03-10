@@ -51,6 +51,7 @@ const SingleDatePicker = ({
     if (
       containerRef.current
       && containerRef.current.contains(e.target) === false
+      && window.innerWidth > 500
     ) {
       setIsOpen(false);
     }
@@ -137,6 +138,7 @@ const SingleDatePicker = ({
             maxDate={maxDate}
             dateFormat={dateFormat}
             monthFormat={monthFormat}
+            isMobile={isMobile}
             isSingle
           />
         </DialogWrapper>
