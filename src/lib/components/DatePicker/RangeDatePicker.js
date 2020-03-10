@@ -1,9 +1,12 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, {
+  useState, useRef, useEffect, useLayoutEffect,
+} from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import './styles.scss';
 import DateInputGroup from './DateInputGroup';
+import DialogWrapper from './DialogWrapper';
 import Dialog from './Dialog';
 import { resetTimeDate } from '../../helpers';
 
@@ -29,6 +32,24 @@ const RangeDatePicker = ({
   const [toDate, setToDate] = useState(endDate);
   const [hoverDate, setHoverDate] = useState(true);
   const [isFirstTime, setIsFirstTime] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  function handleResize() {
+    if (typeof window !== 'undefined' && window.innerWidth <= 500) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  }
+
+  useLayoutEffect(() => {
+    handleResize();
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', handleResize);
+
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []);
 
   function handleDocumentClick(e) {
     if (
@@ -155,27 +176,30 @@ const RangeDatePicker = ({
           endDatePlaceholder={endDatePlaceholder}
           dateFormat={dateFormat}
         />
-        <Dialog
-          isOpen={isOpen}
-          toggleDialog={toggleDialog}
-          handleClickDateInput={handleClickDateInput}
-          inputFocus={inputFocus}
-          setInputFocus={setInputFocus}
-          onSelectDate={onSelectDate}
-          onHoverDate={onHoverDate}
-          fromDate={fromDate}
-          toDate={toDate}
-          hoverDate={hoverDate}
-          handleReset={handleReset}
-          handleChangeDate={handleChangeDate}
-          startDatePlaceholder={startDatePlaceholder}
-          endDatePlaceholder={endDatePlaceholder}
-          startWeekDay={startWeekDay}
-          minDate={minDate}
-          maxDate={maxDate}
-          dateFormat={dateFormat}
-          monthFormat={monthFormat}
-        />
+        <DialogWrapper isMobile={isMobile}>
+          <Dialog
+            isOpen={isOpen}
+            toggleDialog={toggleDialog}
+            handleClickDateInput={handleClickDateInput}
+            inputFocus={inputFocus}
+            setInputFocus={setInputFocus}
+            onSelectDate={onSelectDate}
+            onHoverDate={onHoverDate}
+            fromDate={fromDate}
+            toDate={toDate}
+            hoverDate={hoverDate}
+            handleReset={handleReset}
+            handleChangeDate={handleChangeDate}
+            startDatePlaceholder={startDatePlaceholder}
+            endDatePlaceholder={endDatePlaceholder}
+            startWeekDay={startWeekDay}
+            minDate={minDate}
+            maxDate={maxDate}
+            dateFormat={dateFormat}
+            monthFormat={monthFormat}
+            isMobile={isMobile}
+          />
+        </DialogWrapper>
       </div>
     </div>
   );

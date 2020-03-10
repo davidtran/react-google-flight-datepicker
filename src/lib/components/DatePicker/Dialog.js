@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useLayoutEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
@@ -27,26 +27,9 @@ const Dialog = ({
   dateFormat,
   monthFormat,
   isSingle,
+  isMobile,
 }) => {
   const [hideAnimation, setHideAnimation] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  function handleResize() {
-    if (typeof window !== 'undefined' && window.innerWidth <= 500) {
-      setIsMobile(true);
-    } else {
-      setIsMobile(false);
-    }
-  }
-
-  useLayoutEffect(() => {
-    handleResize();
-    if (typeof window !== 'undefined') {
-      window.addEventListener('resize', handleResize);
-
-      return () => window.removeEventListener('resize', handleResize);
-    }
-  }, []);
 
   useEffect(() => {
     if (isOpen && !hideAnimation) {
@@ -156,6 +139,7 @@ Dialog.propTypes = {
   dateFormat: PropTypes.string,
   monthFormat: PropTypes.string,
   isSingle: PropTypes.bool,
+  isMobile: PropTypes.bool,
 };
 
 Dialog.defaultProps = {
@@ -178,6 +162,7 @@ Dialog.defaultProps = {
   dateFormat: '',
   monthFormat: '',
   isSingle: false,
+  isMobile: false,
 };
 
 export default Dialog;
