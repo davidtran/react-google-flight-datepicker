@@ -15,10 +15,12 @@ const DateInput = ({
   value,
   placeholder,
   handleChangeDate,
-  fromDate,
-  endDate,
   dateFormat,
   isSingle,
+  onFocus,
+  disabled,
+  name,
+  nonFocusable
 }) => {
   const [formattedDate, setFormattedDate] = useState(null);
 
@@ -45,25 +47,25 @@ const DateInput = ({
     handleChangeDate('next', value);
   }
 
+  function onDateInputFocus() {
+    if (onFocus) onFocus(name);
+  }
+
   return (
     <div
-      className={cx('date',
-        { 'is-focus': isFocus, 'end-date': endDate, 'is-single': isSingle })}
+      className={cx('date', { 'is-focus': isFocus, 'is-single': isSingle })}
       role="button"
-      tabIndex={tabIndex}
+      tabIndex={nonFocusable ? '-1' : tabIndex}
       onClick={handleClickDateInput}
+      onFocus={onDateInputFocus}
+      id="start-date-input-button"
     >
       {showIcon && (
         <CalendarIcon className="icon-calendar" viewBox="0 0 24 24" />
       )}
 
       <div className="selected-date">
-        {
-        formattedDate || (
-        <div className="date-placeholder">{placeholder}</div>
-        )
-      }
-
+        {formattedDate || <div className="date-placeholder">{placeholder}</div>}
       </div>
       {formattedDate && (
         <div className="change-date-group">
@@ -71,7 +73,8 @@ const DateInput = ({
             type="button"
             className="btn-outline change-date-button"
             onClick={prevDate}
-            disabled={value <= fromDate}
+            disabled={disabled}
+            tabIndex={nonFocusable ? '-1' : '0'}
           >
             <PrevIcon viewBox="0 0 24 24" className="icon-arrow" />
           </button>
@@ -79,6 +82,7 @@ const DateInput = ({
             type="button"
             className="btn-outline change-date-button"
             onClick={nextDate}
+            tabIndex={nonFocusable ? '-1' : '0'}
           >
             <NextIcon viewBox="0 0 24 24" className="icon-arrow" />
           </button>
@@ -97,9 +101,8 @@ DateInput.propTypes = {
   fromDate: PropTypes.instanceOf(Date),
   placeholder: PropTypes.string,
   handleChangeDate: PropTypes.func,
-  endDate: PropTypes.bool,
   dateFormat: PropTypes.string,
-  isSingle: PropTypes.bool,
+  isSingle: PropTypes.bool
 };
 
 DateInput.defaultProps = {
@@ -111,9 +114,8 @@ DateInput.defaultProps = {
   fromDate: null,
   placeholder: null,
   handleChangeDate: () => {},
-  endDate: false,
   dateFormat: '',
-  isSingle: false,
+  isSingle: false
 };
 
 export default DateInput;

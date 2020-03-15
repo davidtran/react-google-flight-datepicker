@@ -159,6 +159,10 @@ const RangeDatePicker = ({
     }
   }
 
+  function onDateInputFocus() {
+    handleClickDateInput('from');
+  }
+
   return (
     <div className="react-google-flight-datepicker">
       <div
@@ -176,6 +180,8 @@ const RangeDatePicker = ({
           startDatePlaceholder={startDatePlaceholder}
           endDatePlaceholder={endDatePlaceholder}
           dateFormat={dateFormat}
+          onFocus={onDateInputFocus}
+          nonFocusable={isOpen}
         />
         <DialogWrapper isMobile={isMobile}>
           <Dialog

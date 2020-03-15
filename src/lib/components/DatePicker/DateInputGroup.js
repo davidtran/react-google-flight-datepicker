@@ -14,10 +14,13 @@ const DateInputGroup = ({
   endDatePlaceholder,
   dateFormat,
   isSingle,
+  onFocus,
+  nonFocusable
 }) => {
   function handleClickFromInput() {
     handleClickDateInput('from');
   }
+
   function handleClickToInput() {
     handleClickDateInput('to');
   }
@@ -51,26 +54,28 @@ const DateInputGroup = ({
         <DateInput
           handleClickDateInput={handleClickFromInput}
           showIcon
-          tabIndex="-1"
+          tabIndex={nonFocusable ? '-1' : '0'}
           isFocus={inputFocus === 'from'}
           value={fromDate}
           placeholder={startDatePlaceholder}
           handleChangeDate={handleChangeFromDate}
           dateFormat={dateFormat}
           isSingle={isSingle}
+          name="START_DATE"
+          onFocus={onFocus}
+          nonFocusable={nonFocusable}
         />
         {!isSingle
         && (
           <DateInput
             handleClickDateInput={handleClickToInput}
-            tabIndex="0"
             isFocus={inputFocus === 'to'}
             value={toDate}
-            fromDate={fromDate}
             placeholder={endDatePlaceholder}
             handleChangeDate={handleChangeToDate}
             dateFormat={dateFormat}
-            endDate
+            name="END_DATE"
+            nonFocusable={nonFocusable}
           />
         )}
       </div>

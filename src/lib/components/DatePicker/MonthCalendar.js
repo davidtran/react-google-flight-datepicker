@@ -20,7 +20,7 @@ const MonthCalendar = ({
   minDate,
   maxDate,
   monthFormat,
-  isSingle,
+  isSingle
 }) => {
   function generateWeek() {
     const { totalWeek, totalDay } = getMonthInfo(year, month, startWeekDay);
@@ -42,6 +42,7 @@ const MonthCalendar = ({
         minDate={minDate}
         maxDate={maxDate}
         isSingle={isSingle}
+        weekIndex={index}
       />
     ));
   }
@@ -50,7 +51,9 @@ const MonthCalendar = ({
     const arrWeekDay = getWeekDay(startWeekDay);
 
     return arrWeekDay.map((day, index) => (
-      <div className="weekday" key={index}>{day}</div>
+      <div className="weekday" key={index}>
+        {day}
+      </div>
     ));
   }
 
@@ -58,16 +61,20 @@ const MonthCalendar = ({
     <div
       className={cx('month-calendar', {
         isAnimating,
-        hidden,
+        hidden
       })}
+      data-month-index={month + 1}
     >
       <div className="month-name">
-        {monthFormat ? dayjs(`${year}-${month + 1}-1`).format(monthFormat) : dayjs(`${year}-${month + 1}-1`).format('MMMM - YYYY')}
+        {monthFormat
+          ? dayjs(`${year}-${month + 1}-1`).format(monthFormat)
+          : dayjs(`${year}-${month + 1}-1`).format('MMMM - YYYY')}
       </div>
-      <div className="weekdays">
-        {generateWeekDay()}
+      <div className="weekdays">{generateWeekDay()}</div>
+      <div className="week-container">
+        {generateWeek()}
       </div>
-      {generateWeek()}
+
     </div>
   );
 };
@@ -86,7 +93,7 @@ MonthCalendar.propTypes = {
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
   monthFormat: PropTypes.string,
-  isSingle: PropTypes.bool,
+  isSingle: PropTypes.bool
 };
 
 MonthCalendar.defaultProps = {
@@ -103,7 +110,7 @@ MonthCalendar.defaultProps = {
   minDate: null,
   maxDate: null,
   monthFormat: '',
-  isSingle: false,
+  isSingle: false
 };
 
 export default MonthCalendar;

@@ -15,7 +15,6 @@
     border: none;
     cursor: pointer;
     overflow: hidden;
-    outline: none;
   }
 
   .date-picker {
@@ -62,7 +61,6 @@
     display: flex;
     align-items: center;
     height: 100%;
-    outline: none;
     position: relative;
     border-radius: 2px 0 0 2px;
     padding: 0 13px;
@@ -203,6 +201,7 @@
     width: 50%;
   }
 
+  .date:focus,
   .date.is-focus {
     background-color: #f4f8ff;
 
@@ -318,15 +317,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    outline: none;
     cursor: pointer;
     height: 44px;
     margin: 2px 0;
-
     text-align: center;
     width: 44px;
     vertical-align: top;
     position: relative;
+    border-radius: 50%;
 
     .background-day {
       bottom: 0;
@@ -470,7 +468,6 @@
     justify-content: center;
     align-items: center;
     margin: 0 -20px;
-    outline: none;
     pointer-events: all;
 
     svg {
@@ -496,7 +493,6 @@
     .submit-button {
       border-radius: 8px;
       padding: 10px 8px;
-      outline: none;
       border: none;
       line-height: 16px;
       text-transform: uppercase;
@@ -529,7 +525,7 @@
       padding: 0 10px;
       flex-grow: 1;
 
-      &.end-date {
+      &:nth-child(2) {
         margin-left: 10px;
       }
 

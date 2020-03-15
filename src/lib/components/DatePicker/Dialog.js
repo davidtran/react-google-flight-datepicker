@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
@@ -29,16 +29,27 @@ const Dialog = ({
   isSingle,
   isMobile,
 }) => {
+  const containerRef = useRef();
   const [hideAnimation, setHideAnimation] = useState(false);
 
   useEffect(() => {
     if (isOpen && !hideAnimation) {
       setHideAnimation(true);
     }
+    if (isOpen) {
+      setTimeout(() => {
+        const startDateInput = containerRef.current.querySelector('#start-date-input-button');
+        if (startDateInput) {
+          startDateInput.focus();
+        }
+      }, 50);
+
+    }
   }, [isOpen]);
 
   return (
     <div
+      ref={containerRef}
       className={cx('dialog-date-picker', {
         open: isOpen,
         hide: !isOpen && hideAnimation,
@@ -62,6 +73,7 @@ const Dialog = ({
           endDatePlaceholder={endDatePlaceholder}
           dateFormat={dateFormat}
           isSingle={isSingle}
+          nonFocusable={!isOpen}
         />
         <button
           type="button"
@@ -100,11 +112,12 @@ const Dialog = ({
               dateFormat={dateFormat}
               monthFormat={monthFormat}
               isSingle={isSingle}
+              isOpen={isOpen}
             />
           )}
       </div>
       <div className="dialog-footer">
-        <button type="button" className="submit-button" onClick={toggleDialog}>
+        <button type="button" className="submit-button" onClick={toggleDialog} tabIndex="0">
           Done
         </button>
         <button

@@ -5,20 +5,40 @@ import cx from 'classnames';
 import Day from './Day';
 
 const Week = ({
-  isFirst, week, month, year, fromDate, toDate, hoverDate, onSelectDate, onHoverDate, totalDay, minDate, maxDate, isSingle,
+  isFirst,
+  week,
+  month,
+  year,
+  fromDate,
+  toDate,
+  hoverDate,
+  onSelectDate,
+  onHoverDate,
+  totalDay,
+  minDate,
+  maxDate,
+  isSingle,
+  weekIndex
 }) => {
   function generateDay() {
     return [...Array(week.days).keys()].map(index => {
       const dateIndex = index + week.start;
       const dateValue = new Date(year, month, dateIndex).getTime();
-      const disabled = (minDate && dateValue < new Date(minDate).getTime()) || (maxDate && dateValue > new Date(maxDate).getTime());
+      const disabled =
+        (minDate && dateValue < new Date(minDate).getTime()) ||
+        (maxDate && dateValue > new Date(maxDate).getTime());
       const selected = dateValue === fromDate || dateValue === toDate;
       let hovered = false;
+
       if (fromDate && fromDate !== toDate && !isSingle) {
-        if (toDate && (fromDate <= dateValue && toDate >= dateValue)) {
+        if (toDate && fromDate <= dateValue && toDate >= dateValue) {
           hovered = true;
         }
-        if (!toDate && (fromDate <= dateValue && hoverDate >= dateValue) && fromDate < hoverDate) {
+        if (
+          !toDate &&
+          fromDate <= dateValue && hoverDate >= dateValue &&
+          fromDate < hoverDate
+        ) {
           hovered = true;
         }
       }
@@ -41,16 +61,14 @@ const Week = ({
           disabled={disabled}
           isEndDay={isEndDate}
           totalDay={totalDay}
+          weekDayIndex={index}
+          weekIndex={weekIndex}
         />
       );
     });
   }
 
-  return (
-    <div className={cx('week', { first: isFirst })}>
-      {generateDay()}
-    </div>
-  );
+  return <div className={cx('week', { first: isFirst })}>{generateDay()}</div>;
 };
 
 Week.propTypes = {
@@ -66,7 +84,7 @@ Week.propTypes = {
   onHoverDate: PropTypes.func,
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
-  isSingle: PropTypes.bool,
+  isSingle: PropTypes.bool
 };
 
 Week.defaultProps = {
@@ -82,7 +100,7 @@ Week.defaultProps = {
   onHoverDate: () => {},
   minDate: null,
   maxDate: null,
-  isSingle: false,
+  isSingle: false
 };
 
 export default Week;

@@ -38,3 +38,21 @@ export function resetTimeDate(date) {
 
   return newDate;
 }
+
+export function getLastDateOfMonth(date) {
+  const month = date.getMonth();
+  const newDate = new Date(date.getFullYear(), month + 1, 0);
+  return newDate.getDate();
+}
+
+export function addDays(date, dayAmount) {
+  const newDate = new Date(date);
+  newDate.setDate(newDate.getDate() + dayAmount);
+  return newDate;
+}
+
+export function subtractDays(date, dayAmount) {
+  const newDate = new Date(date);
+  newDate.setDate(newDate.getDate() - dayAmount);
+  return newDate;
+}
