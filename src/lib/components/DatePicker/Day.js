@@ -17,12 +17,11 @@ const Day = ({
 }) => {
   function selectDate() {
     if (disabled) return;
-
     onSelectDate(dateValue);
   }
+
   function handleHoverDate() {
     if (disabled) return;
-
     onHoverDate(dateValue);
   }
 
@@ -38,8 +37,6 @@ const Day = ({
       onMouseEnter={handleHoverDate}
       role="button"
       tabIndex="-1"
-      data-weekday-index={weekDayIndex}
-      data-week-index={weekIndex}
       data-day-index={dateIndex}
       data-date-value={dateValue}
     >

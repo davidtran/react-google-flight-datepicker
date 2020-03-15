@@ -5,7 +5,7 @@ export function getMonthInfo(year, month, startDay) {
   const numDays = lastDate.getDate();
 
   let start = 1;
-  let end = firstDate.getDay() === 0 ? 1 : (7 - firstDate.getDay() + 1);
+  let end = firstDate.getDay() === 0 ? 1 : 7 - firstDate.getDay() + 1;
   if (startDay === 'sunday') {
     end = 7 - firstDate.getDay();
   }
@@ -55,4 +55,12 @@ export function subtractDays(date, dayAmount) {
   const newDate = new Date(date);
   newDate.setDate(newDate.getDate() - dayAmount);
   return newDate;
+}
+
+export function monthDiff(dateFrom, dateTo) {
+  return (
+    dateTo.getMonth() -
+    dateFrom.getMonth() +
+    12 * (dateTo.getFullYear() - dateFrom.getFullYear())
+  );
 }

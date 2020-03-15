@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import Dayjs from 'dayjs';
 
 import PrevIcon from '../../assets/svg/prev.svg';
 import NextIcon from '../../assets/svg/next.svg';
-
 import MonthCalendar from './MonthCalendar';
-import { resetTimeDate, getLastDateOfMonth, addDays } from '../../helpers';
+import { resetTimeDate, getLastDateOfMonth, addDays, monthDiff } from '../../helpers';
 
 const DialogContentDesktop = ({
   fromDate,
@@ -175,7 +175,7 @@ const DialogContentDesktop = ({
       increaseAmount = 7;
     } else if (e.keyCode === 32) {
       // Space button
-      onSelectDate(dateValue);
+      e.target.click();
     } else if (e.keyCode === 9) {
       // Tab button
       const doneButton = calendarContainer.parentElement.parentElement.parentElement.querySelector(
@@ -200,12 +200,12 @@ const DialogContentDesktop = ({
       const nextDate = addDays(date, increaseAmount);
       if (
         increaseAmount > 0 &&
-        nextDate.getMonth() - focusDate.getMonth() > 1
+        monthDiff(focusDate, nextDate) > 1
       ) {
         increaseCurrentMonth();
       } else if (
         increaseAmount < 0 &&
-        focusDate.getMonth() - nextDate.getMonth() > 0
+        monthDiff(nextDate, focusDate) > 0
       ) {
         decreaseCurrentMonth();
       }
