@@ -103,6 +103,10 @@ const SingleDatePicker = ({
     setHoverDate(null);
   }
 
+  function onDateInputFocus() {
+    handleClickDateInput();
+  }
+
   return (
     <div className="react-google-flight-datepicker">
       <div
@@ -118,6 +122,7 @@ const SingleDatePicker = ({
           handleChangeDate={onSelectDate}
           startDatePlaceholder={startDatePlaceholder}
           dateFormat={dateFormat}
+          onFocus={onDateInputFocus}
           isSingle
         />
         <DialogWrapper isMobile={isMobile}>

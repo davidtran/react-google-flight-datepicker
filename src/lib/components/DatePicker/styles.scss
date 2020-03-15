@@ -258,6 +258,7 @@
     display: flex;
     padding: 0 2px;
     position: relative;
+    overflow: hidden;
 
     &.isAnimating {
       transition: transform 0.2s ease;
@@ -636,6 +637,7 @@
       height: 100%;
       flex-direction: column;
       flex-grow: 1;
+
     }
 
     .weekdays.mobile {
