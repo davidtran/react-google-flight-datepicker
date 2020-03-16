@@ -15,7 +15,7 @@ const DateInputGroup = ({
   dateFormat,
   isSingle,
   onFocus,
-  nonFocusable
+  nonFocusable,
 }) => {
   function handleClickFromInput() {
     handleClickDateInput('from');
@@ -94,6 +94,8 @@ DateInputGroup.propTypes = {
   endDatePlaceholder: PropTypes.string,
   dateFormat: PropTypes.string,
   isSingle: PropTypes.bool,
+  onFocus: PropTypes.func,
+  nonFocusable: PropTypes.bool,
 };
 
 DateInputGroup.defaultProps = {
@@ -107,6 +109,8 @@ DateInputGroup.defaultProps = {
   endDatePlaceholder: null,
   dateFormat: '',
   isSingle: false,
+  onFocus: () => {},
+  nonFocusable: false,
 };
 
 export default DateInputGroup;

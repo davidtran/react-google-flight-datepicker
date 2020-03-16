@@ -18,15 +18,14 @@ const Week = ({
   minDate,
   maxDate,
   isSingle,
-  weekIndex
+  weekIndex,
 }) => {
   function generateDay() {
     return [...Array(week.days).keys()].map(index => {
       const dateIndex = index + week.start;
       const dateValue = new Date(year, month, dateIndex).getTime();
-      const disabled =
-        (minDate && dateValue < new Date(minDate).getTime()) ||
-        (maxDate && dateValue > new Date(maxDate).getTime());
+      const disabled = (minDate && dateValue < new Date(minDate).getTime())
+        || (maxDate && dateValue > new Date(maxDate).getTime());
       const selected = dateValue === fromDate || dateValue === toDate;
       let hovered = false;
 
@@ -35,9 +34,9 @@ const Week = ({
           hovered = true;
         }
         if (
-          !toDate &&
-          fromDate <= dateValue && hoverDate >= dateValue &&
-          fromDate < hoverDate
+          !toDate
+          && fromDate <= dateValue && hoverDate >= dateValue
+          && fromDate < hoverDate
         ) {
           hovered = true;
         }
@@ -84,7 +83,8 @@ Week.propTypes = {
   onHoverDate: PropTypes.func,
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
-  isSingle: PropTypes.bool
+  isSingle: PropTypes.bool,
+  weekIndex: PropTypes.number,
 };
 
 Week.defaultProps = {
@@ -100,7 +100,8 @@ Week.defaultProps = {
   onHoverDate: () => {},
   minDate: null,
   maxDate: null,
-  isSingle: false
+  isSingle: false,
+  weekIndex: 0,
 };
 
 export default Week;

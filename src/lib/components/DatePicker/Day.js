@@ -12,8 +12,6 @@ const Day = ({
   onHoverDate,
   isEndDay,
   totalDay,
-  weekIndex,
-  weekDayIndex
 }) => {
   function selectDate() {
     if (disabled) return;
@@ -31,7 +29,7 @@ const Day = ({
         selected,
         hovered,
         disabled,
-        end: isEndDay
+        end: isEndDay,
       })}
       onClick={selectDate}
       onMouseEnter={handleHoverDate}
@@ -40,16 +38,16 @@ const Day = ({
       data-day-index={dateIndex}
       data-date-value={dateValue}
     >
-      {hovered &&
-        !(isEndDay && dateIndex === totalDay) &&
-        !(dateIndex === 1 && selected && !isEndDay) && (
+      {hovered
+        && !(isEndDay && dateIndex === totalDay)
+        && !(dateIndex === 1 && selected && !isEndDay) && (
           <div
             className={cx('background-day', {
               'first-day': dateIndex === 1,
-              'last-day': dateIndex === totalDay
+              'last-day': dateIndex === totalDay,
             })}
           />
-        )}
+      )}
       <div className="text-day">{dateIndex}</div>
     </div>
   );
@@ -64,7 +62,7 @@ Day.propTypes = {
   disabled: PropTypes.bool,
   onSelectDate: PropTypes.func,
   onHoverDate: PropTypes.func,
-  totalDay: PropTypes.number
+  totalDay: PropTypes.number,
 };
 
 Day.defaultProps = {
@@ -76,7 +74,7 @@ Day.defaultProps = {
   disabled: false,
   totalDay: null,
   onSelectDate: () => {},
-  onHoverDate: () => {}
+  onHoverDate: () => {},
 };
 
 export default Day;

@@ -1,6 +1,6 @@
 DatePicker examples:
 
-###### RangeDatePicker
+###### SingleDatePicker
 
 ```js
 import { SingleDatePicker } from 'react-google-flight-datepicker';

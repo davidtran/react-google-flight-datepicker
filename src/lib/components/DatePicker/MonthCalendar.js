@@ -20,7 +20,7 @@ const MonthCalendar = ({
   minDate,
   maxDate,
   monthFormat,
-  isSingle
+  isSingle,
 }) => {
   function generateWeek() {
     const { totalWeek, totalDay } = getMonthInfo(year, month, startWeekDay);
@@ -61,7 +61,7 @@ const MonthCalendar = ({
     <div
       className={cx('month-calendar', {
         isAnimating,
-        hidden
+        hidden,
       })}
       data-month-index={month + 1}
     >
@@ -93,7 +93,7 @@ MonthCalendar.propTypes = {
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
   monthFormat: PropTypes.string,
-  isSingle: PropTypes.bool
+  isSingle: PropTypes.bool,
 };
 
 MonthCalendar.defaultProps = {
@@ -110,7 +110,7 @@ MonthCalendar.defaultProps = {
   minDate: null,
   maxDate: null,
   monthFormat: '',
-  isSingle: false
+  isSingle: false,
 };
 
 export default MonthCalendar;

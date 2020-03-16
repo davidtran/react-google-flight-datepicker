@@ -43,7 +43,6 @@ const Dialog = ({
           startDateInput.focus();
         }
       }, 50);
-
     }
   }, [isOpen]);
 
