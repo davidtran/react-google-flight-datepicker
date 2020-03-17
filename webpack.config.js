@@ -1,8 +1,10 @@
 // Webpack configuration
+const TerserPlugin = require('terser-webpack-plugin');
+const webpack = require('webpack');
 const path = require('path');
 const isProduction = process.env.NODE_ENV === 'production';
-const supportServerSide = !!process.env.SERVER_SIDE;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const Visualizer = require('webpack-visualizer-plugin');
 
 module.exports = {
   mode: isProduction ? 'production' : 'development',
@@ -50,5 +52,16 @@ module.exports = {
       },
     ],
   },
-  plugins: [new MiniCssExtractPlugin()],
+  optimization: {
+    minimizer: [new TerserPlugin()],
+  },
+  plugins: [
+    new MiniCssExtractPlugin(),
+    new Visualizer({
+      filename: '../statistics.html'
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production'),
+    })
+  ],
 };

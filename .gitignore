@@ -24,3 +24,4 @@ yarn-error.log*
 coverage
 package-lock.json
 .vscode/settings.json
+statistics.html
