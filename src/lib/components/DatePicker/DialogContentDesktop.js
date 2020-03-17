@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import Dayjs from 'dayjs';
 
 import PrevIcon from '../../assets/svg/prev.svg';
 import NextIcon from '../../assets/svg/next.svg';
 import MonthCalendar from './MonthCalendar';
-import { resetTimeDate, getLastDateOfMonth, addDays, monthDiff } from '../../helpers';
+import {
+  resetTimeDate, getLastDateOfMonth, addDays, monthDiff,
+} from '../../helpers';
 
 const DialogContentDesktop = ({
   fromDate,
@@ -19,7 +20,7 @@ const DialogContentDesktop = ({
   maxDate,
   monthFormat,
   isSingle,
-  isOpen
+  isOpen,
 }) => {
   const containerRef = useRef();
   const [translateAmount, setTranslateAmount] = useState(0);
@@ -30,13 +31,13 @@ const DialogContentDesktop = ({
 
   function getArrayMonth(date) {
     const prevMonth = new Date(
-      new Date(date).setMonth(new Date(date).getMonth() - 1)
+      new Date(date).setMonth(new Date(date).getMonth() - 1),
     );
     const nextMonth = new Date(
-      new Date(date).setMonth(new Date(date).getMonth() + 1)
+      new Date(date).setMonth(new Date(date).getMonth() + 1),
     );
     const futureMonth = new Date(
-      new Date(date).setMonth(new Date(date).getMonth() + 2)
+      new Date(date).setMonth(new Date(date).getMonth() + 2),
     );
 
     return [prevMonth, focusDate, nextMonth, futureMonth];
@@ -68,7 +69,7 @@ const DialogContentDesktop = ({
       const newMaxDate = resetTimeDate(maxDate);
       newMaxDate.setDate(1);
       const nextDate = resetTimeDate(
-        new Date(focusDate).setMonth(new Date(focusDate).getMonth() + 1)
+        new Date(focusDate).setMonth(new Date(focusDate).getMonth() + 1),
       );
       nextDate.setDate(1);
 
@@ -90,7 +91,7 @@ const DialogContentDesktop = ({
 
   function decreaseFocusDate() {
     const nextFocusDate = new Date(
-      focusDate.setMonth(focusDate.getMonth() - 1)
+      focusDate.setMonth(focusDate.getMonth() - 1),
     );
     setFocusDate(nextFocusDate);
   }
@@ -119,6 +120,7 @@ const DialogContentDesktop = ({
     if (e.keyCode === 32 || e.keyCode === 13) {
       e.preventDefault();
       decreaseCurrentMonth();
+
       return false;
     }
   }
@@ -127,6 +129,7 @@ const DialogContentDesktop = ({
     if (e.keyCode === 32 || e.keyCode === 13) {
       e.preventDefault();
       increaseCurrentMonth();
+
       return false;
     }
   }
@@ -136,7 +139,7 @@ const DialogContentDesktop = ({
       let selectedButton = containerRef.current.querySelector('.day.selected');
       if (!selectedButton) {
         selectedButton = containerRef.current.querySelector(
-          '.month-calendar:not(.hidden) .day:not(.disabled)'
+          '.month-calendar:not(.hidden) .day:not(.disabled)',
         );
       }
       if (selectedButton) {
@@ -148,16 +151,15 @@ const DialogContentDesktop = ({
   function onKeyDown(e) {
     const allowKeyCodes = [9, 32, 37, 38, 39, 40];
     if (
-      allowKeyCodes.indexOf(e.keyCode) === -1 ||
-      !e.target.getAttribute('data-day-index')
+      allowKeyCodes.indexOf(e.keyCode) === -1
+      || !e.target.getAttribute('data-day-index')
     ) {
       return true;
     }
 
     e.preventDefault();
 
-    const calendarContainer =
-      e.target.parentElement.parentElement.parentElement.parentElement;
+    const calendarContainer = e.target.parentElement.parentElement.parentElement.parentElement;
     const dayIndex = parseInt(e.target.getAttribute('data-day-index'));
     const dateValue = parseInt(e.target.getAttribute('data-date-value'));
     const date = new Date(dateValue);
@@ -179,10 +181,11 @@ const DialogContentDesktop = ({
     } else if (e.keyCode === 9) {
       // Tab button
       const doneButton = calendarContainer.parentElement.parentElement.parentElement.querySelector(
-        '.submit-button'
+        '.submit-button',
       );
       if (doneButton) {
         doneButton.focus();
+
         return true;
       }
     }
@@ -191,7 +194,7 @@ const DialogContentDesktop = ({
     if (nextDayIndex > 0 && nextDayIndex <= lastDateOfMonth) {
       const selector = `.day[data-day-index="${nextDayIndex}"]`;
       const dayElement = e.target.parentElement.parentElement.querySelector(
-        selector
+        selector,
       );
       if (dayElement) {
         dayElement.focus();
@@ -199,19 +202,19 @@ const DialogContentDesktop = ({
     } else {
       const nextDate = addDays(date, increaseAmount);
       if (
-        increaseAmount > 0 &&
-        monthDiff(focusDate, nextDate) > 1
+        increaseAmount > 0
+        && monthDiff(focusDate, nextDate) > 1
       ) {
         increaseCurrentMonth();
       } else if (
-        increaseAmount < 0 &&
-        monthDiff(nextDate, focusDate) > 0
+        increaseAmount < 0
+        && monthDiff(nextDate, focusDate) > 0
       ) {
         decreaseCurrentMonth();
       }
       setTimeout(() => {
-        const query = `.month-calendar[data-month-index="${nextDate.getMonth() +
-          1}"] .day[data-day-index="${nextDate.getDate()}"]`;
+        const query = `.month-calendar[data-month-index="${nextDate.getMonth()
+          + 1}"] .day[data-day-index="${nextDate.getDate()}"]`;
         const dayElement = calendarContainer.querySelector(query);
         if (dayElement) {
           dayElement.focus();
@@ -246,13 +249,14 @@ const DialogContentDesktop = ({
   }
 
   return (
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div className="calendar-wrapper" ref={containerRef} onKeyDown={onKeyDown}>
       <div
         className={cx('calendar-content', {
-          isAnimating: translateAmount !== 0
+          isAnimating: translateAmount !== 0,
         })}
         style={{
-          transform: `translateX(${translateAmount}px)`
+          transform: `translateX(${translateAmount}px)`,
         }}
       >
         {renderMonthCalendars()}
@@ -292,7 +296,8 @@ DialogContentDesktop.propTypes = {
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
   monthFormat: PropTypes.string,
-  isSingle: PropTypes.bool
+  isSingle: PropTypes.bool,
+  isOpen: PropTypes.bool,
 };
 
 DialogContentDesktop.defaultProps = {
@@ -305,7 +310,8 @@ DialogContentDesktop.defaultProps = {
   minDate: null,
   maxDate: null,
   monthFormat: '',
-  isSingle: false
+  isSingle: false,
+  isOpen: false,
 };
 
 export default DialogContentDesktop;

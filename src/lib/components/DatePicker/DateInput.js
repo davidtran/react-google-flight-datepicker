@@ -20,7 +20,7 @@ const DateInput = ({
   onFocus,
   disabled,
   name,
-  nonFocusable
+  nonFocusable,
 }) => {
   const [formattedDate, setFormattedDate] = useState(null);
 
@@ -98,11 +98,14 @@ DateInput.propTypes = {
   tabIndex: PropTypes.string,
   isFocus: PropTypes.bool,
   value: PropTypes.instanceOf(Date),
-  fromDate: PropTypes.instanceOf(Date),
   placeholder: PropTypes.string,
   handleChangeDate: PropTypes.func,
   dateFormat: PropTypes.string,
-  isSingle: PropTypes.bool
+  isSingle: PropTypes.bool,
+  onFocus: PropTypes.func,
+  disabled: PropTypes.bool,
+  name: PropTypes.string,
+  nonFocusable: PropTypes.bool,
 };
 
 DateInput.defaultProps = {
@@ -111,11 +114,15 @@ DateInput.defaultProps = {
   tabIndex: '',
   isFocus: false,
   value: null,
-  fromDate: null,
   placeholder: null,
   handleChangeDate: () => {},
   dateFormat: '',
-  isSingle: false
+  isSingle: false,
+  onFocus: () => {},
+  disabled: false,
+  name: '',
+  nonFocusable: false,
+
 };
 
 export default DateInput;
