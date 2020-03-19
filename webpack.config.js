@@ -17,7 +17,13 @@ module.exports = {
   },
   externals: {
     react: 'react',
-    reactDOM: 'react-dom'
+    'react-dom': {
+      root: 'ReactDOM',
+      commonjs2: 'react-dom',
+      commonjs: 'react-dom',
+      amd: 'react-dom',
+      umd: 'react-dom',
+    },
   },
   module: {
     rules: [
