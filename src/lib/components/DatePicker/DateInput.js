@@ -18,24 +18,41 @@ const DateInput = ({
   dateFormat,
   isSingle,
   onFocus,
-  disabled,
   name,
   nonFocusable,
+  fromDate,
+  minDate,
+  maxDate,
 }) => {
   const [formattedDate, setFormattedDate] = useState(null);
+  const [disablePrev, setDisablePrev] = useState(false);
+  const [disableNext, setDisableNext] = useState(false);
 
   useEffect(() => {
     if (value) {
-      const newDate = dayjs(value);
-      let text = newDate.format('ddd, DD MMM');
+      let text = value.format('ddd, DD MMM');
       if (dateFormat) {
-        text = newDate.format(dateFormat);
+        text = value.format(dateFormat);
       }
       setFormattedDate(text);
+
+      if ((minDate && dayjs(minDate).add(1, 'day').isAfter(value, 'date'))
+        || (name === 'END_DATE' && value.isBefore(fromDate.add(1, 'day'), 'date'))
+      ) {
+        setDisablePrev(true);
+      } else {
+        setDisablePrev(false);
+      }
+
+      if (maxDate && dayjs(maxDate).subtract(1, 'day').isBefore(value, 'date')) {
+        setDisableNext(true);
+      } else {
+        setDisableNext(false);
+      }
     } else {
       setFormattedDate(null);
     }
-  }, [value]);
+  }, [value, fromDate]);
 
   function prevDate(e) {
     e.stopPropagation();
@@ -73,8 +90,8 @@ const DateInput = ({
             type="button"
             className="btn-outline change-date-button"
             onClick={prevDate}
-            disabled={disabled}
             tabIndex={nonFocusable ? '-1' : '0'}
+            disabled={disablePrev}
           >
             <PrevIcon viewBox="0 0 24 24" className="icon-arrow" />
           </button>
@@ -83,6 +100,7 @@ const DateInput = ({
             className="btn-outline change-date-button"
             onClick={nextDate}
             tabIndex={nonFocusable ? '-1' : '0'}
+            disabled={disableNext}
           >
             <NextIcon viewBox="0 0 24 24" className="icon-arrow" />
           </button>
@@ -103,9 +121,11 @@ DateInput.propTypes = {
   dateFormat: PropTypes.string,
   isSingle: PropTypes.bool,
   onFocus: PropTypes.func,
-  disabled: PropTypes.bool,
   name: PropTypes.string,
   nonFocusable: PropTypes.bool,
+  fromDate: PropTypes.instanceOf(Date),
+  minDate: PropTypes.instanceOf(Date),
+  maxDate: PropTypes.instanceOf(Date),
 };
 
 DateInput.defaultProps = {
@@ -119,9 +139,11 @@ DateInput.defaultProps = {
   dateFormat: '',
   isSingle: false,
   onFocus: () => {},
-  disabled: false,
   name: '',
   nonFocusable: false,
+  fromDate: null,
+  minDate: null,
+  maxDate: null,
 
 };
 

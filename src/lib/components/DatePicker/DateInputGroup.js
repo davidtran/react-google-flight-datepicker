@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import dayjs from 'dayjs';
+
 import DateInput from './DateInput';
 import CalendarIcon from '../../assets/svg/calendar.svg';
 
@@ -9,6 +11,8 @@ const DateInputGroup = ({
   handleClickDateInput,
   fromDate,
   toDate,
+  minDate,
+  maxDate,
   handleChangeDate,
   startDatePlaceholder,
   endDatePlaceholder,
@@ -26,14 +30,11 @@ const DateInputGroup = ({
   }
 
   function getDateFromValue(action, value) {
-    const date = new Date(value);
     if (action === 'prev') {
-      date.setDate(date.getDate() - 1);
-    } else {
-      date.setDate(date.getDate() + 1);
+      return dayjs(value).subtract(1, 'day');
     }
 
-    return date.getTime();
+    return dayjs(value).add(1, 'day');
   }
 
   function handleChangeFromDate(action, value) {
@@ -64,11 +65,14 @@ const DateInputGroup = ({
           name="START_DATE"
           onFocus={onFocus}
           nonFocusable={nonFocusable}
+          minDate={minDate}
+          maxDate={maxDate}
         />
         {!isSingle
         && (
           <DateInput
             handleClickDateInput={handleClickToInput}
+            tabIndex="0"
             isFocus={inputFocus === 'to'}
             value={toDate}
             placeholder={endDatePlaceholder}
@@ -76,6 +80,9 @@ const DateInputGroup = ({
             dateFormat={dateFormat}
             name="END_DATE"
             nonFocusable={nonFocusable}
+            minDate={minDate}
+            maxDate={maxDate}
+            fromDate={fromDate}
           />
         )}
       </div>
@@ -89,6 +96,8 @@ DateInputGroup.propTypes = {
   inputFocus: PropTypes.string,
   fromDate: PropTypes.instanceOf(Date),
   toDate: PropTypes.instanceOf(Date),
+  minDate: PropTypes.instanceOf(Date),
+  maxDate: PropTypes.instanceOf(Date),
   handleChangeDate: PropTypes.func,
   startDatePlaceholder: PropTypes.string,
   endDatePlaceholder: PropTypes.string,
@@ -104,6 +113,8 @@ DateInputGroup.defaultProps = {
   inputFocus: null,
   fromDate: null,
   toDate: null,
+  minDate: null,
+  maxDate: null,
   handleChangeDate: () => {},
   startDatePlaceholder: null,
   endDatePlaceholder: null,

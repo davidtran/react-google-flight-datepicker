@@ -31,6 +31,12 @@ const Dialog = ({
 }) => {
   const containerRef = useRef();
   const [hideAnimation, setHideAnimation] = useState(false);
+  const [dateChanged, setDateChanged] = useState();
+
+  function onChangeDate(date, value) {
+    setDateChanged(date);
+    handleChangeDate(date, value);
+  }
 
   useEffect(() => {
     if (isOpen && !hideAnimation) {
@@ -67,7 +73,9 @@ const Dialog = ({
           handleClickDateInput={handleClickDateInput}
           fromDate={fromDate}
           toDate={toDate}
-          handleChangeDate={handleChangeDate}
+          minDate={minDate}
+          maxDate={maxDate}
+          handleChangeDate={onChangeDate}
           startDatePlaceholder={startDatePlaceholder}
           endDatePlaceholder={endDatePlaceholder}
           dateFormat={dateFormat}
@@ -96,6 +104,8 @@ const Dialog = ({
               maxDate={maxDate}
               dateFormat={dateFormat}
               monthFormat={monthFormat}
+              isOpen={isOpen}
+              isSingle={isSingle}
             />
           )
           : (
@@ -112,6 +122,7 @@ const Dialog = ({
               monthFormat={monthFormat}
               isSingle={isSingle}
               isOpen={isOpen}
+              dateChanged={dateChanged}
             />
           )}
       </div>

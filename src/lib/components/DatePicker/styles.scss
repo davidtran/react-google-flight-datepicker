@@ -262,6 +262,7 @@
 
     &.isAnimating {
       transition: transform 0.2s ease;
+      overflow: initial;
     }
   }
 

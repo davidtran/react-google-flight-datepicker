@@ -31,39 +31,3 @@ export function getWeekDay(startWeekDay) {
 
   return arrWeekDay;
 }
-
-export function resetTimeDate(date) {
-  const newDate = new Date(date);
-  newDate.setHours(0, 0, 0, 0);
-
-  return newDate;
-}
-
-export function getLastDateOfMonth(date) {
-  const month = date.getMonth();
-  const newDate = new Date(date.getFullYear(), month + 1, 0);
-
-  return newDate.getDate();
-}
-
-export function addDays(date, dayAmount) {
-  const newDate = new Date(date);
-  newDate.setDate(newDate.getDate() + dayAmount);
-
-  return newDate;
-}
-
-export function subtractDays(date, dayAmount) {
-  const newDate = new Date(date);
-  newDate.setDate(newDate.getDate() - dayAmount);
-
-  return newDate;
-}
-
-export function monthDiff(dateFrom, dateTo) {
-  return (
-    dateTo.getMonth()
-    - dateFrom.getMonth()
-    + 12 * (dateTo.getFullYear() - dateFrom.getFullYear())
-  );
-}

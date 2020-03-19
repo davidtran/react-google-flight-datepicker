@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import List from 'react-virtualized/dist/commonjs/List';
-import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import dayjs from 'dayjs';
+import { VariableSizeList as List } from 'react-window';
+import AutoSizer from 'react-virtualized-auto-sizer';
 
 import MonthCalendar from './MonthCalendar';
 import { getMonthInfo, getWeekDay } from '../../helpers';
@@ -17,27 +17,33 @@ const DialogContentMobile = ({
   minDate,
   maxDate,
   monthFormat,
+  isOpen,
   isSingle,
 }) => {
-  const [scrollToIndex, setScrollToIndex] = useState(0);
   const [rowCount, setRowCount] = useState(2400);
   const minYear = minDate ? dayjs(minDate).year() : 1900;
   const minMonth = minDate ? dayjs(minDate).month() : 0;
+  const listRef = useRef();
 
   useEffect(() => {
-    const date = fromDate ? dayjs(fromDate) : dayjs();
-    let monthDiff = date.diff(dayjs('1900-01-01'), 'month');
-
-    if (minDate) {
-      monthDiff = date.diff(dayjs(minDate), 'month');
-    }
-    setScrollToIndex(monthDiff + 1);
-
     if (maxDate) {
       const _minDate = minDate ? dayjs(minDate) : dayjs('1900-01-01');
       setRowCount(dayjs(maxDate).diff(_minDate, 'month') + 1);
     }
   }, []);
+
+  useEffect(() => {
+    if (listRef.current && isOpen) {
+      const date = fromDate ? dayjs(fromDate) : dayjs();
+      let monthDiff = date.diff(dayjs('1900-01-01'), 'month');
+
+      if (minDate) {
+        monthDiff = date.diff(dayjs(minDate), 'month');
+      }
+
+      listRef.current.scrollToItem(monthDiff + 1, 'smart');
+    }
+  }, [isOpen]);
 
   function getMonthYearFromIndex(index) {
     const _index = index + minMonth;
@@ -48,11 +54,11 @@ const DialogContentMobile = ({
   }
 
   // eslint-disable-next-line react/prop-types
-  function rowRenderer({ key, index, style }) {
+  const Row = ({ index, style }) => {
     const { year, month } = getMonthYearFromIndex(index);
 
     return (
-      <div key={key} style={style}>
+      <div style={style}>
         <MonthCalendar
           month={month}
           year={year}
@@ -65,13 +71,13 @@ const DialogContentMobile = ({
           minDate={minDate}
           maxDate={maxDate}
           monthFormat={monthFormat}
-          isSingl={isSingle}
+          isSingle={isSingle}
         />
       </div>
     );
-  }
+  };
 
-  function getRowHeight({ index }) {
+  function getItemSize(index) {
     const { year, month } = getMonthYearFromIndex(index);
     const { totalWeek } = getMonthInfo(year, month, 'monday');
 
@@ -83,13 +89,14 @@ const DialogContentMobile = ({
       <AutoSizer>
         {({ height, width }) => (
           <List
+            ref={listRef}
             width={width}
-            height={height}
-            rowCount={rowCount}
-            rowHeight={getRowHeight}
-            scrollToIndex={scrollToIndex}
-            rowRenderer={rowRenderer}
-          />
+            height={height - 36}
+            itemCount={rowCount}
+            itemSize={getItemSize}
+          >
+            {Row}
+          </List>
         )}
       </AutoSizer>
     );
@@ -126,6 +133,7 @@ DialogContentMobile.propTypes = {
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
   monthFormat: PropTypes.string,
+  isOpen: PropTypes.bool,
   isSingle: PropTypes.bool,
 };
 
@@ -139,6 +147,7 @@ DialogContentMobile.defaultProps = {
   minDate: null,
   maxDate: null,
   monthFormat: '',
+  isOpen: false,
   isSingle: false,
 };
 

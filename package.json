@@ -28,7 +28,8 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "dayjs": "^1.8.22",
-    "react-virtualized": "^9.21.2"
+    "react-virtualized-auto-sizer": "^1.0.2",
+    "react-window": "^1.8.5"
   },
   "peerDependencies": {
     "react": "^16.8.4",

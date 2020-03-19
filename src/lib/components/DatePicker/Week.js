@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import dayjs from 'dayjs';
 
 import Day from './Day';
 
@@ -23,27 +24,27 @@ const Week = ({
   function generateDay() {
     return [...Array(week.days).keys()].map(index => {
       const dateIndex = index + week.start;
-      const dateValue = new Date(year, month, dateIndex).getTime();
-      const disabled = (minDate && dateValue < new Date(minDate).getTime())
-        || (maxDate && dateValue > new Date(maxDate).getTime());
-      const selected = dateValue === fromDate || dateValue === toDate;
+      const dateValue = dayjs(`${year}-${month + 1}-${dateIndex}`);
+      const disabled = (minDate && dateValue.isBefore(minDate, 'date'))
+        || (maxDate && dateValue.isAfter(maxDate, 'date'));
+      const selected = dateValue.isSame(fromDate, 'date') || dateValue.isSame(toDate, 'date');
       let hovered = false;
 
-      if (fromDate && fromDate !== toDate && !isSingle) {
-        if (toDate && fromDate <= dateValue && toDate >= dateValue) {
+      if (fromDate && !fromDate.isSame(toDate, 'date') && !isSingle) {
+        if (toDate && !fromDate.isAfter(dateValue, 'date') && !toDate.isBefore(dateValue, 'date')) {
           hovered = true;
         }
         if (
           !toDate
-          && fromDate <= dateValue && hoverDate >= dateValue
-          && fromDate < hoverDate
+          && !dateValue.isBefore(fromDate, 'date') && !(hoverDate && hoverDate.isBefore(dateValue, 'date'))
+          && fromDate.isBefore(hoverDate, 'date')
         ) {
           hovered = true;
         }
       }
 
       let isEndDate = false;
-      if (dateValue === toDate || (!toDate && hoverDate === dateValue)) {
+      if (dateValue.isSame(toDate, 'date') || (!toDate && dateValue.isSame(hoverDate, 'date'))) {
         isEndDate = true;
       }
 
@@ -75,10 +76,10 @@ Week.propTypes = {
   week: PropTypes.object,
   month: PropTypes.number,
   year: PropTypes.number,
-  fromDate: PropTypes.number,
-  toDate: PropTypes.number,
+  fromDate: PropTypes.instanceOf(Date),
+  toDate: PropTypes.instanceOf(Date),
+  hoverDate: PropTypes.instanceOf(Date),
   totalDay: PropTypes.number,
-  hoverDate: PropTypes.number,
   onSelectDate: PropTypes.func,
   onHoverDate: PropTypes.func,
   minDate: PropTypes.instanceOf(Date),

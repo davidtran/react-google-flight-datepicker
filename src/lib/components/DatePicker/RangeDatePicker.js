@@ -3,12 +3,12 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import dayjs from 'dayjs';
 
 import './styles.scss';
 import DateInputGroup from './DateInputGroup';
 import DialogWrapper from './DialogWrapper';
 import Dialog from './Dialog';
-import { resetTimeDate } from '../../helpers';
 
 const RangeDatePicker = ({
   startDate,
@@ -28,9 +28,9 @@ const RangeDatePicker = ({
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
   const [inputFocus, setInputFocus] = useState('to');
-  const [fromDate, setFromDate] = useState(startDate);
-  const [toDate, setToDate] = useState(endDate);
-  const [hoverDate, setHoverDate] = useState(true);
+  const [fromDate, setFromDate] = useState();
+  const [toDate, setToDate] = useState();
+  const [hoverDate, setHoverDate] = useState();
   const [isFirstTime, setIsFirstTime] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -64,12 +64,10 @@ const RangeDatePicker = ({
   useEffect(() => {
     setIsFirstTime(true);
     if (startDate) {
-      const newStartDate = resetTimeDate(startDate);
-      setFromDate(newStartDate.getTime());
+      setFromDate(dayjs(startDate));
     }
     if (endDate) {
-      const newEndDate = resetTimeDate(endDate);
-      setToDate(newEndDate.getTime());
+      setToDate(dayjs(endDate));
     }
 
     document.addEventListener('click', handleDocumentClick);
@@ -79,8 +77,8 @@ const RangeDatePicker = ({
 
   useEffect(() => {
     if (isFirstTime) {
-      const startDate = fromDate ? new Date(fromDate) : null;
-      const endDate = toDate ? new Date(toDate) : null;
+      const startDate = fromDate ? dayjs(fromDate) : null;
+      const endDate = toDate ? dayjs(toDate) : null;
       onChange(startDate, endDate);
     }
   }, [fromDate, toDate]);
@@ -114,9 +112,9 @@ const RangeDatePicker = ({
 
   function onSelectDate(date) {
     if (inputFocus) {
-      if (inputFocus === 'from' || (fromDate && date < fromDate)) {
+      if (inputFocus === 'from' || (fromDate && date.isBefore(fromDate, 'date'))) {
         setFromDate(date);
-        if (toDate && date > toDate) {
+        if (toDate && date.isAfter(toDate, 'date')) {
           setToDate(null);
         }
         setInputFocus('to');
@@ -127,7 +125,7 @@ const RangeDatePicker = ({
     } else {
       setFromDate(date);
       setInputFocus('to');
-      if (toDate && date > toDate) {
+      if (toDate && date.isAfter(toDate, 'date')) {
         setToDate(null);
       }
     }
@@ -145,6 +143,10 @@ const RangeDatePicker = ({
   }
 
   function handleChangeDate(value, input) {
+    if ((minDate && dayjs(minDate).isAfter(value, 'date')) || (maxDate && dayjs(maxDate).isBefore(value, 'date'))) {
+      return;
+    }
+
     if (input === 'from') {
       setInputFocus('from');
       setFromDate(value);
@@ -174,6 +176,8 @@ const RangeDatePicker = ({
           showCalendarIcon
           fromDate={fromDate}
           toDate={toDate}
+          minDate={minDate}
+          maxDate={maxDate}
           handleChangeDate={handleChangeDate}
           startDatePlaceholder={startDatePlaceholder}
           endDatePlaceholder={endDatePlaceholder}

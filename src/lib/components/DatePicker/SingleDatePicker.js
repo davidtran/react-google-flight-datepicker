@@ -3,12 +3,12 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import dayjs from 'dayjs';
 
 import './styles.scss';
 import DateInputGroup from './DateInputGroup';
 import Dialog from './Dialog';
 import DialogWrapper from './DialogWrapper';
-import { resetTimeDate } from '../../helpers';
 
 const SingleDatePicker = ({
   startDate,
@@ -25,8 +25,8 @@ const SingleDatePicker = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
-  const [fromDate, setFromDate] = useState(startDate);
-  const [hoverDate, setHoverDate] = useState(true);
+  const [fromDate, setFromDate] = useState();
+  const [hoverDate, setHoverDate] = useState();
   const [isFirstTime, setIsFirstTime] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -60,8 +60,7 @@ const SingleDatePicker = ({
   useEffect(() => {
     setIsFirstTime(true);
     if (startDate) {
-      const newStartDate = resetTimeDate(startDate);
-      setFromDate(newStartDate.getTime());
+      setFromDate(dayjs(startDate));
     }
 
     document.addEventListener('click', handleDocumentClick);
@@ -71,7 +70,7 @@ const SingleDatePicker = ({
 
   useEffect(() => {
     if (isFirstTime) {
-      const startDate = fromDate ? new Date(fromDate) : null;
+      const startDate = fromDate ? dayjs(fromDate) : null;
       onChange(startDate);
     }
   }, [fromDate]);
@@ -91,6 +90,9 @@ const SingleDatePicker = ({
   }
 
   function onSelectDate(date) {
+    if ((minDate && dayjs(minDate).isAfter(date, 'date')) || (maxDate && dayjs(maxDate).isBefore(date, 'date'))) {
+      return;
+    }
     setFromDate(date);
   }
 
@@ -119,6 +121,8 @@ const SingleDatePicker = ({
           handleClickDateInput={handleClickDateInput}
           showCalendarIcon
           fromDate={fromDate}
+          minDate={minDate}
+          maxDate={maxDate}
           handleChangeDate={onSelectDate}
           startDatePlaceholder={startDatePlaceholder}
           dateFormat={dateFormat}
