@@ -19,7 +19,7 @@ const Day = ({
   }
 
   function handleHoverDate() {
-    if (disabled) return;
+    if (disabled || !onHoverDate) return;
     onHoverDate(dateValue);
   }
 

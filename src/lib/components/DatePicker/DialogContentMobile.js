@@ -12,7 +12,6 @@ const DialogContentMobile = ({
   toDate,
   hoverDate,
   onSelectDate,
-  onHoverDate,
   startWeekDay,
   minDate,
   maxDate,
@@ -63,7 +62,6 @@ const DialogContentMobile = ({
           month={month}
           year={year}
           onSelectDate={onSelectDate}
-          onHoverDate={onHoverDate}
           fromDate={fromDate}
           toDate={toDate}
           hoverDate={hoverDate}
@@ -128,7 +126,6 @@ DialogContentMobile.propTypes = {
   toDate: PropTypes.instanceOf(Date),
   hoverDate: PropTypes.instanceOf(Date),
   onSelectDate: PropTypes.func,
-  onHoverDate: PropTypes.func,
   startWeekDay: PropTypes.string,
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
@@ -142,7 +139,6 @@ DialogContentMobile.defaultProps = {
   toDate: null,
   hoverDate: null,
   onSelectDate: () => {},
-  onHoverDate: () => {},
   startWeekDay: null,
   minDate: null,
   maxDate: null,

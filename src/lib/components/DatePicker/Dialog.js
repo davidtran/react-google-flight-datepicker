@@ -98,7 +98,6 @@ const Dialog = ({
               toDate={toDate}
               hoverDate={hoverDate}
               onSelectDate={onSelectDate}
-              onHoverDate={onHoverDate}
               startWeekDay={startWeekDay}
               minDate={minDate}
               maxDate={maxDate}
