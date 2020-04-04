@@ -7,7 +7,7 @@ import { RangeDatePicker } from 'react-google-flight-datepicker';
 
 <div className="react-google-flight-datepicker">
   <div className="date-picker-demo">
-    <RangeDatePicker 
+    <RangeDatePicker
       // startDatePlaceholder="My from date"
       // onChange={(startDate, endDate) => console.log(startDate, endDate)}
       // onFocus={(inputFocus) => console.log(inputFocus)}

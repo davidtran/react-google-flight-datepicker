@@ -1,4 +1,4 @@
 import RangeDatePicker from './RangeDatePicker';
 import SingleDatePicker from './SingleDatePicker';
-
-export { RangeDatePicker, SingleDatePicker };
+import TestDatePicker from './TestDatePicker';
+export { RangeDatePicker, SingleDatePicker, TestDatePicker };

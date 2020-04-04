@@ -24,7 +24,6 @@ const MonthCalendar = ({
 }) => {
   function generateWeek() {
     const { totalWeek, totalDay } = getMonthInfo(year, month, startWeekDay);
-
     return totalWeek.map((week, index) => (
       <Week
         // eslint-disable-next-line react/no-array-index-key
@@ -49,7 +48,6 @@ const MonthCalendar = ({
 
   function generateWeekDay() {
     const arrWeekDay = getWeekDay(startWeekDay);
-
     return arrWeekDay.map((day, index) => (
       <div className="weekday" key={index}>
         {day}

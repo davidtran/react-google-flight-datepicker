@@ -47,6 +47,12 @@ const SingleDatePicker = ({
     }
   }, []);
 
+  useEffect(() => {
+    if (startDate) {
+      setFromDate(dayjs(startDate));
+    }
+  }, [startDate]);
+
   function handleDocumentClick(e) {
     if (
       containerRef.current

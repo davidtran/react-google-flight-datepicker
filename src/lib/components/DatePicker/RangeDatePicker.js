@@ -46,7 +46,6 @@ const RangeDatePicker = ({
     handleResize();
     if (typeof window !== 'undefined') {
       window.addEventListener('resize', handleResize);
-
       return () => window.removeEventListener('resize', handleResize);
     }
   }, []);
@@ -63,17 +62,18 @@ const RangeDatePicker = ({
 
   useEffect(() => {
     setIsFirstTime(true);
+    document.addEventListener('click', handleDocumentClick);
+    return () => document.removeEventListener('click', handleDocumentClick);
+  }, []);
+
+  useEffect(() => {
     if (startDate) {
       setFromDate(dayjs(startDate));
     }
     if (endDate) {
       setToDate(dayjs(endDate));
     }
-
-    document.addEventListener('click', handleDocumentClick);
-
-    return () => document.removeEventListener('click', handleDocumentClick);
-  }, []);
+  }, [startDate, endDate]);
 
   useEffect(() => {
     if (isFirstTime) {
