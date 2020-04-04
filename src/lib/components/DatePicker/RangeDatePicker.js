@@ -24,6 +24,7 @@ const RangeDatePicker = ({
   maxDate,
   dateFormat,
   monthFormat,
+  highlightToday,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
@@ -207,6 +208,7 @@ const RangeDatePicker = ({
             dateFormat={dateFormat}
             monthFormat={monthFormat}
             isMobile={isMobile}
+            highlightToday={highlightToday}
           />
         </DialogWrapper>
       </div>
@@ -228,6 +230,7 @@ RangeDatePicker.propTypes = {
   maxDate: PropTypes.instanceOf(Date),
   dateFormat: PropTypes.string,
   monthFormat: PropTypes.string,
+  highlightToday: PropTypes.bool,
 };
 
 RangeDatePicker.defaultProps = {
@@ -244,6 +247,7 @@ RangeDatePicker.defaultProps = {
   maxDate: null,
   dateFormat: '',
   monthFormat: '',
+  highlightToday: false,
 };
 
 export default RangeDatePicker;

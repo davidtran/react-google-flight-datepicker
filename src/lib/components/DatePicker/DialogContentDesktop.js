@@ -20,6 +20,7 @@ const DialogContentDesktop = ({
   isSingle,
   isOpen,
   dateChanged,
+  highlightToday,
 }) => {
   const containerRef = useRef();
   const [translateAmount, setTranslateAmount] = useState(0);
@@ -245,6 +246,7 @@ const DialogContentDesktop = ({
         maxDate={maxDate}
         monthFormat={monthFormat}
         isSingle={isSingle}
+        highlightToday={highlightToday}
       />
     ));
   }
@@ -300,6 +302,7 @@ DialogContentDesktop.propTypes = {
   isSingle: PropTypes.bool,
   isOpen: PropTypes.bool,
   dateChanged: PropTypes.instanceOf(Date),
+  highlightToday: PropTypes.bool
 };
 
 DialogContentDesktop.defaultProps = {
@@ -315,6 +318,7 @@ DialogContentDesktop.defaultProps = {
   isSingle: false,
   isOpen: false,
   dateChanged: null,
+  highlightToday: false,
 };
 
 export default DialogContentDesktop;

@@ -22,6 +22,7 @@ const SingleDatePicker = ({
   maxDate,
   dateFormat,
   monthFormat,
+  highlightToday,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
@@ -154,6 +155,7 @@ const SingleDatePicker = ({
             dateFormat={dateFormat}
             monthFormat={monthFormat}
             isMobile={isMobile}
+            highlightToday={highlightToday}
             isSingle
           />
         </DialogWrapper>
@@ -174,6 +176,7 @@ SingleDatePicker.propTypes = {
   maxDate: PropTypes.instanceOf(Date),
   dateFormat: PropTypes.string,
   monthFormat: PropTypes.string,
+  highlightToday: PropTypes.bool,
 };
 
 SingleDatePicker.defaultProps = {
@@ -188,6 +191,7 @@ SingleDatePicker.defaultProps = {
   maxDate: null,
   dateFormat: '',
   monthFormat: '',
+  highlightToday: false,
 };
 
 export default SingleDatePicker;

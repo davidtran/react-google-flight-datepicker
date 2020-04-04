@@ -21,6 +21,7 @@ const MonthCalendar = ({
   maxDate,
   monthFormat,
   isSingle,
+  highlightToday,
 }) => {
   function generateWeek() {
     const { totalWeek, totalDay } = getMonthInfo(year, month, startWeekDay);
@@ -42,6 +43,7 @@ const MonthCalendar = ({
         maxDate={maxDate}
         isSingle={isSingle}
         weekIndex={index}
+        highlightToday={highlightToday}
       />
     ));
   }
@@ -92,6 +94,7 @@ MonthCalendar.propTypes = {
   maxDate: PropTypes.instanceOf(Date),
   monthFormat: PropTypes.string,
   isSingle: PropTypes.bool,
+  highlightToday: PropTypes.bool,
 };
 
 MonthCalendar.defaultProps = {
@@ -109,6 +112,7 @@ MonthCalendar.defaultProps = {
   maxDate: null,
   monthFormat: '',
   isSingle: false,
+  highlightToday: false
 };
 
 export default MonthCalendar;

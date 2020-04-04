@@ -75,6 +75,7 @@ disabled | String | false | Disable the datepicker |
 startDatePlaceholder | String | Start Date | Placeholder text for startDate text input |
 endDatePlaceholder | String | End Date | Placeholder text for endDate text input |
 startWeekDay | String (monday or sunday) | monday | Determine the start day for a week (monday or sunday) |
+highlightToday | Bool | false | Hightlight "today" date
 
 ### Author
 - David Tran - david@jslancer.com

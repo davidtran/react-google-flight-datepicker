@@ -18,6 +18,7 @@ const DialogContentMobile = ({
   monthFormat,
   isOpen,
   isSingle,
+  highlightToday
 }) => {
   const [rowCount, setRowCount] = useState(2400);
   const minYear = minDate ? dayjs(minDate).year() : 1900;
@@ -70,6 +71,7 @@ const DialogContentMobile = ({
           maxDate={maxDate}
           monthFormat={monthFormat}
           isSingle={isSingle}
+          highlightToday={highlightToday}
         />
       </div>
     );
@@ -132,6 +134,7 @@ DialogContentMobile.propTypes = {
   monthFormat: PropTypes.string,
   isOpen: PropTypes.bool,
   isSingle: PropTypes.bool,
+  highlightToday: PropTypes.bool,
 };
 
 DialogContentMobile.defaultProps = {
@@ -145,6 +148,7 @@ DialogContentMobile.defaultProps = {
   monthFormat: '',
   isOpen: false,
   isSingle: false,
+  highlightToday: false,
 };
 
 export default DialogContentMobile;

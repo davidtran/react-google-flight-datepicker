@@ -12,6 +12,7 @@ const Day = ({
   onHoverDate,
   isEndDay,
   totalDay,
+  highlight,
 }) => {
   function selectDate() {
     if (disabled) return;
@@ -29,6 +30,7 @@ const Day = ({
         selected,
         hovered,
         disabled,
+        highlight,
         end: isEndDay,
       })}
       onClick={selectDate}
@@ -63,6 +65,7 @@ Day.propTypes = {
   onSelectDate: PropTypes.func,
   onHoverDate: PropTypes.func,
   totalDay: PropTypes.number,
+  highlight: PropTypes.bool,
 };
 
 Day.defaultProps = {
@@ -75,6 +78,7 @@ Day.defaultProps = {
   totalDay: null,
   onSelectDate: () => {},
   onHoverDate: () => {},
+  highlight: false,
 };
 
 export default Day;

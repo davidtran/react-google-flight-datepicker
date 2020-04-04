@@ -28,6 +28,7 @@ const Dialog = ({
   monthFormat,
   isSingle,
   isMobile,
+  highlightToday,
 }) => {
   const containerRef = useRef();
   const [hideAnimation, setHideAnimation] = useState(false);
@@ -105,6 +106,7 @@ const Dialog = ({
               monthFormat={monthFormat}
               isOpen={isOpen}
               isSingle={isSingle}
+              highlightToday={highlightToday}
             />
           )
           : (
@@ -122,6 +124,7 @@ const Dialog = ({
               isSingle={isSingle}
               isOpen={isOpen}
               dateChanged={dateChanged}
+              highlightToday={highlightToday}
             />
           )}
       </div>
@@ -162,6 +165,7 @@ Dialog.propTypes = {
   monthFormat: PropTypes.string,
   isSingle: PropTypes.bool,
   isMobile: PropTypes.bool,
+  highlightToday: PropTypes.bool,
 };
 
 Dialog.defaultProps = {
@@ -185,6 +189,7 @@ Dialog.defaultProps = {
   monthFormat: '',
   isSingle: false,
   isMobile: false,
+  highlightToday: false,
 };
 
 export default Dialog;

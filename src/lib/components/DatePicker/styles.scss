@@ -388,6 +388,18 @@
       }
     }
 
+    &.highlight::before {
+      content: '';
+      width: 44px;
+      height: 44px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #f7ed7ad1;
+      border-radius: 50%;
+    }
+
     &.hovered {
       background-color: #d9edfd;
       border-radius: unset;
