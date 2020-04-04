@@ -1,13 +1,13 @@
 # react-google-flight-datepicker
-<!-- [![dependency status][deps-svg]][deps-url]
-[![dev dependency status][dev-deps-svg]][dev-deps-url] -->
+[![dependency status][deps-svg]][deps-url]
+[![dev dependency status][dev-deps-svg]][dev-deps-url]
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Downloads][downloads-image]][downloads-url]
 
 Google flight date picker implemented in ReactJS
 
 ### Demo
-- Live demo: https://jslancerteam.github.io/react-google-flight-datepicker/
+- Live demo: https://codesandbox.io/s/react-google-flight-datepicker-zultp
 - To run demo on your computer:
   - Clone this repository
   - `yarn install`
@@ -21,7 +21,7 @@ Google flight date picker implemented in ReactJS
 ### Usage
 
 ##### RangeDatePicker
-```
+```jsx
 import { RangeDatePicker } from 'react-google-flight-datepicker`;
 import 'react-google-flight-datepicker/dist/main.css';
 
@@ -42,7 +42,7 @@ import 'react-google-flight-datepicker/dist/main.css';
 ```
 
 ##### SingleDatePicker
-```
+```jsx
 import { SingleDatePicker } from 'react-google-flight-datepicker`;
 import 'react-google-flight-datepicker/dist/main.css';
 
