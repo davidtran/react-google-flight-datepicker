@@ -4,7 +4,7 @@ import React, {
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import dayjs from 'dayjs';
-
+import { debounce } from '../../helpers';
 import './styles.scss';
 import DateInputGroup from './DateInputGroup';
 import DialogWrapper from './DialogWrapper';
@@ -31,6 +31,8 @@ const RangeDatePicker = ({
   const [inputFocus, setInputFocus] = useState('to');
   const [fromDate, setFromDate] = useState();
   const [toDate, setToDate] = useState();
+  const fromDateRef = useRef();
+  const toDateRef = useRef();
   const [hoverDate, setHoverDate] = useState();
   const [isFirstTime, setIsFirstTime] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -68,21 +70,40 @@ const RangeDatePicker = ({
   }, []);
 
   useEffect(() => {
-    if (startDate) {
-      setFromDate(dayjs(startDate));
-    }
-    if (endDate) {
-      setToDate(dayjs(endDate));
-    }
-  }, [startDate, endDate]);
+    const _startDateJs = startDate ? dayjs(startDate) : null;
+    fromDateRef.current = _startDateJs;
+    updateFromDate(_startDateJs, false);
+  }, [startDate]);
 
   useEffect(() => {
-    if (isFirstTime) {
-      const startDate = fromDate ? dayjs(fromDate) : null;
-      const endDate = toDate ? dayjs(toDate) : null;
-      onChange(startDate, endDate);
+    const _endDateJs = endDate ? dayjs(endDate) : null;
+    toDateRef.current = _endDateJs;
+    updateToDate(_endDateJs, false);
+  }, [endDate]);
+
+  const debounceNotifyChange = debounce(notifyChange, 20);
+
+  function notifyChange() {
+    const _startDate = fromDateRef.current ? fromDateRef.current.toDate() : null;
+    const _endDate = toDateRef.current ? toDateRef.current.toDate() : null;
+    onChange(_startDate, _endDate);
+  }
+
+  function updateFromDate(dateValue, shouldNotifyChange  = false) {
+    setFromDate(dateValue);
+    fromDateRef.current = dateValue;
+    if (shouldNotifyChange) {
+      debounceNotifyChange();
     }
-  }, [fromDate, toDate]);
+  }
+
+  function updateToDate(dateValue, shouldNotifyChange = false) {
+    setToDate(dateValue);
+    toDateRef.current = dateValue;
+    if (shouldNotifyChange) {
+      debounceNotifyChange();
+    }
+  }
 
   useEffect(() => {
     if (isFirstTime) {
@@ -114,20 +135,20 @@ const RangeDatePicker = ({
   function onSelectDate(date) {
     if (inputFocus) {
       if (inputFocus === 'from' || (fromDate && date.isBefore(fromDate, 'date'))) {
-        setFromDate(date);
+        updateFromDate(date, true);
         if (toDate && date.isAfter(toDate, 'date')) {
-          setToDate(null);
+          updateToDate(null, true);
         }
         setInputFocus('to');
       } else {
-        setToDate(date);
+        updateToDate(date, true);
         setInputFocus(null);
       }
     } else {
-      setFromDate(date);
+      updateFromDate(date, true);
       setInputFocus('to');
       if (toDate && date.isAfter(toDate, 'date')) {
-        setToDate(null);
+        updateToDate(null, true);
       }
     }
   }
@@ -138,9 +159,9 @@ const RangeDatePicker = ({
 
   function handleReset() {
     setInputFocus('from');
-    setFromDate(null);
-    setToDate(null);
     setHoverDate(null);
+    updateFromDate(null, true);
+    updateToDate(null, true);
   }
 
   function handleChangeDate(value, input) {
@@ -150,13 +171,13 @@ const RangeDatePicker = ({
 
     if (input === 'from') {
       setInputFocus('from');
-      setFromDate(value);
+      updateFromDate(value, true);
       if (value > toDate) {
-        setToDate(null);
+        updateToDate(null, true);
       }
     } else {
       setInputFocus('to');
-      setToDate(value);
+      updateToDate(value, true);
     }
   }
 
