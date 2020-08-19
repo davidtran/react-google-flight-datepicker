@@ -20,6 +20,7 @@ const MonthCalendar = ({
   minDate,
   maxDate,
   monthFormat,
+  weekDayFormat,
   isSingle,
   highlightToday,
 }) => {
@@ -49,7 +50,7 @@ const MonthCalendar = ({
   }
 
   function generateWeekDay() {
-    const arrWeekDay = getWeekDay(startWeekDay);
+    const arrWeekDay = getWeekDay(startWeekDay, weekDayFormat);
     return arrWeekDay.map((day, index) => (
       <div className="weekday" key={index}>
         {day}

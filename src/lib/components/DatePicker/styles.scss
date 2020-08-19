@@ -269,7 +269,7 @@
   .month-calendar {
     width: 308px;
     color: #3c4043;
-    margin-right: 70px;
+    margin-right: 43px;
 
     &.hidden {
       position: absolute;
@@ -280,7 +280,7 @@
 
     &.isAnimating {
       position: absolute;
-      left: -378px;
+      left: -350px;
     }
   }
 

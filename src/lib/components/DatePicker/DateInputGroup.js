@@ -20,6 +20,7 @@ const DateInputGroup = ({
   isSingle,
   onFocus,
   nonFocusable,
+  dateInputSeperator,
 }) => {
   function handleClickFromInput() {
     handleClickDateInput('from');
@@ -68,6 +69,9 @@ const DateInputGroup = ({
           minDate={minDate}
           maxDate={maxDate}
         />
+        {!isSingle && dateInputSeperator &&
+          <div className="date-input-separator">{dateInputSeperator}</div>
+        }
         {!isSingle
         && (
           <DateInput

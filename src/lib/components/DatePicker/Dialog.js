@@ -25,10 +25,13 @@ const Dialog = ({
   minDate,
   maxDate,
   dateFormat,
+  weekDayFormat,
   monthFormat,
   isSingle,
   isMobile,
   highlightToday,
+  hideDialogHeader,
+  hideDialogFooter,
 }) => {
   const containerRef = useRef();
   const [hideAnimation, setHideAnimation] = useState(false);
@@ -61,36 +64,39 @@ const Dialog = ({
         hide: !isOpen && hideAnimation,
       })}
     >
-      <div className="dialog-header">
-        <button
-          type="button"
-          className="btn-outline back-button"
-          onClick={toggleDialog}
-        >
-          <BackIcon viewBox="0 0 492 492" />
-        </button>
-        <DateInputGroup
-          inputFocus={inputFocus}
-          handleClickDateInput={handleClickDateInput}
-          fromDate={fromDate}
-          toDate={toDate}
-          minDate={minDate}
-          maxDate={maxDate}
-          handleChangeDate={onChangeDate}
-          startDatePlaceholder={startDatePlaceholder}
-          endDatePlaceholder={endDatePlaceholder}
-          dateFormat={dateFormat}
-          isSingle={isSingle}
-          nonFocusable={!isOpen}
-        />
-        <button
-          type="button"
-          className="btn-outline reset-button"
-          onClick={handleReset}
-        >
-          Reset
-        </button>
-      </div>
+      {!hideDialogHeader &&
+        <div className="dialog-header">
+          <button
+            type="button"
+            className="btn-outline back-button"
+            onClick={toggleDialog}
+          >
+            <BackIcon viewBox="0 0 492 492" />
+          </button>
+          <DateInputGroup
+            inputFocus={inputFocus}
+            handleClickDateInput={handleClickDateInput}
+            fromDate={fromDate}
+            toDate={toDate}
+            minDate={minDate}
+            maxDate={maxDate}
+            handleChangeDate={onChangeDate}
+            startDatePlaceholder={startDatePlaceholder}
+            endDatePlaceholder={endDatePlaceholder}
+            dateFormat={dateFormat}
+            isSingle={isSingle}
+            nonFocusable={!isOpen}
+          />
+          <button
+            type="button"
+            className="btn-outline reset-button"
+            onClick={handleReset}
+          >
+            Reset
+          </button>
+        </div>
+      }
+
       <div className="dialog-content">
         {isMobile
           ? (
@@ -103,6 +109,7 @@ const Dialog = ({
               minDate={minDate}
               maxDate={maxDate}
               dateFormat={dateFormat}
+              weekDayFormat={weekDayFormat}
               monthFormat={monthFormat}
               isOpen={isOpen}
               isSingle={isSingle}
@@ -120,6 +127,7 @@ const Dialog = ({
               minDate={minDate}
               maxDate={maxDate}
               dateFormat={dateFormat}
+              weekDayFormat={weekDayFormat}
               monthFormat={monthFormat}
               isSingle={isSingle}
               isOpen={isOpen}
@@ -128,18 +136,20 @@ const Dialog = ({
             />
           )}
       </div>
-      <div className="dialog-footer">
-        <button type="button" className="submit-button" onClick={toggleDialog} tabIndex="0">
-          Done
-        </button>
-        <button
-          type="button"
-          className="btn-outline reset-button mobile"
-          onClick={handleReset}
-        >
-          Reset
-        </button>
-      </div>
+      {!hideDialogFooter &&
+        <div className="dialog-footer">
+          <button type="button" className="submit-button" onClick={toggleDialog} tabIndex="0">
+            Done
+          </button>
+          <button
+            type="button"
+            className="btn-outline reset-button mobile"
+            onClick={handleReset}
+          >
+            Reset
+          </button>
+        </div>
+      }
     </div>
   );
 };

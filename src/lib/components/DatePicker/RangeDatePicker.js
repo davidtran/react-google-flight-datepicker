@@ -23,8 +23,13 @@ const RangeDatePicker = ({
   minDate,
   maxDate,
   dateFormat,
+  weekDayFormat,
   monthFormat,
   highlightToday,
+  hideDialogHeader,
+  hideDialogFooter,
+  dateInputSeperator,
+  hideDialogAfterSelectEndDate,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
@@ -143,6 +148,9 @@ const RangeDatePicker = ({
       } else {
         updateToDate(date, true);
         setInputFocus(null);
+        if (hideDialogAfterSelectEndDate) {
+          setIsOpen(false);
+        }
       }
     } else {
       updateFromDate(date, true);
@@ -206,7 +214,9 @@ const RangeDatePicker = ({
           dateFormat={dateFormat}
           onFocus={onDateInputFocus}
           nonFocusable={isOpen}
+          dateInputSeperator={dateInputSeperator}
         />
+
         <DialogWrapper isMobile={isMobile}>
           <Dialog
             isOpen={isOpen}
@@ -226,10 +236,14 @@ const RangeDatePicker = ({
             startWeekDay={startWeekDay}
             minDate={minDate}
             maxDate={maxDate}
+            weekDayFormat={weekDayFormat}
             dateFormat={dateFormat}
             monthFormat={monthFormat}
             isMobile={isMobile}
             highlightToday={highlightToday}
+            hideDialogHeader={hideDialogHeader}
+            hideDialogFooter={hideDialogFooter}
+            dateInputSeperator={dateInputSeperator}
           />
         </DialogWrapper>
       </div>
@@ -252,6 +266,11 @@ RangeDatePicker.propTypes = {
   dateFormat: PropTypes.string,
   monthFormat: PropTypes.string,
   highlightToday: PropTypes.bool,
+  dateInputSeperator: PropTypes.node,
+  hideDialogHeader: PropTypes.bool,
+  hideDialogFooter: PropTypes.bool,
+  weekDayFormat: PropTypes.string,
+  hideDialogAfterSelectEndDate: PropTypes.bool,
 };
 
 RangeDatePicker.defaultProps = {
@@ -266,9 +285,14 @@ RangeDatePicker.defaultProps = {
   startWeekDay: 'monday',
   minDate: null,
   maxDate: null,
+  weekDayFormat: 'dd',
   dateFormat: '',
   monthFormat: '',
   highlightToday: false,
+  customArrowIcon: null,
+  hideDialogHeader: false,
+  hideDialogFooter: false,
+  hideDialogAfterSelectEndDate: false
 };
 
 export default RangeDatePicker;

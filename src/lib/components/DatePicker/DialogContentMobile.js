@@ -16,6 +16,7 @@ const DialogContentMobile = ({
   minDate,
   maxDate,
   monthFormat,
+  weekDayFormat,
   isOpen,
   isSingle,
   highlightToday
@@ -103,7 +104,7 @@ const DialogContentMobile = ({
   }
 
   function generateWeekDay() {
-    const arrWeekDay = getWeekDay(startWeekDay);
+    const arrWeekDay = getWeekDay(startWeekDay, weekDayFormat);
 
     return arrWeekDay.map((day, index) => (
       <div className="weekday" key={index}>{day}</div>

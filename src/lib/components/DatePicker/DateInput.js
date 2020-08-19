@@ -75,7 +75,7 @@ const DateInput = ({
       tabIndex={nonFocusable ? '-1' : tabIndex}
       onClick={handleClickDateInput}
       onFocus={onDateInputFocus}
-      id="start-date-input-button"
+      id={name === "START_DATE" ? "start-date-input-button" : "end-date-input-button"}
     >
       {showIcon && (
         <CalendarIcon className="icon-calendar" viewBox="0 0 24 24" />
