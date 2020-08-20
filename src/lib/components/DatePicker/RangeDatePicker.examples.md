@@ -17,7 +17,6 @@ import { RangeDatePicker } from 'react-google-flight-datepicker';
       minDate={new Date(2020, 1, 10)}
       maxDate={new Date('2020-07-25')}
       dateFormat="DD/MM/YYYY"
-
       // monthFormat="MMM --- YY"
     />
   </div>
