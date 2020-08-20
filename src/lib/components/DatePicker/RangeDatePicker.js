@@ -25,6 +25,8 @@ const RangeDatePicker = ({
   dateFormat,
   monthFormat,
   highlightToday,
+  isShowCalendar,
+  onCloseCalendar,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
@@ -49,6 +51,7 @@ const RangeDatePicker = ({
     handleResize();
     if (typeof window !== 'undefined') {
       window.addEventListener('resize', handleResize);
+
       return () => window.removeEventListener('resize', handleResize);
     }
   }, []);
@@ -63,9 +66,35 @@ const RangeDatePicker = ({
     }
   }
 
+  function notifyChange() {
+    const _startDate = fromDateRef.current ? fromDateRef.current.toDate() : null;
+    const _endDate = toDateRef.current ? toDateRef.current.toDate() : null;
+    onChange(_startDate, _endDate);
+  }
+
+  const debounceNotifyChange = debounce(notifyChange, 20);
+
+  function updateFromDate(dateValue, shouldNotifyChange = false) {
+    setFromDate(dateValue);
+    fromDateRef.current = dateValue;
+    if (shouldNotifyChange) {
+      debounceNotifyChange();
+    }
+  }
+
+  function updateToDate(dateValue, shouldNotifyChange = false) {
+    setToDate(dateValue);
+    toDateRef.current = dateValue;
+    if (shouldNotifyChange) {
+      debounceNotifyChange();
+    }
+  }
+
   useEffect(() => {
     setIsFirstTime(true);
+    setIsOpen(isShowCalendar);
     document.addEventListener('click', handleDocumentClick);
+
     return () => document.removeEventListener('click', handleDocumentClick);
   }, []);
 
@@ -81,29 +110,11 @@ const RangeDatePicker = ({
     updateToDate(_endDateJs, false);
   }, [endDate]);
 
-  const debounceNotifyChange = debounce(notifyChange, 20);
-
-  function notifyChange() {
-    const _startDate = fromDateRef.current ? fromDateRef.current.toDate() : null;
-    const _endDate = toDateRef.current ? toDateRef.current.toDate() : null;
-    onChange(_startDate, _endDate);
-  }
-
-  function updateFromDate(dateValue, shouldNotifyChange  = false) {
-    setFromDate(dateValue);
-    fromDateRef.current = dateValue;
-    if (shouldNotifyChange) {
-      debounceNotifyChange();
+  useEffect(() => {
+    if (!isOpen && isFirstTime) {
+      onCloseCalendar(startDate, endDate);
     }
-  }
-
-  function updateToDate(dateValue, shouldNotifyChange = false) {
-    setToDate(dateValue);
-    toDateRef.current = dateValue;
-    if (shouldNotifyChange) {
-      debounceNotifyChange();
-    }
-  }
+  }, [isOpen]);
 
   useEffect(() => {
     if (isFirstTime) {
@@ -252,6 +263,8 @@ RangeDatePicker.propTypes = {
   dateFormat: PropTypes.string,
   monthFormat: PropTypes.string,
   highlightToday: PropTypes.bool,
+  isShowCalendar: PropTypes.bool,
+  onCloseCalendar: PropTypes.func,
 };
 
 RangeDatePicker.defaultProps = {
@@ -269,6 +282,8 @@ RangeDatePicker.defaultProps = {
   dateFormat: '',
   monthFormat: '',
   highlightToday: false,
+  isShowCalendar: false,
+  onCloseCalendar: () => {},
 };
 
 export default RangeDatePicker;

@@ -23,14 +23,16 @@ const SingleDatePicker = ({
   dateFormat,
   monthFormat,
   highlightToday,
+  isShowCalendar,
+  onCloseCalendar,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
   const [fromDate, setFromDate] = useState();
   const fromDateRef = useRef();
   const [hoverDate, setHoverDate] = useState();
-  const [isFirstTime, setIsFirstTime] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isFirstTime, setIsFirstTime] = useState(false);
 
   function handleResize() {
     if (typeof window !== 'undefined' && window.innerWidth <= 500) {
@@ -44,30 +46,10 @@ const SingleDatePicker = ({
     handleResize();
     if (typeof window !== 'undefined') {
       window.addEventListener('resize', handleResize);
+
       return () => window.removeEventListener('resize', handleResize);
     }
   }, []);
-
-  useEffect(() => {
-    const _startDateJs = startDate ? dayjs(startDate) : null;
-    fromDateRef.current = _startDateJs;
-    setFromDate(_startDateJs);
-  }, [startDate]);
-
-  const debounceNotifyChange = debounce(notifyChange, 20);
-
-  function notifyChange() {
-    const _startDate = fromDateRef.current ? fromDateRef.current.toDate() : null;
-    onChange(_startDate);
-  }
-
-  function updateFromDate(dateValue, shouldNotifyChange  = false) {
-    setFromDate(dateValue);
-    fromDateRef.current = dateValue;
-    if (shouldNotifyChange) {
-      debounceNotifyChange();
-    }
-  }
 
   function handleDocumentClick(e) {
     if (
@@ -79,14 +61,44 @@ const SingleDatePicker = ({
     }
   }
 
+  function notifyChange() {
+    const _startDate = fromDateRef.current ? fromDateRef.current.toDate() : null;
+    onChange(_startDate);
+  }
+
+  const debounceNotifyChange = debounce(notifyChange, 20);
+
+  function updateFromDate(dateValue, shouldNotifyChange = false) {
+    setFromDate(dateValue);
+    fromDateRef.current = dateValue;
+    if (shouldNotifyChange) {
+      debounceNotifyChange();
+    }
+  }
+
   useEffect(() => {
+    setIsOpen(isShowCalendar);
     setIsFirstTime(true);
     if (startDate) {
       updateFromDate(dayjs(startDate), false);
     }
+
     document.addEventListener('click', handleDocumentClick);
+
     return () => document.removeEventListener('click', handleDocumentClick);
   }, []);
+
+  useEffect(() => {
+    const _startDateJs = startDate ? dayjs(startDate) : null;
+    fromDateRef.current = _startDateJs;
+    setFromDate(_startDateJs);
+  }, [startDate]);
+
+  useEffect(() => {
+    if (!isOpen && isFirstTime) {
+      onCloseCalendar(startDate);
+    }
+  }, [isOpen]);
 
   function toggleDialog() {
     setIsOpen(!isOpen);
@@ -183,6 +195,8 @@ SingleDatePicker.propTypes = {
   dateFormat: PropTypes.string,
   monthFormat: PropTypes.string,
   highlightToday: PropTypes.bool,
+  isShowCalendar: PropTypes.bool,
+  onCloseCalendar: PropTypes.func,
 };
 
 SingleDatePicker.defaultProps = {
@@ -198,6 +212,8 @@ SingleDatePicker.defaultProps = {
   dateFormat: '',
   monthFormat: '',
   highlightToday: false,
+  isShowCalendar: false,
+  onCloseCalendar: () => {},
 };
 
 export default SingleDatePicker;
