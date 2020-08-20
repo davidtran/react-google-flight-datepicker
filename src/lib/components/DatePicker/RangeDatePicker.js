@@ -40,7 +40,7 @@ const RangeDatePicker = ({
   const [isMobile, setIsMobile] = useState(false);
 
   function handleResize() {
-    if (typeof window !== 'undefined' && window.innerWidth <= 500) {
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
       setIsMobile(true);
     } else {
       setIsMobile(false);
@@ -60,7 +60,7 @@ const RangeDatePicker = ({
     if (
       containerRef.current
       && containerRef.current.contains(e.target) === false
-      && window.innerWidth > 500
+      && window.innerWidth >= 768
     ) {
       setIsOpen(false);
     }
