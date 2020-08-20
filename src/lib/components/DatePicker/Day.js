@@ -14,7 +14,10 @@ const Day = ({
   totalDay,
   highlight,
 }) => {
-  function selectDate() {
+  function selectDate(e) {
+    e.stopPropagation();
+    e.preventDefault();
+
     if (disabled) return;
     onSelectDate(dateValue);
   }

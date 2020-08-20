@@ -30,6 +30,8 @@ const RangeDatePicker = ({
   hideDialogFooter,
   dateInputSeperator,
   hideDialogAfterSelectEndDate,
+  isShowCalendar,
+  onCloseCalendar,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
@@ -43,7 +45,7 @@ const RangeDatePicker = ({
   const [isMobile, setIsMobile] = useState(false);
 
   function handleResize() {
-    if (typeof window !== 'undefined' && window.innerWidth <= 500) {
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
       setIsMobile(true);
     } else {
       setIsMobile(false);
@@ -54,6 +56,7 @@ const RangeDatePicker = ({
     handleResize();
     if (typeof window !== 'undefined') {
       window.addEventListener('resize', handleResize);
+
       return () => window.removeEventListener('resize', handleResize);
     }
   }, []);
@@ -62,15 +65,41 @@ const RangeDatePicker = ({
     if (
       containerRef.current
       && containerRef.current.contains(e.target) === false
-      && window.innerWidth > 500
+      && window.innerWidth >= 768
     ) {
       setIsOpen(false);
     }
   }
 
+  function notifyChange() {
+    const _startDate = fromDateRef.current ? fromDateRef.current.toDate() : null;
+    const _endDate = toDateRef.current ? toDateRef.current.toDate() : null;
+    onChange(_startDate, _endDate);
+  }
+
+  const debounceNotifyChange = debounce(notifyChange, 20);
+
+  function updateFromDate(dateValue, shouldNotifyChange = false) {
+    setFromDate(dateValue);
+    fromDateRef.current = dateValue;
+    if (shouldNotifyChange) {
+      debounceNotifyChange();
+    }
+  }
+
+  function updateToDate(dateValue, shouldNotifyChange = false) {
+    setToDate(dateValue);
+    toDateRef.current = dateValue;
+    if (shouldNotifyChange) {
+      debounceNotifyChange();
+    }
+  }
+
   useEffect(() => {
     setIsFirstTime(true);
+    setIsOpen(isShowCalendar);
     document.addEventListener('click', handleDocumentClick);
+
     return () => document.removeEventListener('click', handleDocumentClick);
   }, []);
 
@@ -86,29 +115,11 @@ const RangeDatePicker = ({
     updateToDate(_endDateJs, false);
   }, [endDate]);
 
-  const debounceNotifyChange = debounce(notifyChange, 20);
-
-  function notifyChange() {
-    const _startDate = fromDateRef.current ? fromDateRef.current.toDate() : null;
-    const _endDate = toDateRef.current ? toDateRef.current.toDate() : null;
-    onChange(_startDate, _endDate);
-  }
-
-  function updateFromDate(dateValue, shouldNotifyChange  = false) {
-    setFromDate(dateValue);
-    fromDateRef.current = dateValue;
-    if (shouldNotifyChange) {
-      debounceNotifyChange();
+  useEffect(() => {
+    if (!isOpen && isFirstTime) {
+      onCloseCalendar(startDate, endDate);
     }
-  }
-
-  function updateToDate(dateValue, shouldNotifyChange = false) {
-    setToDate(dateValue);
-    toDateRef.current = dateValue;
-    if (shouldNotifyChange) {
-      debounceNotifyChange();
-    }
-  }
+  }, [isOpen]);
 
   useEffect(() => {
     if (isFirstTime) {
@@ -271,6 +282,8 @@ RangeDatePicker.propTypes = {
   hideDialogFooter: PropTypes.bool,
   weekDayFormat: PropTypes.string,
   hideDialogAfterSelectEndDate: PropTypes.bool,
+  isShowCalendar: PropTypes.bool,
+  onCloseCalendar: PropTypes.func,
 };
 
 RangeDatePicker.defaultProps = {
@@ -292,7 +305,9 @@ RangeDatePicker.defaultProps = {
   customArrowIcon: null,
   hideDialogHeader: false,
   hideDialogFooter: false,
-  hideDialogAfterSelectEndDate: false
+  hideDialogAfterSelectEndDate: false,
+  isShowCalendar: false,
+  onCloseCalendar: () => {},
 };
 
 export default RangeDatePicker;

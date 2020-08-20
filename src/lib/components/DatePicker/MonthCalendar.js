@@ -26,6 +26,7 @@ const MonthCalendar = ({
 }) => {
   function generateWeek() {
     const { totalWeek, totalDay } = getMonthInfo(year, month, startWeekDay);
+
     return totalWeek.map((week, index) => (
       <Week
         // eslint-disable-next-line react/no-array-index-key
@@ -113,7 +114,7 @@ MonthCalendar.defaultProps = {
   maxDate: null,
   monthFormat: '',
   isSingle: false,
-  highlightToday: false
+  highlightToday: false,
 };
 
 export default MonthCalendar;
