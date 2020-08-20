@@ -19,7 +19,7 @@ const DialogContentDesktop = ({
   monthFormat,
   weekDayFormat,
   isSingle,
-  isOpen,
+  complsOpen,
   dateChanged,
   highlightToday,
 }) => {
@@ -47,7 +47,7 @@ const DialogContentDesktop = ({
 
   useEffect(() => {
     setFocusDate(fromDate || dayjs());
-  }, [isOpen]);
+  }, [complsOpen]);
 
   useEffect(() => {
     if (minDate && focusDate.isBefore(dayjs(minDate).add(1, 'month'), 'month')) {
@@ -309,7 +309,7 @@ DialogContentDesktop.propTypes = {
   maxDate: PropTypes.instanceOf(Date),
   monthFormat: PropTypes.string,
   isSingle: PropTypes.bool,
-  isOpen: PropTypes.bool,
+  complsOpen: PropTypes.bool,
   dateChanged: PropTypes.instanceOf(Date),
   highlightToday: PropTypes.bool
 };
@@ -325,7 +325,7 @@ DialogContentDesktop.defaultProps = {
   maxDate: null,
   monthFormat: '',
   isSingle: false,
-  isOpen: false,
+  complsOpen: false,
   dateChanged: null,
   highlightToday: false,
 };

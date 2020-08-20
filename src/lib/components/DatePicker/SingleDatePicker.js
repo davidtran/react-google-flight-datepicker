@@ -23,10 +23,10 @@ const SingleDatePicker = ({
   dateFormat,
   monthFormat,
   highlightToday,
-  isShowCalendar,
+  isOpen,
   onCloseCalendar,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [complsOpen, setComplsOpen] = useState(false);
   const containerRef = useRef(null);
   const [fromDate, setFromDate] = useState();
   const fromDateRef = useRef();
@@ -57,7 +57,7 @@ const SingleDatePicker = ({
       && containerRef.current.contains(e.target) === false
       && window.innerWidth >= 768
     ) {
-      setIsOpen(false);
+      setComplsOpen(false);
     }
   }
 
@@ -77,7 +77,7 @@ const SingleDatePicker = ({
   }
 
   useEffect(() => {
-    setIsOpen(isShowCalendar);
+    setComplsOpen(isOpen);
     setIsFirstTime(true);
     if (startDate) {
       updateFromDate(dayjs(startDate), false);
@@ -95,20 +95,24 @@ const SingleDatePicker = ({
   }, [startDate]);
 
   useEffect(() => {
-    if (!isOpen && isFirstTime) {
+    if (!complsOpen && isFirstTime) {
       onCloseCalendar(startDate);
     }
+  }, [complsOpen]);
+
+  useEffect(() => {
+    setComplsOpen(isOpen);
   }, [isOpen]);
 
   function toggleDialog() {
-    setIsOpen(!isOpen);
+    setComplsOpen(!complsOpen);
   }
 
   function handleClickDateInput() {
     if (disabled) return;
 
-    if (!isOpen) {
-      setIsOpen(true);
+    if (!complsOpen) {
+      setComplsOpen(true);
     }
 
     onFocus('Start Date');
@@ -156,7 +160,7 @@ const SingleDatePicker = ({
         />
         <DialogWrapper isMobile={isMobile}>
           <Dialog
-            isOpen={isOpen}
+            complsOpen={complsOpen}
             toggleDialog={toggleDialog}
             handleClickDateInput={handleClickDateInput}
             inputFocus="from"
@@ -195,7 +199,7 @@ SingleDatePicker.propTypes = {
   dateFormat: PropTypes.string,
   monthFormat: PropTypes.string,
   highlightToday: PropTypes.bool,
-  isShowCalendar: PropTypes.bool,
+  isOpen: PropTypes.bool,
   onCloseCalendar: PropTypes.func,
 };
 
@@ -212,7 +216,7 @@ SingleDatePicker.defaultProps = {
   dateFormat: '',
   monthFormat: '',
   highlightToday: false,
-  isShowCalendar: false,
+  isOpen: false,
   onCloseCalendar: () => {},
 };
 

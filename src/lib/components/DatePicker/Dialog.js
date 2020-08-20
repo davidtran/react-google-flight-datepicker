@@ -9,7 +9,7 @@ import DialogContentDesktop from './DialogContentDesktop';
 
 const Dialog = ({
   toggleDialog,
-  isOpen,
+  complsOpen,
   fromDate,
   toDate,
   hoverDate,
@@ -43,10 +43,10 @@ const Dialog = ({
   }
 
   useEffect(() => {
-    if (isOpen && !hideAnimation) {
+    if (complsOpen && !hideAnimation) {
       setHideAnimation(true);
     }
-    if (isOpen) {
+    if (complsOpen) {
       setTimeout(() => {
         const startDateInput = containerRef.current.getElementById('#start-date-input-button');
         if (startDateInput) {
@@ -54,14 +54,14 @@ const Dialog = ({
         }
       }, 50);
     }
-  }, [isOpen]);
+  }, [complsOpen]);
 
   return (
     <div
       ref={containerRef}
       className={cx('dialog-date-picker', {
-        open: isOpen,
-        hide: !isOpen && hideAnimation,
+        open: complsOpen,
+        hide: !complsOpen && hideAnimation,
       })}
     >
       {!hideDialogHeader &&
@@ -85,7 +85,7 @@ const Dialog = ({
             endDatePlaceholder={endDatePlaceholder}
             dateFormat={dateFormat}
             isSingle={isSingle}
-            nonFocusable={!isOpen}
+            nonFocusable={!complsOpen}
           />
           <button
             type="button"
@@ -111,7 +111,7 @@ const Dialog = ({
               dateFormat={dateFormat}
               weekDayFormat={weekDayFormat}
               monthFormat={monthFormat}
-              isOpen={isOpen}
+              complsOpen={complsOpen}
               isSingle={isSingle}
               highlightToday={highlightToday}
             />
@@ -130,7 +130,7 @@ const Dialog = ({
               weekDayFormat={weekDayFormat}
               monthFormat={monthFormat}
               isSingle={isSingle}
-              isOpen={isOpen}
+              complsOpen={complsOpen}
               dateChanged={dateChanged}
               highlightToday={highlightToday}
             />
@@ -155,7 +155,7 @@ const Dialog = ({
 };
 
 Dialog.propTypes = {
-  isOpen: PropTypes.bool,
+  complsOpen: PropTypes.bool,
   inputFocus: PropTypes.string,
   fromDate: PropTypes.instanceOf(Date),
   toDate: PropTypes.instanceOf(Date),
@@ -179,7 +179,7 @@ Dialog.propTypes = {
 };
 
 Dialog.defaultProps = {
-  isOpen: false,
+  complsOpen: false,
   inputFocus: null,
   fromDate: null,
   toDate: null,

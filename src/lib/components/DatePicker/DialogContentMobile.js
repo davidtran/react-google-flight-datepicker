@@ -17,7 +17,7 @@ const DialogContentMobile = ({
   maxDate,
   monthFormat,
   weekDayFormat,
-  isOpen,
+  complsOpen,
   isSingle,
   highlightToday
 }) => {
@@ -34,7 +34,7 @@ const DialogContentMobile = ({
   }, []);
 
   useEffect(() => {
-    if (listRef.current && isOpen) {
+    if (listRef.current && complsOpen) {
       const date = fromDate ? dayjs(fromDate) : dayjs();
       let monthDiff = date.diff(dayjs('1900-01-01'), 'month');
 
@@ -44,7 +44,7 @@ const DialogContentMobile = ({
 
       listRef.current.scrollToItem(monthDiff + 1, 'smart');
     }
-  }, [isOpen]);
+  }, [complsOpen]);
 
   function getMonthYearFromIndex(index) {
     const _index = index + minMonth;
@@ -133,7 +133,7 @@ DialogContentMobile.propTypes = {
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
   monthFormat: PropTypes.string,
-  isOpen: PropTypes.bool,
+  complsOpen: PropTypes.bool,
   isSingle: PropTypes.bool,
   highlightToday: PropTypes.bool,
 };
@@ -147,7 +147,7 @@ DialogContentMobile.defaultProps = {
   minDate: null,
   maxDate: null,
   monthFormat: '',
-  isOpen: false,
+  complsOpen: false,
   isSingle: false,
   highlightToday: false,
 };
