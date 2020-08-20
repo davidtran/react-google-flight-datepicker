@@ -48,7 +48,7 @@ const Dialog = ({
     }
     if (complsOpen) {
       setTimeout(() => {
-        const startDateInput = containerRef.current.getElementById('#start-date-input-button');
+        const startDateInput = containerRef.current.getElementById('start-date-input-button');
         if (startDateInput) {
           startDateInput.focus();
         }
