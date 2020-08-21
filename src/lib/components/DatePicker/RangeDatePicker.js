@@ -163,7 +163,9 @@ const RangeDatePicker = ({
         updateToDate(date, true);
         setInputFocus(null);
         if (hideDialogAfterSelectEndDate) {
-          setComplsOpen(false);
+          setTimeout(() => {
+            setComplsOpen(false);
+          }, 50);
         }
       }
     } else {
@@ -305,7 +307,7 @@ RangeDatePicker.defaultProps = {
   dateFormat: '',
   monthFormat: '',
   highlightToday: false,
-  customArrowIcon: null,
+  dateInputSeperator: null,
   hideDialogHeader: false,
   hideDialogFooter: false,
   hideDialogAfterSelectEndDate: false,
