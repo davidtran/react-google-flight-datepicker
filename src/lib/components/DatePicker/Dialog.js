@@ -33,9 +33,9 @@ const Dialog = ({
   hideDialogHeader,
   hideDialogFooter,
 }) => {
-  const containerRef = useRef();
   const [hideAnimation, setHideAnimation] = useState(false);
   const [dateChanged, setDateChanged] = useState();
+  const containerRef = useRef();
 
   function onChangeDate(date, value) {
     setDateChanged(date);
@@ -48,23 +48,27 @@ const Dialog = ({
     }
     if (complsOpen) {
       setTimeout(() => {
-        const startDateInput = containerRef.current.getElementById('start-date-input-button');
-        if (startDateInput) {
-          startDateInput.focus();
+        if (containerRef.current && containerRef.current.getElementById) {
+          const startDateInput = containerRef.current.getElementById('start-date-input-button');
+          if (startDateInput) {
+            startDateInput.focus();
+          }
         }
+
       }, 50);
     }
   }, [complsOpen]);
 
   return (
     <div
-      ref={containerRef}
       className={cx('dialog-date-picker', {
         open: complsOpen,
         hide: !complsOpen && hideAnimation,
       })}
+      ref={containerRef}
     >
-      {!hideDialogHeader &&
+      {!hideDialogHeader
+        && (
         <div className="dialog-header">
           <button
             type="button"
@@ -95,7 +99,7 @@ const Dialog = ({
             Reset
           </button>
         </div>
-      }
+        )}
 
       <div className="dialog-content">
         {isMobile
@@ -136,7 +140,8 @@ const Dialog = ({
             />
           )}
       </div>
-      {!hideDialogFooter &&
+      {!hideDialogFooter
+        && (
         <div className="dialog-footer">
           <button type="button" className="submit-button" onClick={toggleDialog} tabIndex="0">
             Done
@@ -149,7 +154,7 @@ const Dialog = ({
             Reset
           </button>
         </div>
-      }
+        )}
     </div>
   );
 };
@@ -176,6 +181,9 @@ Dialog.propTypes = {
   isSingle: PropTypes.bool,
   isMobile: PropTypes.bool,
   highlightToday: PropTypes.bool,
+  weekDayFormat: PropTypes.string,
+  hideDialogHeader: PropTypes.bool,
+  hideDialogFooter: PropTypes.bool,
 };
 
 Dialog.defaultProps = {
@@ -200,6 +208,9 @@ Dialog.defaultProps = {
   isSingle: false,
   isMobile: false,
   highlightToday: false,
+  weekDayFormat: '',
+  hideDialogHeader: false,
+  hideDialogFooter: false,
 };
 
 export default Dialog;
