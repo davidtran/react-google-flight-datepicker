@@ -32,6 +32,7 @@ const Dialog = ({
   highlightToday,
   hideDialogHeader,
   hideDialogFooter,
+  dateInputSeperator,
 }) => {
   const [hideAnimation, setHideAnimation] = useState(false);
   const [dateChanged, setDateChanged] = useState();
@@ -90,6 +91,7 @@ const Dialog = ({
             dateFormat={dateFormat}
             isSingle={isSingle}
             nonFocusable={!complsOpen}
+            dateInputSeperator={dateInputSeperator}
           />
           <button
             type="button"
@@ -184,6 +186,7 @@ Dialog.propTypes = {
   weekDayFormat: PropTypes.string,
   hideDialogHeader: PropTypes.bool,
   hideDialogFooter: PropTypes.bool,
+  dateInputSeperator: PropTypes.node,
 };
 
 Dialog.defaultProps = {
@@ -211,6 +214,7 @@ Dialog.defaultProps = {
   weekDayFormat: '',
   hideDialogHeader: false,
   hideDialogFooter: false,
+  dateInputSeperator: null,
 };
 
 export default Dialog;

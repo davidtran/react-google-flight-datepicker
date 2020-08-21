@@ -231,6 +231,7 @@ const RangeDatePicker = ({
           onFocus={onDateInputFocus}
           nonFocusable={complsOpen}
           dateInputSeperator={dateInputSeperator}
+          inputFocus={inputFocus}
         />
 
         <DialogWrapper isMobile={isMobile}>
