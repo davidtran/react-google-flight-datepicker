@@ -179,6 +179,10 @@
     transform-origin: top left;
     opacity: 0;
     transform: scale(0);
+    
+    &.single {
+      width: 385px;
+    }
 
     &.open {
       animation: showPopup 0.2s forwards;
@@ -281,6 +285,10 @@
     &.isAnimating {
       position: absolute;
       left: -350px;
+    }
+    
+    &.single {
+      margin-right: 37px;
     }
   }
 

@@ -25,6 +25,8 @@ const SingleDatePicker = ({
   highlightToday,
   isOpen,
   onCloseCalendar,
+  showSingleMonth,
+  weekDayFormat,
 }) => {
   const [complsOpen, setComplsOpen] = useState(false);
   const containerRef = useRef(null);
@@ -179,6 +181,8 @@ const SingleDatePicker = ({
             isMobile={isMobile}
             highlightToday={highlightToday}
             isSingle
+            weekDayFormat={weekDayFormat}
+            showSingleMonth={showSingleMonth}
           />
         </DialogWrapper>
       </div>
@@ -197,10 +201,12 @@ SingleDatePicker.propTypes = {
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
   dateFormat: PropTypes.string,
-  monthFormat: PropTypes.string,
+  monthFormat: PropTypes.string, 
+  weekDayFormat: PropTypes.string,
   highlightToday: PropTypes.bool,
   isOpen: PropTypes.bool,
   onCloseCalendar: PropTypes.func,
+  showSingleMonth: PropTypes.bool
 };
 
 SingleDatePicker.defaultProps = {
@@ -211,6 +217,7 @@ SingleDatePicker.defaultProps = {
   onChange: () => {},
   onFocus: () => {},
   startWeekDay: 'monday',
+  weekDayFormat: 'dd',
   minDate: null,
   maxDate: null,
   dateFormat: '',

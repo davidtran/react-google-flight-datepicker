@@ -22,6 +22,7 @@ const DialogContentDesktop = ({
   complsOpen,
   dateChanged,
   highlightToday,
+  showSingleMonth,
 }) => {
   const containerRef = useRef();
   const [translateAmount, setTranslateAmount] = useState(0);
@@ -31,11 +32,16 @@ const DialogContentDesktop = ({
   const [disableNext, setDisableNext] = useState(false);
   const [wrapperWidth, setWrapperWidth] = useState(0);
 
-  function getArrayMonth(date) {
+  function getArrayMonth(date, showSingleMonth) {
     const prevMonth = dayjs(date).subtract(1, 'month');
     const nextMonth = dayjs(date).add(1, 'month');
     const futureMonth = dayjs(date).add(2, 'month');
-    return [prevMonth, focusDate, nextMonth, futureMonth];
+    
+    if (showSingleMonth) {
+        return [prevMonth, focusDate, nextMonth];
+    } else {
+        return [prevMonth, focusDate, nextMonth, futureMonth];
+    }
   }
 
   useEffect(() => {
@@ -62,7 +68,7 @@ const DialogContentDesktop = ({
       setDisableNext(false);
     }
 
-    const arrayMonth = getArrayMonth(focusDate);
+    const arrayMonth = getArrayMonth(focusDate, showSingleMonth);
     setMonthArray(arrayMonth);
   }, [focusDate]);
 
@@ -256,6 +262,7 @@ const DialogContentDesktop = ({
         monthFormat={monthFormat}
         isSingle={isSingle}
         highlightToday={highlightToday}
+        showSingleMonth={showSingleMonth}
       />
     ));
   }
@@ -311,7 +318,8 @@ DialogContentDesktop.propTypes = {
   isSingle: PropTypes.bool,
   complsOpen: PropTypes.bool,
   dateChanged: PropTypes.instanceOf(Date),
-  highlightToday: PropTypes.bool
+  highlightToday: PropTypes.bool,
+  showSingleMonth: PropTypes.bool
 };
 
 DialogContentDesktop.defaultProps = {
