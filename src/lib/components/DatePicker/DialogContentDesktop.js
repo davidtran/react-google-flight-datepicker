@@ -46,7 +46,7 @@ const DialogContentDesktop = ({
 
   useEffect(() => {
     if (containerRef.current) {
-      const _translateAmount = containerRef.current.offsetWidth / 2;
+      const _translateAmount = showSingleMonth ? (containerRef.current.offsetWidth + parseInt(containerRef.current.currentStyle || window.getComputedStyle(containerRef.current).marginLeft)) : (containerRef.current.offsetWidth / 2);
       setWrapperWidth(_translateAmount);
     }
   }, [containerRef.current]);
@@ -269,10 +269,13 @@ const DialogContentDesktop = ({
 
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <div className="calendar-wrapper" ref={containerRef} onKeyDown={onKeyDown}>
+    <div className={cx('calendar-wrapper', {
+        single: showSingleMonth,
+    })} ref={containerRef} onKeyDown={onKeyDown}>
       <div
         className={cx('calendar-content', {
           isAnimating: translateAmount !== 0,
+          single: showSingleMonth,
         })}
         style={{
           transform: `translateX(${translateAmount}px)`,

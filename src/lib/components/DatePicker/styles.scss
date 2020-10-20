@@ -256,6 +256,11 @@
     margin: 12px 38px 8px;
     overflow: hidden;
     min-height: 353px;
+    
+    &.single {
+      margin-left: 36px;
+      margin-right: 36px;
+    }
   }
 
   .calendar-content {
@@ -288,7 +293,7 @@
     }
     
     &.single {
-      margin-right: 37px;
+      margin-right: 39px;
     }
   }
 

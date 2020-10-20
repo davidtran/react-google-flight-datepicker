@@ -66,7 +66,7 @@ const Dialog = ({
       className={cx('dialog-date-picker', {
         open: complsOpen,
         hide: !complsOpen && hideAnimation,
-        single: showSingleMonth
+        single: showSingleMonth && !isMobile
       })}
       ref={containerRef}
     >
