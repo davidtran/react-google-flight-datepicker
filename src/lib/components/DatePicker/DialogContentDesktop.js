@@ -22,6 +22,7 @@ const DialogContentDesktop = ({
   complsOpen,
   dateChanged,
   highlightToday,
+  showSingleMonth,
 }) => {
   const containerRef = useRef();
   const [translateAmount, setTranslateAmount] = useState(0);
@@ -31,16 +32,22 @@ const DialogContentDesktop = ({
   const [disableNext, setDisableNext] = useState(false);
   const [wrapperWidth, setWrapperWidth] = useState(0);
 
-  function getArrayMonth(date) {
+  function getArrayMonth(date, showSingleMonth) {
     const prevMonth = dayjs(date).subtract(1, 'month');
     const nextMonth = dayjs(date).add(1, 'month');
     const futureMonth = dayjs(date).add(2, 'month');
-    return [prevMonth, focusDate, nextMonth, futureMonth];
+
+    if (showSingleMonth) {
+        return [prevMonth, focusDate, nextMonth];
+    } else {
+        return [prevMonth, focusDate, nextMonth, futureMonth];
+    }
   }
 
   useEffect(() => {
     if (containerRef.current) {
-      const _translateAmount = containerRef.current.offsetWidth / 2;
+      const style = window.getComputedStyle(containerRef.current)
+      const _translateAmount = showSingleMonth ? containerRef.current.offsetWidth + parseInt(style.marginLeft) - 8 : containerRef.current.offsetWidth / 2;
       setWrapperWidth(_translateAmount);
     }
   }, [containerRef.current]);
@@ -62,7 +69,7 @@ const DialogContentDesktop = ({
       setDisableNext(false);
     }
 
-    const arrayMonth = getArrayMonth(focusDate);
+    const arrayMonth = getArrayMonth(focusDate, showSingleMonth);
     setMonthArray(arrayMonth);
   }, [focusDate]);
 
@@ -256,16 +263,20 @@ const DialogContentDesktop = ({
         monthFormat={monthFormat}
         isSingle={isSingle}
         highlightToday={highlightToday}
+        showSingleMonth={showSingleMonth}
       />
     ));
   }
 
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <div className="calendar-wrapper" ref={containerRef} onKeyDown={onKeyDown}>
+    <div className={cx('calendar-wrapper', {
+        single: showSingleMonth,
+    })} ref={containerRef} onKeyDown={onKeyDown}>
       <div
         className={cx('calendar-content', {
           isAnimating: translateAmount !== 0,
+          single: showSingleMonth,
         })}
         style={{
           transform: `translateX(${translateAmount}px)`,
@@ -311,7 +322,8 @@ DialogContentDesktop.propTypes = {
   isSingle: PropTypes.bool,
   complsOpen: PropTypes.bool,
   dateChanged: PropTypes.instanceOf(Date),
-  highlightToday: PropTypes.bool
+  highlightToday: PropTypes.bool,
+  showSingleMonth: PropTypes.bool
 };
 
 DialogContentDesktop.defaultProps = {

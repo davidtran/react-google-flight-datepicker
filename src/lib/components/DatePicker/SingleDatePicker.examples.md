@@ -7,7 +7,9 @@ import { SingleDatePicker } from 'react-google-flight-datepicker';
 
 <div className="react-google-flight-datepicker">
   <div className="date-picker-demo">
-    <SingleDatePicker />
+    <SingleDatePicker
+      showSingleMonth
+    />
   </div>
 </div>
 ```

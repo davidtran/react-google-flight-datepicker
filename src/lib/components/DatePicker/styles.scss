@@ -179,6 +179,10 @@
     transform-origin: top left;
     opacity: 0;
     transform: scale(0);
+    
+    &.single {
+      width: 385px;
+    }
 
     &.open {
       animation: showPopup 0.2s forwards;
@@ -252,6 +256,11 @@
     margin: 12px 38px 8px;
     overflow: hidden;
     min-height: 353px;
+    
+    &.single {
+      margin-left: 36px;
+      margin-right: 36px;
+    }
   }
 
   .calendar-content {
@@ -281,6 +290,10 @@
     &.isAnimating {
       position: absolute;
       left: -350px;
+    }
+    
+    &.single {
+      margin-right: 39px;
     }
   }
 
