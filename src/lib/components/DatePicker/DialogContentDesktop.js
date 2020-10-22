@@ -36,7 +36,7 @@ const DialogContentDesktop = ({
     const prevMonth = dayjs(date).subtract(1, 'month');
     const nextMonth = dayjs(date).add(1, 'month');
     const futureMonth = dayjs(date).add(2, 'month');
-    
+
     if (showSingleMonth) {
         return [prevMonth, focusDate, nextMonth];
     } else {
@@ -46,7 +46,8 @@ const DialogContentDesktop = ({
 
   useEffect(() => {
     if (containerRef.current) {
-      const _translateAmount = showSingleMonth ? (containerRef.current.offsetWidth + parseInt(containerRef.current.currentStyle || window.getComputedStyle(containerRef.current).marginLeft)) : (containerRef.current.offsetWidth / 2);
+      const style = window.getComputedStyle(containerRef.current)
+      const _translateAmount = showSingleMonth ? containerRef.current.offsetWidth + parseInt(style.marginLeft) - 8 : containerRef.current.offsetWidth / 2;
       setWrapperWidth(_translateAmount);
     }
   }, [containerRef.current]);
