@@ -76,7 +76,7 @@ startDatePlaceholder | String | Start Date | Placeholder text for startDate text
 endDatePlaceholder | String | End Date | Placeholder text for endDate text input |
 startWeekDay | String (monday or sunday) | monday | Determine the start day for a week (monday or sunday) |
 highlightToday | Bool | false | Hightlight "today" date
-
+singleCalendar | Bool | false | Only applicable on SingleDatePicker. When this prop is actived, the datepicker will display 1 calendar instead of 2 calendar in the the container
 ### Author
 - David Tran - david@jslancer.com
 - Leo Phan - leo.phan@jslancer.com

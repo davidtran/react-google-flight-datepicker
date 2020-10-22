@@ -33,7 +33,7 @@ const Dialog = ({
   hideDialogHeader,
   hideDialogFooter,
   dateInputSeperator,
-  showSingleMonth,
+  singleCalendar,
 }) => {
   const [hideAnimation, setHideAnimation] = useState(false);
   const [dateChanged, setDateChanged] = useState();
@@ -66,7 +66,7 @@ const Dialog = ({
       className={cx('dialog-date-picker', {
         open: complsOpen,
         hide: !complsOpen && hideAnimation,
-        single: showSingleMonth && !isMobile
+        single: singleCalendar && !isMobile
       })}
       ref={containerRef}
     >
@@ -141,7 +141,7 @@ const Dialog = ({
               complsOpen={complsOpen}
               dateChanged={dateChanged}
               highlightToday={highlightToday}
-              showSingleMonth={showSingleMonth}
+              singleCalendar={singleCalendar}
             />
           )}
       </div>
@@ -190,7 +190,7 @@ Dialog.propTypes = {
   hideDialogHeader: PropTypes.bool,
   hideDialogFooter: PropTypes.bool,
   dateInputSeperator: PropTypes.node,
-  showSingleMonth: PropTypes.bool,
+  singleCalendar: PropTypes.bool,
 };
 
 Dialog.defaultProps = {

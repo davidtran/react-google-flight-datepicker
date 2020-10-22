@@ -23,7 +23,7 @@ const MonthCalendar = ({
   weekDayFormat,
   isSingle,
   highlightToday,
-  showSingleMonth,
+  singleCalendar,
 }) => {
   function generateWeek() {
     const { totalWeek, totalDay } = getMonthInfo(year, month, startWeekDay);
@@ -65,7 +65,7 @@ const MonthCalendar = ({
       className={cx('month-calendar', {
         isAnimating,
         hidden,
-          single: showSingleMonth
+          single: singleCalendar
       })}
       data-month-index={month + 1}
     >
@@ -99,7 +99,7 @@ MonthCalendar.propTypes = {
   monthFormat: PropTypes.string,
   isSingle: PropTypes.bool,
   highlightToday: PropTypes.bool,
-  showSingleMonth: PropTypes.bool,
+  singleCalendar: PropTypes.bool,
 };
 
 MonthCalendar.defaultProps = {

@@ -22,7 +22,7 @@ const DialogContentDesktop = ({
   complsOpen,
   dateChanged,
   highlightToday,
-  showSingleMonth,
+  singleCalendar,
 }) => {
   const containerRef = useRef();
   const [translateAmount, setTranslateAmount] = useState(0);
@@ -32,12 +32,12 @@ const DialogContentDesktop = ({
   const [disableNext, setDisableNext] = useState(false);
   const [wrapperWidth, setWrapperWidth] = useState(0);
 
-  function getArrayMonth(date, showSingleMonth) {
+  function getArrayMonth(date, singleCalendar) {
     const prevMonth = dayjs(date).subtract(1, 'month');
     const nextMonth = dayjs(date).add(1, 'month');
     const futureMonth = dayjs(date).add(2, 'month');
 
-    if (showSingleMonth) {
+    if (singleCalendar) {
         return [prevMonth, focusDate, nextMonth];
     } else {
         return [prevMonth, focusDate, nextMonth, futureMonth];
@@ -47,7 +47,7 @@ const DialogContentDesktop = ({
   useEffect(() => {
     if (containerRef.current) {
       const style = window.getComputedStyle(containerRef.current)
-      const _translateAmount = showSingleMonth ? containerRef.current.offsetWidth + parseInt(style.marginLeft) - 8 : containerRef.current.offsetWidth / 2;
+      const _translateAmount = singleCalendar ? containerRef.current.offsetWidth + parseInt(style.marginLeft) - 8 : containerRef.current.offsetWidth / 2;
       setWrapperWidth(_translateAmount);
     }
   }, [containerRef.current]);
@@ -69,7 +69,7 @@ const DialogContentDesktop = ({
       setDisableNext(false);
     }
 
-    const arrayMonth = getArrayMonth(focusDate, showSingleMonth);
+    const arrayMonth = getArrayMonth(focusDate, singleCalendar);
     setMonthArray(arrayMonth);
   }, [focusDate]);
 
@@ -263,7 +263,7 @@ const DialogContentDesktop = ({
         monthFormat={monthFormat}
         isSingle={isSingle}
         highlightToday={highlightToday}
-        showSingleMonth={showSingleMonth}
+        singleCalendar={singleCalendar}
       />
     ));
   }
@@ -271,12 +271,12 @@ const DialogContentDesktop = ({
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div className={cx('calendar-wrapper', {
-        single: showSingleMonth,
+        single: singleCalendar,
     })} ref={containerRef} onKeyDown={onKeyDown}>
       <div
         className={cx('calendar-content', {
           isAnimating: translateAmount !== 0,
-          single: showSingleMonth,
+          single: singleCalendar,
         })}
         style={{
           transform: `translateX(${translateAmount}px)`,
@@ -323,7 +323,7 @@ DialogContentDesktop.propTypes = {
   complsOpen: PropTypes.bool,
   dateChanged: PropTypes.instanceOf(Date),
   highlightToday: PropTypes.bool,
-  showSingleMonth: PropTypes.bool
+  singleCalendar: PropTypes.bool
 };
 
 DialogContentDesktop.defaultProps = {
