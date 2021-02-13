@@ -160,7 +160,7 @@ const SingleDatePicker = ({
           onFocus={onDateInputFocus}
           isSingle
         />
-        <DialogWrapper isMobile={isMobile}>
+        <DialogWrapper>
           <Dialog
             complsOpen={complsOpen}
             toggleDialog={toggleDialog}
@@ -206,7 +206,7 @@ SingleDatePicker.propTypes = {
   highlightToday: PropTypes.bool,
   isOpen: PropTypes.bool,
   onCloseCalendar: PropTypes.func,
-  singleCalendar: PropTypes.bool
+  singleCalendar: PropTypes.bool,
 };
 
 SingleDatePicker.defaultProps = {
@@ -225,6 +225,7 @@ SingleDatePicker.defaultProps = {
   highlightToday: false,
   isOpen: false,
   onCloseCalendar: () => {},
+  singleCalendar: false,
 };
 
 export default SingleDatePicker;

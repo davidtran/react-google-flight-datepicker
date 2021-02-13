@@ -234,7 +234,7 @@ const RangeDatePicker = ({
           inputFocus={inputFocus}
         />
 
-        <DialogWrapper isMobile={isMobile}>
+        <DialogWrapper>
           <Dialog
             complsOpen={complsOpen}
             toggleDialog={toggleDialog}
