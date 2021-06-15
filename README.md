@@ -22,7 +22,7 @@ Google flight date picker implemented in ReactJS
 
 ##### RangeDatePicker
 ```jsx
-import { RangeDatePicker } from 'react-google-flight-datepicker`;
+import { RangeDatePicker } from 'react-google-flight-datepicker';
 import 'react-google-flight-datepicker/dist/main.css';
 
 <RangeDatePicker
@@ -43,7 +43,7 @@ import 'react-google-flight-datepicker/dist/main.css';
 
 ##### SingleDatePicker
 ```jsx
-import { SingleDatePicker } from 'react-google-flight-datepicker`;
+import { SingleDatePicker } from 'react-google-flight-datepicker';
 import 'react-google-flight-datepicker/dist/main.css';
 
 <SingleDatePicker
