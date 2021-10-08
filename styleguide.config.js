@@ -1,6 +1,6 @@
-const path = require('path')
-const pkg = require('./package.json')
-const webpackConfig = require('./config/webpack.js')
+const path = require('path');
+const pkg = require('./package.json');
+const webpackConfig = require('./config/webpack.js');
 
 module.exports = {
   title: `${pkg.name} v${pkg.version}`,
@@ -20,10 +20,10 @@ module.exports = {
       links: [
         {
           rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css?family=Roboto'
-        }
-      ]
-    }
+          href: 'https://fonts.googleapis.com/css?family=Roboto',
+        },
+      ],
+    },
   },
   theme: {
     color: {
@@ -35,12 +35,13 @@ module.exports = {
   styles: {
     StyleGuide: {
       '@global body': {
-        fontFamily: 'Roboto'
-      }
+        fontFamily: 'Roboto',
+      },
     },
     Ribbon: {
       root: {
-        backgroundImage: 'url("https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png")',
+        backgroundImage:
+          'url("https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png")',
         backgroundSize: '50px 50px',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'right top',
@@ -68,11 +69,11 @@ module.exports = {
   },
   webpackConfig,
   getExampleFilename(componentPath) {
-    return componentPath.replace(/\.js?$/, '.examples.md')
+    return componentPath.replace(/\.js?$/, '.examples.md');
   },
   getComponentPathLine(componentPath) {
-    const name = path.basename(componentPath, '.js')
+    const name = path.basename(componentPath, '.js');
 
-    return `import { ${name} } from '${pkg.name}';`
+    return `import { ${name} } from '${pkg.name}';`;
   },
-}
+};

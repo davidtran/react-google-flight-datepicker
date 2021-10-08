@@ -27,6 +27,15 @@
       opacity: 0.6;
       cursor: default;
     }
+
+    &.hidden-input-labels {
+      max-width: 80px;
+
+      svg {
+        margin-right: 0;
+        margin: 0 auto;
+      }
+    }
   }
 
   .date-picker-input {
@@ -41,7 +50,6 @@
     font-size: 1rem;
     align-items: center;
     overflow: visible;
-
 
     svg {
       min-width: 24px;
@@ -179,7 +187,7 @@
     transform-origin: top left;
     opacity: 0;
     transform: scale(0);
-    
+
     &.single {
       width: 385px;
     }
@@ -256,7 +264,7 @@
     margin: 12px 38px 8px;
     overflow: hidden;
     min-height: 353px;
-    
+
     &.single {
       margin-left: 36px;
       margin-right: 36px;
@@ -291,7 +299,7 @@
       position: absolute;
       left: -350px;
     }
-    
+
     &.single {
       margin-right: 39px;
     }
@@ -506,7 +514,7 @@
       cursor: default;
 
       svg {
-        fill: #93989e
+        fill: #93989e;
       }
     }
   }
@@ -530,178 +538,6 @@
       font-weight: 500;
       font-size: 0.9rem;
       cursor: pointer;
-    }
-  }
-
-  /** RESPONSIVE MOBILE */
-  @media screen and (max-width: 768px) {
-    .date-picker-demo {
-      width: 100%;
-    }
-
-    .date-picker-input {
-      height: 40px;
-      border: none;
-      border-radius: 0;
-      position: relative;
-    }
-
-    .date {
-      border: 1px solid #dadce0;
-      border-radius: 5px;
-      padding: 0 10px;
-      flex-grow: 1;
-
-      &:nth-child(2) {
-        margin-left: 10px;
-      }
-
-      &.is-focus {
-        height: 40px;
-      }
-    }
-
-    .date:first-child::before {
-      display: none;
-    }
-
-    .icon-calendar {
-      display: none;
-
-      &.mobile {
-        display: block;
-      }
-    }
-
-    .reset-button {
-      display: none;
-
-      &.mobile {
-        display: block;
-        color: rgba(0, 0, 0, 0.87);
-        min-width: 88px;
-        font-weight: 500;
-      }
-    }
-
-    .change-date-group,
-    .divider,
-    .calendar-flippers,
-    .weekdays {
-      display: none;
-    }
-
-    .back-button {
-      display: block;
-      width: 56px;
-      height: 100%;
-      margin-right: 16px;
-      padding: 0;
-
-      svg {
-        width: 20px;
-        height: 20px;
-        fill: rgba(0, 0, 0, 0.7);
-      }
-    }
-
-    .dialog-date-picker {
-      border-radius: 0;
-      width: 100%;
-      height: 100%;
-      max-height: 100%;
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 10px;
-      top: 100%;
-      display: flex;
-      flex-direction: column;
-      opacity: 1;
-      transform: none;
-      z-index: 999999999;
-
-      &.open {
-        transition: all 0.2s ease-out;
-        transform: translate(0, -100%);
-        animation: none;
-      }
-
-      &.hide {
-        transition: all 0.2s ease-in;
-        transform: translate(0, 0);
-        animation: none;
-      }
-    }
-
-    .dialog-header {
-      padding: 8px;
-      box-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.24);
-      z-index: 50;
-
-      .date-picker-input {
-        height: 40px;
-        width: 100%;
-      }
-    }
-
-    .dialog-content {
-      border: none;
-      overflow: hidden;
-      height: 100%;
-    }
-
-    .calendar-wrapper {
-      margin: 0;
-      height: 100%;
-      display: flex;
-    }
-
-    .calendar-content {
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      flex-direction: column;
-      flex-grow: 1;
-
-    }
-
-    .weekdays.mobile {
-      display: flex;
-      background-color: #f3f3f3;
-    }
-
-    .month-calendar {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .day {
-      width: (100% / 7);
-      max-width: (100% / 7);
-
-      &.selected:hover,
-      &.hovered:hover {
-        color: #fff !important;
-
-        &::after {
-          background-color: #4285f4 !important;
-        }
-      }
-    }
-
-    .month-name {
-      text-align: left;
-      margin-left: 10px;
-      margin-bottom: 0px;
-      margin-top: 25px;
-      font-weight: bold;
-    }
-
-    .dialog-footer {
-      box-shadow: 0 0 4px rgba(0, 0, 0, 0.12), 0 4px 4px rgba(0, 0, 0, 0.24);
-      padding: 15px 8px;
     }
   }
 }

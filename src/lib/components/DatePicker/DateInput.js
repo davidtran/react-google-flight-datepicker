@@ -8,7 +8,6 @@ import PrevIcon from '../../assets/svg/prev.svg';
 import NextIcon from '../../assets/svg/next.svg';
 
 const DateInput = ({
-  handleClickDateInput,
   showIcon,
   tabIndex,
   isFocus,
@@ -36,15 +35,19 @@ const DateInput = ({
       }
       setFormattedDate(text);
 
-      if ((minDate && dayjs(minDate).add(1, 'day').isAfter(value, 'date'))
-        || (name === 'END_DATE' && value.isBefore(fromDate.add(1, 'day'), 'date'))
+      if (
+        (minDate && dayjs(minDate).add(1, 'day').isAfter(value, 'date')) ||
+        (name === 'END_DATE' && value.isBefore(fromDate.add(1, 'day'), 'date'))
       ) {
         setDisablePrev(true);
       } else {
         setDisablePrev(false);
       }
 
-      if (maxDate && dayjs(maxDate).subtract(1, 'day').isBefore(value, 'date')) {
+      if (
+        maxDate &&
+        dayjs(maxDate).subtract(1, 'day').isBefore(value, 'date')
+      ) {
         setDisableNext(true);
       } else {
         setDisableNext(false);
@@ -73,9 +76,12 @@ const DateInput = ({
       className={cx('date', { 'is-focus': isFocus, 'is-single': isSingle })}
       role="button"
       tabIndex={nonFocusable ? '-1' : tabIndex}
-      onClick={handleClickDateInput}
       onFocus={onDateInputFocus}
-      id={name === "START_DATE" ? "start-date-input-button" : "end-date-input-button"}
+      id={
+        name === 'START_DATE'
+          ? 'start-date-input-button'
+          : 'end-date-input-button'
+      }
     >
       {showIcon && (
         <CalendarIcon className="icon-calendar" viewBox="0 0 24 24" />
@@ -111,7 +117,6 @@ const DateInput = ({
 };
 
 DateInput.propTypes = {
-  handleClickDateInput: PropTypes.func,
   showIcon: PropTypes.bool,
   tabIndex: PropTypes.string,
   isFocus: PropTypes.bool,
@@ -129,7 +134,6 @@ DateInput.propTypes = {
 };
 
 DateInput.defaultProps = {
-  handleClickDateInput: () => {},
   showIcon: false,
   tabIndex: '',
   isFocus: false,
@@ -144,7 +148,6 @@ DateInput.defaultProps = {
   fromDate: null,
   minDate: null,
   maxDate: null,
-
 };
 
 export default DateInput;

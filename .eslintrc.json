@@ -1,25 +1,15 @@
 {
   "parser": "babel-eslint",
-  "extends": [
-    "airbnb",
-    "plugin:react/recommended"
-  ],
+  "extends": ["airbnb", "plugin:react/recommended"],
   "settings": {
     "react": {
       "createClass": "createReactClass",
       "pragma": "React",
       "version": "16.6.3"
     },
-    "propWrapperFunctions": [
-      "forbidExtraProps"
-    ]
+    "propWrapperFunctions": ["forbidExtraProps"]
   },
-  "plugins": [
-    "jest",
-    "react",
-    "flowtype",
-    "react-hooks"
-  ],
+  "plugins": ["jest", "react", "flowtype", "react-hooks"],
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": 7,
@@ -35,21 +25,13 @@
     "jest/globals": true
   },
   "rules": {
-    "semi": [
-      2
-    ],
-    "arrow-parens": [
-      "error",
-      "as-needed"
-    ],
+    "semi": [2],
+    "arrow-parens": ["error", "as-needed"],
     "radix": 0,
     "max-len": 0,
     "no-shadow": 0,
     "global-require": 0,
-    "no-return-assign": [
-      "error",
-      "always"
-    ],
+    "no-return-assign": ["error", "always"],
     "react/jsx-props-no-spreading": 0,
     "react-hooks/rules-of-hooks": "error",
     "newline-before-return": "error",
@@ -82,16 +64,9 @@
     "jsx-a11y/anchor-is-valid": [
       "error",
       {
-        "components": [
-          "Link"
-        ],
-        "specialLink": [
-          "to",
-          "hash"
-        ],
-        "aspects": [
-          "noHref"
-        ]
+        "components": ["Link"],
+        "specialLink": ["to", "hash"],
+        "aspects": ["noHref"]
       }
     ]
   }

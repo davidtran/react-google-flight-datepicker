@@ -1,6 +1,5 @@
-import React, {
-  useState, useRef, useEffect, useLayoutEffect,
-} from 'react';
+/* eslint-disable indent */
+import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import dayjs from 'dayjs';
@@ -32,6 +31,8 @@ const RangeDatePicker = ({
   hideDialogAfterSelectEndDate,
   isOpen,
   onCloseCalendar,
+  customComponent,
+  hideInputLabels,
 }) => {
   const [complsOpen, setComplsOpen] = useState(false);
   const containerRef = useRef(null);
@@ -63,16 +64,18 @@ const RangeDatePicker = ({
 
   function handleDocumentClick(e) {
     if (
-      containerRef.current
-      && containerRef.current.contains(e.target) === false
-      && window.innerWidth >= 768
+      containerRef.current &&
+      containerRef.current.contains(e.target) === false &&
+      window.innerWidth >= 768
     ) {
       setComplsOpen(false);
     }
   }
 
   function notifyChange() {
-    const _startDate = fromDateRef.current ? fromDateRef.current.toDate() : null;
+    const _startDate = fromDateRef.current
+      ? fromDateRef.current.toDate()
+      : null;
     const _endDate = toDateRef.current ? toDateRef.current.toDate() : null;
     onChange(_startDate, _endDate);
   }
@@ -126,9 +129,10 @@ const RangeDatePicker = ({
 
   useEffect(() => {
     if (isFirstTime) {
-      const input = inputFocus === 'from'
-        ? 'Start Date'
-        : inputFocus === 'to'
+      const input =
+        inputFocus === 'from'
+          ? 'Start Date'
+          : inputFocus === 'to'
           ? 'End Date'
           : '';
       onFocus(input);
@@ -153,7 +157,10 @@ const RangeDatePicker = ({
 
   function onSelectDate(date) {
     if (inputFocus) {
-      if (inputFocus === 'from' || (fromDate && date.isBefore(fromDate, 'date'))) {
+      if (
+        inputFocus === 'from' ||
+        (fromDate && date.isBefore(fromDate, 'date'))
+      ) {
         updateFromDate(date, true);
         if (toDate && date.isAfter(toDate, 'date')) {
           updateToDate(null, true);
@@ -189,7 +196,10 @@ const RangeDatePicker = ({
   }
 
   function handleChangeDate(value, input) {
-    if ((minDate && dayjs(minDate).isAfter(value, 'date')) || (maxDate && dayjs(maxDate).isBefore(value, 'date'))) {
+    if (
+      (minDate && dayjs(minDate).isAfter(value, 'date')) ||
+      (maxDate && dayjs(maxDate).isBefore(value, 'date'))
+    ) {
       return;
     }
 
@@ -212,9 +222,14 @@ const RangeDatePicker = ({
   return (
     <div className="react-google-flight-datepicker">
       <div
-        className={cx('date-picker', className, {
-          disabled,
-        })}
+        className={cx(
+          'date-picker',
+          className,
+          {
+            disabled,
+          },
+          { 'hidden-input-labels': hideInputLabels }
+        )}
         ref={containerRef}
       >
         <DateInputGroup
@@ -232,8 +247,8 @@ const RangeDatePicker = ({
           nonFocusable={complsOpen}
           dateInputSeperator={dateInputSeperator}
           inputFocus={inputFocus}
+          hideInputLabels={hideInputLabels}
         />
-
         <DialogWrapper isMobile={isMobile}>
           <Dialog
             complsOpen={complsOpen}
@@ -261,6 +276,7 @@ const RangeDatePicker = ({
             hideDialogHeader={hideDialogHeader}
             hideDialogFooter={hideDialogFooter}
             dateInputSeperator={dateInputSeperator}
+            customComponent={customComponent}
           />
         </DialogWrapper>
       </div>
@@ -290,6 +306,8 @@ RangeDatePicker.propTypes = {
   hideDialogAfterSelectEndDate: PropTypes.bool,
   isOpen: PropTypes.bool,
   onCloseCalendar: PropTypes.func,
+  customComponent: PropTypes.func,
+  hideInputLabels: PropTypes.bool,
 };
 
 RangeDatePicker.defaultProps = {
@@ -314,6 +332,8 @@ RangeDatePicker.defaultProps = {
   hideDialogAfterSelectEndDate: false,
   isOpen: false,
   onCloseCalendar: () => {},
+  customComponent: null,
+  hideInputLabels: false,
 };
 
 export default RangeDatePicker;
