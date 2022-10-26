@@ -415,6 +415,7 @@
 
     &.hovered {
       background-color: #d9edfd;
+      position: relative;
       border-radius: unset;
 
       .background-day {
@@ -469,6 +470,39 @@
     .text-day {
       position: relative;
       z-index: 3;
+    }
+
+    .tooltip-text {
+      visibility: hidden;
+      background-color: #4285f4;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 15px;
+    
+      /* Position the tooltip */
+      position: absolute;
+      bottom: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 999;
+    }
+
+    .tooltip-text::before {
+      z-index: 1001;
+      border: 6px solid transparent;
+      background: transparent;
+      content: "";
+      margin-left: -6px;
+      margin-bottom: -12px;
+      border-top-color: #4285f4;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+    }
+
+    &:hover .tooltip-text {
+      visibility: visible;
     }
   }
 

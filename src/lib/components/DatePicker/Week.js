@@ -21,6 +21,7 @@ const Week = ({
   isSingle,
   weekIndex,
   highlightToday,
+  tooltip,
 }) => {
   function generateDay() {
     return [...Array(week.days).keys()].map(index => {
@@ -67,6 +68,7 @@ const Week = ({
           totalDay={totalDay}
           weekDayIndex={index}
           weekIndex={weekIndex}
+          tooltip={tooltip}
         />
       );
     });

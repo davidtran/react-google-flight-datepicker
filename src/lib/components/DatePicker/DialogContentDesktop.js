@@ -23,6 +23,7 @@ const DialogContentDesktop = ({
   dateChanged,
   highlightToday,
   singleCalendar,
+  tooltip,
 }) => {
   const containerRef = useRef();
   const [translateAmount, setTranslateAmount] = useState(0);
@@ -264,6 +265,7 @@ const DialogContentDesktop = ({
         isSingle={isSingle}
         highlightToday={highlightToday}
         singleCalendar={singleCalendar}
+        tooltip={tooltip}
       />
     ));
   }

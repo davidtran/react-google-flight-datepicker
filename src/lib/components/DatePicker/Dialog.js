@@ -34,6 +34,7 @@ const Dialog = ({
   hideDialogFooter,
   dateInputSeperator,
   singleCalendar,
+  tooltip,
 }) => {
   const [hideAnimation, setHideAnimation] = useState(false);
   const [dateChanged, setDateChanged] = useState();
@@ -122,6 +123,7 @@ const Dialog = ({
               complsOpen={complsOpen}
               isSingle={isSingle}
               highlightToday={highlightToday}
+              tooltip={tooltip}
             />
           )
           : (
@@ -142,6 +144,7 @@ const Dialog = ({
               dateChanged={dateChanged}
               highlightToday={highlightToday}
               singleCalendar={singleCalendar}
+              tooltip={tooltip}
             />
           )}
       </div>

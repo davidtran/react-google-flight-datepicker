@@ -24,6 +24,7 @@ const MonthCalendar = ({
   isSingle,
   highlightToday,
   singleCalendar,
+  tooltip,
 }) => {
   function generateWeek() {
     const { totalWeek, totalDay } = getMonthInfo(year, month, startWeekDay);
@@ -47,6 +48,7 @@ const MonthCalendar = ({
         isSingle={isSingle}
         weekIndex={index}
         highlightToday={highlightToday}
+        tooltip={tooltip}
       />
     ));
   }

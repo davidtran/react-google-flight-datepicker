@@ -13,6 +13,7 @@ const Day = ({
   isEndDay,
   totalDay,
   highlight,
+  tooltip
 }) => {
   function selectDate(e) {
     e.stopPropagation();
@@ -54,6 +55,7 @@ const Day = ({
           />
       )}
       <div className="text-day">{dateIndex}</div>
+      {tooltip && <div className="tooltip-text">{tooltip}</div>}
     </div>
   );
 };

@@ -19,7 +19,8 @@ const DialogContentMobile = ({
   weekDayFormat,
   complsOpen,
   isSingle,
-  highlightToday
+  highlightToday,
+  tooltip,
 }) => {
   const [rowCount, setRowCount] = useState(2400);
   const minYear = minDate ? dayjs(minDate).year() : 1900;
@@ -73,6 +74,7 @@ const DialogContentMobile = ({
           monthFormat={monthFormat}
           isSingle={isSingle}
           highlightToday={highlightToday}
+          tooltip={tooltip}
         />
       </div>
     );
