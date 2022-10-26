@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
@@ -13,8 +13,9 @@ const Day = ({
   isEndDay,
   totalDay,
   highlight,
-  tooltip
 }) => {
+  const dayRef = useRef();
+
   function selectDate(e) {
     e.stopPropagation();
     e.preventDefault();
@@ -27,6 +28,34 @@ const Day = ({
     if (disabled || !onHoverDate) return;
     onHoverDate(dateValue);
   }
+
+  const handleTooltipPosition = useCallback(() => {
+    const element = document.getElementById('day-tooltip');
+    if (element) {
+      element.style.left = `${dayRef.current.offsetLeft - element.offsetWidth + 135}px`;
+      element.style.top = `${dayRef.current.offsetTop - element.offsetHeight - 15}px`;
+      element.style.visibility = 'visible';
+    }
+  }, []);
+
+  const handleTooltipHidden = useCallback(() => {
+    const element = document.getElementById('day-tooltip');
+    if (element) {
+      element.style.visibility = 'hidden';
+    }
+  }, []);
+
+  useEffect(() => {
+    if (dayRef.current) {
+      dayRef.current.addEventListener('mouseover', handleTooltipPosition);
+      dayRef.current.addEventListener('mouseleave', handleTooltipHidden);
+    }
+
+    return () => {
+      document.removeEventListener('mouseover', handleTooltipPosition);
+      document.removeEventListener('mouseleave', handleTooltipHidden);
+    };
+  }, [dayRef]);
 
   return (
     <div
@@ -43,6 +72,7 @@ const Day = ({
       tabIndex="-1"
       data-day-index={dateIndex}
       data-date-value={dateValue}
+      ref={dayRef}
     >
       {hovered
         && !(isEndDay && dateIndex === totalDay)
@@ -55,7 +85,6 @@ const Day = ({
           />
       )}
       <div className="text-day">{dateIndex}</div>
-      {tooltip && <div className="tooltip-text">{tooltip}</div>}
     </div>
   );
 };

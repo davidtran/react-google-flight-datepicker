@@ -27,6 +27,7 @@ const SingleDatePicker = ({
   onCloseCalendar,
   singleCalendar,
   weekDayFormat,
+  tooltip
 }) => {
   const [complsOpen, setComplsOpen] = useState(false);
   const containerRef = useRef(null);
@@ -183,6 +184,7 @@ const SingleDatePicker = ({
             isSingle
             weekDayFormat={weekDayFormat}
             singleCalendar={singleCalendar}
+            tooltip={tooltip}
           />
         </DialogWrapper>
       </div>

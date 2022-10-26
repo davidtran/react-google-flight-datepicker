@@ -271,40 +271,43 @@ const DialogContentDesktop = ({
   }
 
   return (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <div className={cx('calendar-wrapper', {
-        single: singleCalendar,
-    })} ref={containerRef} onKeyDown={onKeyDown}>
-      <div
-        className={cx('calendar-content', {
-          isAnimating: translateAmount !== 0,
+    <div style={{ position: 'relative' }}>
+      {tooltip && <div id="day-tooltip" className="tooltip-text">{tooltip}</div>}
+      {/** eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+      <div className={cx('calendar-wrapper', {
           single: singleCalendar,
-        })}
-        style={{
-          transform: `translateX(${translateAmount}px)`,
-        }}
-      >
-        {renderMonthCalendars()}
-      </div>
-      <div className="calendar-flippers">
+      })} ref={containerRef} onKeyDown={onKeyDown}>
         <div
-          className={cx('flipper-button', { disabled: disablePrev })}
-          onClick={decreaseCurrentMonth}
-          onKeyDown={onBackButtonKeyDown}
-          role="button"
-          tabIndex="0"
+          className={cx('calendar-content', {
+            isAnimating: translateAmount !== 0,
+            single: singleCalendar,
+          })}
+          style={{
+            transform: `translateX(${translateAmount}px)`,
+          }}
         >
-          <PrevIcon viewBox="0 0 24 24" />
+          {renderMonthCalendars()}
         </div>
-        <div
-          className={cx('flipper-button', { disabled: disableNext })}
-          onClick={increaseCurrentMonth}
-          onKeyDown={onNextButtonKeyDown}
-          role="button"
-          tabIndex="0"
-          onBlur={focusOnCalendar}
-        >
-          <NextIcon viewBox="0 0 24 24" />
+        <div className="calendar-flippers">
+          <div
+            className={cx('flipper-button', { disabled: disablePrev })}
+            onClick={decreaseCurrentMonth}
+            onKeyDown={onBackButtonKeyDown}
+            role="button"
+            tabIndex="0"
+          >
+            <PrevIcon viewBox="0 0 24 24" />
+          </div>
+          <div
+            className={cx('flipper-button', { disabled: disableNext })}
+            onClick={increaseCurrentMonth}
+            onKeyDown={onNextButtonKeyDown}
+            role="button"
+            tabIndex="0"
+            onBlur={focusOnCalendar}
+          >
+            <NextIcon viewBox="0 0 24 24" />
+          </div>
         </div>
       </div>
     </div>
