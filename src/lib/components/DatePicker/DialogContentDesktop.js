@@ -26,6 +26,7 @@ const DialogContentDesktop = ({
   tooltip,
 }) => {
   const containerRef = useRef();
+  const tooltipRef = useRef();
   const [translateAmount, setTranslateAmount] = useState(0);
   const [monthArray, setMonthArray] = useState([]);
   const [focusDate, setFocusDate] = useState(dayjs());
@@ -39,15 +40,15 @@ const DialogContentDesktop = ({
     const futureMonth = dayjs(date).add(2, 'month');
 
     if (singleCalendar) {
-        return [prevMonth, focusDate, nextMonth];
-    } else {
-        return [prevMonth, focusDate, nextMonth, futureMonth];
+      return [prevMonth, focusDate, nextMonth];
     }
+
+    return [prevMonth, focusDate, nextMonth, futureMonth];
   }
 
   useEffect(() => {
     if (containerRef.current) {
-      const style = window.getComputedStyle(containerRef.current)
+      const style = window.getComputedStyle(containerRef.current);
       const _translateAmount = singleCalendar ? containerRef.current.offsetWidth + parseInt(style.marginLeft) - 8 : containerRef.current.offsetWidth / 2;
       setWrapperWidth(_translateAmount);
     }
@@ -265,18 +266,21 @@ const DialogContentDesktop = ({
         isSingle={isSingle}
         highlightToday={highlightToday}
         singleCalendar={singleCalendar}
-        tooltip={tooltip}
+        ref={tooltipRef}
       />
     ));
   }
 
   return (
     <div style={{ position: 'relative' }}>
-      {tooltip && <div id="day-tooltip" className="tooltip-text">{tooltip}</div>}
-      {/** eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-      <div className={cx('calendar-wrapper', {
+      {tooltip && <div id="day-tooltip" className="tooltip-text" ref={tooltipRef}>{tooltip}</div>}
+      <div
+        className={cx('calendar-wrapper', {
           single: singleCalendar,
-      })} ref={containerRef} onKeyDown={onKeyDown}>
+        })}
+        ref={containerRef}
+        onKeyDown={onKeyDown}
+      >
         <div
           className={cx('calendar-content', {
             isAnimating: translateAmount !== 0,
@@ -328,7 +332,12 @@ DialogContentDesktop.propTypes = {
   complsOpen: PropTypes.bool,
   dateChanged: PropTypes.instanceOf(Date),
   highlightToday: PropTypes.bool,
-  singleCalendar: PropTypes.bool
+  singleCalendar: PropTypes.bool,
+  weekDayFormat: PropTypes.string,
+  tooltip: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.node,
+  ]),
 };
 
 DialogContentDesktop.defaultProps = {
@@ -345,6 +354,9 @@ DialogContentDesktop.defaultProps = {
   complsOpen: false,
   dateChanged: null,
   highlightToday: false,
+  singleCalendar: false,
+  weekDayFormat: '',
+  tooltip: '',
 };
 
 export default DialogContentDesktop;

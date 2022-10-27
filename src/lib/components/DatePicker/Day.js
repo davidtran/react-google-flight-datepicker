@@ -1,8 +1,10 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, {
+  forwardRef, useCallback, useEffect, useRef,
+} from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
-const Day = ({
+const Day = forwardRef(({
   dateIndex,
   dateValue,
   selected,
@@ -13,7 +15,7 @@ const Day = ({
   isEndDay,
   totalDay,
   highlight,
-}) => {
+}, ref) => {
   const dayRef = useRef();
 
   function selectDate(e) {
@@ -30,7 +32,7 @@ const Day = ({
   }
 
   const handleTooltipPosition = useCallback(() => {
-    const element = document.getElementById('day-tooltip');
+    const element = ref.current;
     if (element) {
       element.style.left = `${dayRef.current.offsetLeft - element.offsetWidth + 135}px`;
       element.style.top = `${dayRef.current.offsetTop - element.offsetHeight - 15}px`;
@@ -39,7 +41,7 @@ const Day = ({
   }, []);
 
   const handleTooltipHidden = useCallback(() => {
-    const element = document.getElementById('day-tooltip');
+    const element = ref.current;
     if (element) {
       element.style.visibility = 'hidden';
     }
@@ -87,7 +89,7 @@ const Day = ({
       <div className="text-day">{dateIndex}</div>
     </div>
   );
-};
+});
 
 Day.propTypes = {
   dateIndex: PropTypes.number,

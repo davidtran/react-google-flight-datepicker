@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import dayjs from 'dayjs';
@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import Week from './Week';
 import { getMonthInfo, getWeekDay } from '../../helpers';
 
-const MonthCalendar = ({
+const MonthCalendar = forwardRef(({
   hidden,
   month,
   year,
@@ -24,8 +24,7 @@ const MonthCalendar = ({
   isSingle,
   highlightToday,
   singleCalendar,
-  tooltip,
-}) => {
+}, ref) => {
   function generateWeek() {
     const { totalWeek, totalDay } = getMonthInfo(year, month, startWeekDay);
 
@@ -48,13 +47,14 @@ const MonthCalendar = ({
         isSingle={isSingle}
         weekIndex={index}
         highlightToday={highlightToday}
-        tooltip={tooltip}
+        ref={ref}
       />
     ));
   }
 
   function generateWeekDay() {
     const arrWeekDay = getWeekDay(startWeekDay, weekDayFormat);
+
     return arrWeekDay.map((day, index) => (
       <div className="weekday" key={index}>
         {day}
@@ -67,7 +67,7 @@ const MonthCalendar = ({
       className={cx('month-calendar', {
         isAnimating,
         hidden,
-          single: singleCalendar
+        single: singleCalendar,
       })}
       data-month-index={month + 1}
     >
@@ -83,7 +83,7 @@ const MonthCalendar = ({
 
     </div>
   );
-};
+});
 
 MonthCalendar.propTypes = {
   month: PropTypes.number,
@@ -96,6 +96,7 @@ MonthCalendar.propTypes = {
   hidden: PropTypes.bool,
   isAnimating: PropTypes.bool,
   startWeekDay: PropTypes.string,
+  weekDayFormat: PropTypes.string,
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
   monthFormat: PropTypes.string,
@@ -115,11 +116,13 @@ MonthCalendar.defaultProps = {
   hidden: false,
   isAnimating: false,
   startWeekDay: null,
+  weekDayFormat: '',
   minDate: null,
   maxDate: null,
   monthFormat: '',
   isSingle: false,
   highlightToday: false,
+  singleCalendar: false,
 };
 
 export default MonthCalendar;

@@ -138,6 +138,11 @@ DialogContentMobile.propTypes = {
   complsOpen: PropTypes.bool,
   isSingle: PropTypes.bool,
   highlightToday: PropTypes.bool,
+  weekDayFormat: PropTypes.string,
+  tooltip: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.node,
+  ]),
 };
 
 DialogContentMobile.defaultProps = {
@@ -152,6 +157,8 @@ DialogContentMobile.defaultProps = {
   complsOpen: false,
   isSingle: false,
   highlightToday: false,
+  weekDayFormat: '',
+  tooltip: '',
 };
 
 export default DialogContentMobile;

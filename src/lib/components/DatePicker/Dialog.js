@@ -57,7 +57,6 @@ const Dialog = ({
             startDateInput.focus();
           }
         }
-
       }, 50);
     }
   }, [complsOpen]);
@@ -67,7 +66,7 @@ const Dialog = ({
       className={cx('dialog-date-picker', {
         open: complsOpen,
         hide: !complsOpen && hideAnimation,
-        single: singleCalendar && !isMobile
+        single: singleCalendar && !isMobile,
       })}
       ref={containerRef}
     >
@@ -194,6 +193,10 @@ Dialog.propTypes = {
   hideDialogFooter: PropTypes.bool,
   dateInputSeperator: PropTypes.node,
   singleCalendar: PropTypes.bool,
+  tooltip: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.node,
+  ]),
 };
 
 Dialog.defaultProps = {
@@ -222,6 +225,8 @@ Dialog.defaultProps = {
   hideDialogHeader: false,
   hideDialogFooter: false,
   dateInputSeperator: null,
+  singleCalendar: false,
+  tooltip: '',
 };
 
 export default Dialog;
