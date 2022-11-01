@@ -295,6 +295,7 @@ RangeDatePicker.propTypes = {
   tooltip: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.node,
+    PropTypes.func,
   ]),
 };
 

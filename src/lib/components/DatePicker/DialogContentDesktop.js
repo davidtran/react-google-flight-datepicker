@@ -1,4 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, {
+  useEffect, useState, useRef, useCallback,
+} from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import dayjs from 'dayjs';
@@ -33,6 +35,7 @@ const DialogContentDesktop = ({
   const [disablePrev, setDisablePrev] = useState(false);
   const [disableNext, setDisableNext] = useState(false);
   const [wrapperWidth, setWrapperWidth] = useState(0);
+  const [dayValue, setDayValue] = useState(0);
 
   function getArrayMonth(date, singleCalendar) {
     const prevMonth = dayjs(date).subtract(1, 'month');
@@ -45,6 +48,10 @@ const DialogContentDesktop = ({
 
     return [prevMonth, focusDate, nextMonth, futureMonth];
   }
+
+  const handleHoverDay = useCallback(date => {
+    setDayValue(date);
+  }, []);
 
   useEffect(() => {
     if (containerRef.current) {
@@ -266,6 +273,7 @@ const DialogContentDesktop = ({
         isSingle={isSingle}
         highlightToday={highlightToday}
         singleCalendar={singleCalendar}
+        handleHoverDay={handleHoverDay}
         ref={tooltipRef}
       />
     ));
@@ -273,7 +281,7 @@ const DialogContentDesktop = ({
 
   return (
     <div style={{ position: 'relative' }}>
-      {tooltip && <div id="day-tooltip" className="tooltip-text" ref={tooltipRef}>{tooltip}</div>}
+      {tooltip && <div id="day-tooltip" className="tooltip-text" ref={tooltipRef}>{typeof tooltip === 'function' ? tooltip(dayValue.$D) : tooltip}</div>}
       <div
         className={cx('calendar-wrapper', {
           single: singleCalendar,
@@ -337,6 +345,7 @@ DialogContentDesktop.propTypes = {
   tooltip: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.node,
+    PropTypes.func,
   ]),
 };
 

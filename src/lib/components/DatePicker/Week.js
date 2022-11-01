@@ -22,6 +22,7 @@ const Week = forwardRef(({
   isSingle,
   weekIndex,
   highlightToday,
+  handleHoverDay,
 }, ref) => {
   function generateDay() {
     return [...Array(week.days).keys()].map(index => {
@@ -67,6 +68,7 @@ const Week = forwardRef(({
           totalDay={totalDay}
           weekDayIndex={index}
           weekIndex={weekIndex}
+          handleHoverDay={handleHoverDay}
           ref={ref}
         />
       );
@@ -92,6 +94,7 @@ Week.propTypes = {
   isSingle: PropTypes.bool,
   weekIndex: PropTypes.number,
   highlightToday: PropTypes.bool,
+  handleHoverDay: PropTypes.func,
 };
 
 Week.defaultProps = {
@@ -110,6 +113,7 @@ Week.defaultProps = {
   isSingle: false,
   weekIndex: 0,
   highlightToday: false,
+  handleHoverDay: () => {},
 };
 
 export default Week;

@@ -15,6 +15,7 @@ const Day = forwardRef(({
   isEndDay,
   totalDay,
   highlight,
+  handleHoverDay,
 }, ref) => {
   const dayRef = useRef();
 
@@ -29,6 +30,7 @@ const Day = forwardRef(({
   function handleHoverDate() {
     if (disabled || !onHoverDate) return;
     onHoverDate(dateValue);
+    handleHoverDay(dateValue);
   }
 
   const handleTooltipPosition = useCallback(() => {
@@ -102,6 +104,7 @@ Day.propTypes = {
   onHoverDate: PropTypes.func,
   totalDay: PropTypes.number,
   highlight: PropTypes.bool,
+  handleHoverDay: PropTypes.func,
 };
 
 Day.defaultProps = {
@@ -115,6 +118,7 @@ Day.defaultProps = {
   onSelectDate: () => {},
   onHoverDate: () => {},
   highlight: false,
+  handleHoverDay: () => {},
 };
 
 export default Day;

@@ -4,6 +4,7 @@ DatePicker examples:
 
 ```js
 import { RangeDatePicker } from 'react-google-flight-datepicker';
+import CustomComponent from '../CustomComponent';
 
 <div className="react-google-flight-datepicker">
   <div className="date-picker-demo">
@@ -18,7 +19,9 @@ import { RangeDatePicker } from 'react-google-flight-datepicker';
       maxDate={new Date('2020-07-25')}
       dateFormat="DD/MM/YYYY"
       // monthFormat="MMM --- YY"
-      tooltip="Hello"
+      tooltip={(date) => {
+        return <CustomComponent date={date} />
+      }}
     />
   </div>
 </div>
