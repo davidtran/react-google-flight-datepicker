@@ -14,11 +14,13 @@ Google flight date picker implemented in ReactJS
   - `yarn run dev`
 
 ### Screenshot
-Desktop | Mobile
-:-: | :-:
+
+
+####Desktop
 <video src="https://user-images.githubusercontent.com/1154740/199437644-560147f6-82db-4736-8ff9-fb6747a460a9.mov" width="500" autoplay></video>
-|
-<video autoplay src="https://user-images.githubusercontent.com/1154740/199437662-630101e5-2e0b-47ef-8da5-cd9881572b55.mov" width="500"></video>
+----
+####Mobile
+<video autoplay src="https://user-images.githubusercontent.com/1154740/199439704-c8cdb7db-8a6b-4f66-a3e0-f4b1f1fde10d.MOV" width="500"></video>
 
 ### Usage
 
