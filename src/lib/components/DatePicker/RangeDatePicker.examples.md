@@ -18,6 +18,9 @@ import { RangeDatePicker } from 'react-google-flight-datepicker';
       maxDate={new Date('2020-07-25')}
       dateFormat="DD/MM/YYYY"
       // monthFormat="MMM --- YY"
+      tooltip={(date) => {
+        return <div>{date.getDate()}</div>
+      }}
     />
   </div>
 </div>

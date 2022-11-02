@@ -9,6 +9,7 @@ import { SingleDatePicker } from 'react-google-flight-datepicker';
   <div className="date-picker-demo">
     <SingleDatePicker
       singleCalendar
+      tooltip="Hello"
     />
   </div>
 </div>

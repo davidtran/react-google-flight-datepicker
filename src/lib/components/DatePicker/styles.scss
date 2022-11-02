@@ -263,6 +263,33 @@
     }
   }
 
+  .tooltip-text {
+    position: absolute;
+    background-color: #4285f4;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 15px;
+    z-index: 999;
+    width: 120px;
+    max-width: 120px;
+    word-break: break-word;
+    visibility: hidden;
+  }
+
+  .tooltip-text::before {
+    z-index: 1001;
+    border: 6px solid transparent;
+    background: transparent;
+    content: "";
+    margin-left: -6px;
+    margin-bottom: -12px;
+    border-top-color: #4285f4;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+  }
+
   .calendar-content {
     display: flex;
     padding: 0 2px;
@@ -415,6 +442,7 @@
 
     &.hovered {
       background-color: #d9edfd;
+      position: relative;
       border-radius: unset;
 
       .background-day {

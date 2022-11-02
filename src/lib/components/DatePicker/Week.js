@@ -1,11 +1,12 @@
-import React from 'react';
+/* eslint-disable react/display-name */
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import dayjs from 'dayjs';
 
 import Day from './Day';
 
-const Week = ({
+const Week = forwardRef(({
   isFirst,
   week,
   month,
@@ -21,10 +22,10 @@ const Week = ({
   isSingle,
   weekIndex,
   highlightToday,
-}) => {
+  handleHoverDay,
+}, ref) => {
   function generateDay() {
     return [...Array(week.days).keys()].map(index => {
-
       const dateIndex = index + week.start;
       const dateValue = dayjs(`${year}-${month + 1}-${dateIndex}`);
       const disabled = (minDate && dateValue.isBefore(minDate, 'date'))
@@ -67,13 +68,15 @@ const Week = ({
           totalDay={totalDay}
           weekDayIndex={index}
           weekIndex={weekIndex}
+          handleHoverDay={handleHoverDay}
+          ref={ref}
         />
       );
     });
   }
 
   return <div className={cx('week', { first: isFirst })}>{generateDay()}</div>;
-};
+});
 
 Week.propTypes = {
   isFirst: PropTypes.bool,
@@ -91,6 +94,7 @@ Week.propTypes = {
   isSingle: PropTypes.bool,
   weekIndex: PropTypes.number,
   highlightToday: PropTypes.bool,
+  handleHoverDay: PropTypes.func,
 };
 
 Week.defaultProps = {
@@ -109,6 +113,7 @@ Week.defaultProps = {
   isSingle: false,
   weekIndex: 0,
   highlightToday: false,
+  handleHoverDay: () => {},
 };
 
 export default Week;
