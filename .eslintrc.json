@@ -72,6 +72,9 @@
     "linebreak-style": 0,
     "jsx-a11y/click-events-have-key-events": 0,
     "react/no-array-index-key": 0,
+    "react/jsx-no-bind": 0,
+    "react/display-name": 0,
+    "jsx-a11y/no-static-element-interactions": 0,
     "no-multiple-empty-lines": [
       "error",
       {

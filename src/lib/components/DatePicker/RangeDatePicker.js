@@ -32,6 +32,7 @@ const RangeDatePicker = ({
   hideDialogAfterSelectEndDate,
   isOpen,
   onCloseCalendar,
+  tooltip,
 }) => {
   const [complsOpen, setComplsOpen] = useState(false);
   const containerRef = useRef(null);
@@ -261,6 +262,7 @@ const RangeDatePicker = ({
             hideDialogHeader={hideDialogHeader}
             hideDialogFooter={hideDialogFooter}
             dateInputSeperator={dateInputSeperator}
+            tooltip={tooltip}
           />
         </DialogWrapper>
       </div>
@@ -290,6 +292,11 @@ RangeDatePicker.propTypes = {
   hideDialogAfterSelectEndDate: PropTypes.bool,
   isOpen: PropTypes.bool,
   onCloseCalendar: PropTypes.func,
+  tooltip: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.node,
+    PropTypes.func,
+  ]),
 };
 
 RangeDatePicker.defaultProps = {
@@ -314,6 +321,7 @@ RangeDatePicker.defaultProps = {
   hideDialogAfterSelectEndDate: false,
   isOpen: false,
   onCloseCalendar: () => {},
+  tooltip: '',
 };
 
 export default RangeDatePicker;

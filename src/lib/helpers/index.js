@@ -23,15 +23,8 @@ export function getMonthInfo(year, month, startDay) {
 }
 
 export function getWeekDay(startWeekDay, weekDayFormat) {
-  let start = 1;
-  if (startWeekDay === 'sunday') {
-    start = 0;
-  }
-  for (let i = start; i < start + 7; i++) {
-
-  }
-  const arrWeekDay = weekDayFormat === 'dd' ? ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'] :
-    weekDayFormat === 'ddd' ? ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] : ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  const arrWeekDay = weekDayFormat === 'dd' ? ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']
+    : weekDayFormat === 'ddd' ? ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] : ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
   if (startWeekDay === 'sunday') {
     const last = arrWeekDay.pop();
@@ -47,7 +40,6 @@ export function debounce(func, wait) {
   // This is the function that is returned and will be executed many times
   // We spread (...args) to capture any number of parameters we want to pass
   return function executedFunction(...args) {
-
     // The callback function to be executed after
     // the debounce time has elapsed
     const later = () => {
@@ -67,4 +59,4 @@ export function debounce(func, wait) {
     // setTimeout returns a truthy value (it differs in web vs Node)
     timeout = setTimeout(later, wait);
   };
-};
+}

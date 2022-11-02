@@ -1,4 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, {
+  useEffect, useState, useRef, useCallback,
+} from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import dayjs from 'dayjs';
@@ -23,14 +25,17 @@ const DialogContentDesktop = ({
   dateChanged,
   highlightToday,
   singleCalendar,
+  tooltip,
 }) => {
   const containerRef = useRef();
+  const tooltipRef = useRef();
   const [translateAmount, setTranslateAmount] = useState(0);
   const [monthArray, setMonthArray] = useState([]);
   const [focusDate, setFocusDate] = useState(dayjs());
   const [disablePrev, setDisablePrev] = useState(false);
   const [disableNext, setDisableNext] = useState(false);
   const [wrapperWidth, setWrapperWidth] = useState(0);
+  const [dayValue, setDayValue] = useState(0);
 
   function getArrayMonth(date, singleCalendar) {
     const prevMonth = dayjs(date).subtract(1, 'month');
@@ -38,15 +43,19 @@ const DialogContentDesktop = ({
     const futureMonth = dayjs(date).add(2, 'month');
 
     if (singleCalendar) {
-        return [prevMonth, focusDate, nextMonth];
-    } else {
-        return [prevMonth, focusDate, nextMonth, futureMonth];
+      return [prevMonth, focusDate, nextMonth];
     }
+
+    return [prevMonth, focusDate, nextMonth, futureMonth];
   }
+
+  const handleHoverDay = useCallback(date => {
+    setDayValue(date);
+  }, []);
 
   useEffect(() => {
     if (containerRef.current) {
-      const style = window.getComputedStyle(containerRef.current)
+      const style = window.getComputedStyle(containerRef.current);
       const _translateAmount = singleCalendar ? containerRef.current.offsetWidth + parseInt(style.marginLeft) - 8 : containerRef.current.offsetWidth / 2;
       setWrapperWidth(_translateAmount);
     }
@@ -264,45 +273,53 @@ const DialogContentDesktop = ({
         isSingle={isSingle}
         highlightToday={highlightToday}
         singleCalendar={singleCalendar}
+        handleHoverDay={handleHoverDay}
+        ref={tooltipRef}
       />
     ));
   }
 
   return (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <div className={cx('calendar-wrapper', {
-        single: singleCalendar,
-    })} ref={containerRef} onKeyDown={onKeyDown}>
+    <div style={{ position: 'relative' }}>
+      {tooltip && <div id="day-tooltip" className="tooltip-text" ref={tooltipRef}>{typeof tooltip === 'function' ? tooltip(dayValue.$d ? new Date(dayValue.$d) : new Date()) : tooltip}</div>}
       <div
-        className={cx('calendar-content', {
-          isAnimating: translateAmount !== 0,
+        className={cx('calendar-wrapper', {
           single: singleCalendar,
         })}
-        style={{
-          transform: `translateX(${translateAmount}px)`,
-        }}
+        ref={containerRef}
+        onKeyDown={onKeyDown}
       >
-        {renderMonthCalendars()}
-      </div>
-      <div className="calendar-flippers">
         <div
-          className={cx('flipper-button', { disabled: disablePrev })}
-          onClick={decreaseCurrentMonth}
-          onKeyDown={onBackButtonKeyDown}
-          role="button"
-          tabIndex="0"
+          className={cx('calendar-content', {
+            isAnimating: translateAmount !== 0,
+            single: singleCalendar,
+          })}
+          style={{
+            transform: `translateX(${translateAmount}px)`,
+          }}
         >
-          <PrevIcon viewBox="0 0 24 24" />
+          {renderMonthCalendars()}
         </div>
-        <div
-          className={cx('flipper-button', { disabled: disableNext })}
-          onClick={increaseCurrentMonth}
-          onKeyDown={onNextButtonKeyDown}
-          role="button"
-          tabIndex="0"
-          onBlur={focusOnCalendar}
-        >
-          <NextIcon viewBox="0 0 24 24" />
+        <div className="calendar-flippers">
+          <div
+            className={cx('flipper-button', { disabled: disablePrev })}
+            onClick={decreaseCurrentMonth}
+            onKeyDown={onBackButtonKeyDown}
+            role="button"
+            tabIndex="0"
+          >
+            <PrevIcon viewBox="0 0 24 24" />
+          </div>
+          <div
+            className={cx('flipper-button', { disabled: disableNext })}
+            onClick={increaseCurrentMonth}
+            onKeyDown={onNextButtonKeyDown}
+            role="button"
+            tabIndex="0"
+            onBlur={focusOnCalendar}
+          >
+            <NextIcon viewBox="0 0 24 24" />
+          </div>
         </div>
       </div>
     </div>
@@ -323,7 +340,13 @@ DialogContentDesktop.propTypes = {
   complsOpen: PropTypes.bool,
   dateChanged: PropTypes.instanceOf(Date),
   highlightToday: PropTypes.bool,
-  singleCalendar: PropTypes.bool
+  singleCalendar: PropTypes.bool,
+  weekDayFormat: PropTypes.string,
+  tooltip: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.node,
+    PropTypes.func,
+  ]),
 };
 
 DialogContentDesktop.defaultProps = {
@@ -340,6 +363,9 @@ DialogContentDesktop.defaultProps = {
   complsOpen: false,
   dateChanged: null,
   highlightToday: false,
+  singleCalendar: false,
+  weekDayFormat: '',
+  tooltip: '',
 };
 
 export default DialogContentDesktop;

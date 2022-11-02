@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 import React, {
   useState, useRef, useEffect, useLayoutEffect,
 } from 'react';
@@ -27,6 +28,7 @@ const SingleDatePicker = ({
   onCloseCalendar,
   singleCalendar,
   weekDayFormat,
+  tooltip,
 }) => {
   const [complsOpen, setComplsOpen] = useState(false);
   const containerRef = useRef(null);
@@ -183,6 +185,7 @@ const SingleDatePicker = ({
             isSingle
             weekDayFormat={weekDayFormat}
             singleCalendar={singleCalendar}
+            tooltip={tooltip}
           />
         </DialogWrapper>
       </div>
@@ -206,7 +209,12 @@ SingleDatePicker.propTypes = {
   highlightToday: PropTypes.bool,
   isOpen: PropTypes.bool,
   onCloseCalendar: PropTypes.func,
-  singleCalendar: PropTypes.bool
+  singleCalendar: PropTypes.bool,
+  tooltip: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.node,
+    PropTypes.func,
+  ]),
 };
 
 SingleDatePicker.defaultProps = {
@@ -225,6 +233,8 @@ SingleDatePicker.defaultProps = {
   highlightToday: false,
   isOpen: false,
   onCloseCalendar: () => {},
+  singleCalendar: false,
+  tooltip: '',
 };
 
 export default SingleDatePicker;
