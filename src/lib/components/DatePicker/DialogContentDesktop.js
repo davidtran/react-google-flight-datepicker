@@ -281,7 +281,7 @@ const DialogContentDesktop = ({
 
   return (
     <div style={{ position: 'relative' }}>
-      {tooltip && <div id="day-tooltip" className="tooltip-text" ref={tooltipRef}>{typeof tooltip === 'function' ? tooltip(dayValue) : tooltip}</div>}
+      {tooltip && <div id="day-tooltip" className="tooltip-text" ref={tooltipRef}>{typeof tooltip === 'function' ? tooltip(dayValue.$d ? new Date(dayValue.$d) : new Date()) : tooltip}</div>}
       <div
         className={cx('calendar-wrapper', {
           single: singleCalendar,
