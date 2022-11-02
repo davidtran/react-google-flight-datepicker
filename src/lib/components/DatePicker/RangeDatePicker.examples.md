@@ -19,7 +19,7 @@ import { RangeDatePicker } from 'react-google-flight-datepicker';
       dateFormat="DD/MM/YYYY"
       // monthFormat="MMM --- YY"
       tooltip={(date) => {
-        return <div>{date}</div>
+        return <div>{date.$D}</div>
       }}
     />
   </div>
