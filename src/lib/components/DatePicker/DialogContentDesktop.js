@@ -71,8 +71,7 @@ const DialogContentDesktop = ({
     } else {
       setDisablePrev(false);
     }
-
-    if (maxDate && focusDate.isAfter(dayjs(maxDate).subtract(2, 'month'), 'month')) {
+    if (maxDate && focusDate.isAfter(dayjs(maxDate).subtract(1, 'month'), 'month')) {
       setDisableNext(true);
     } else {
       setDisableNext(false);
@@ -112,7 +111,6 @@ const DialogContentDesktop = ({
 
   function decreaseCurrentMonth(date) {
     if (disablePrev) return;
-
     setTranslateAmount(wrapperWidth);
     setTimeout(() => {
       decreaseFocusDate(date);
@@ -125,8 +123,8 @@ const DialogContentDesktop = ({
       if (dayjs(dateChanged).isBefore(focusDate, 'month', true)) {
         decreaseCurrentMonth(dateChanged);
       }
-      if (dayjs(dateChanged).isAfter(focusDate.add(1, 'month'), 'month', true)) {
-        increaseCurrentMonth(dayjs(dateChanged).subtract(1, 'month'));
+      if (dayjs(dateChanged).isAfter(focusDate, 'month', true)) {
+        increaseCurrentMonth(dateChanged);
       }
     }
   }, [dateChanged]);
